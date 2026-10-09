@@ -1,0 +1,41 @@
+Digital dentro de kumOS
+======================
+
+Digital dibuja diagramas de tiempos y arma / lee tramas de UART, SPI, I²C y CAN, sin escribir código. Todo sale como PDF
+vectorial (con el texto como texto, en la tipografía de LaTeX), SVG o PNG. Es una herramienta propia de kumOS: no es copia
+de ningún programa de terceros y corre entera en el navegador (no sube nada a ningún servidor).
+
+Qué hay en esta carpeta
+-----------------------
+  index.html, app.css                 La interfaz.
+  js/app.js                           Pestañas, vista previa con zoom, textos que se mueven, exportación y archivos.
+  js/modelo.js                        El diagrama editable (casillas por tick), su conversión a segmentos y el formato WaveJSON.
+  js/render.js                        Dibujo SVG de los diagramas (sin bibliotecas).
+  js/exportar.js                      SVG, PDF (jsPDF + svg2pdf.js), PNG y copia al portapapeles.
+  js/bits.js                          Hexadecimal / ASCII / decimal / binario y señales por flancos.
+  js/uart.js, spi.js, i2c.js, can.js  La lógica de cada protocolo: codificar y decodificar (sin tocar el DOM).
+  js/ui/                              Los paneles de cada pestaña y el editor.
+Compartido con Spice2PDF, en ../compartido/:
+  fonts/                              Latin Modern Roman 10 (dibujo y PDF), Archivo y JetBrains Mono (interfaz).
+  vendor/                             jsPDF y svg2pdf.js (PDF).
+
+Pruebas de la lógica
+--------------------
+    node kumOS-diseno/digital-pruebas.mjs     (desde la raíz del repositorio)
+Comprueban, entre otras cosas: la trama UART de "A" bit por bit y la ida y vuelta con todas las combinaciones de formato;
+SPI en los cuatro modos; I²C con 7 y 10 bits y START repetido; CAN con CRC-15 y relleno de bits comparados con una
+implementación independiente (división polinómica y el cálculo de largo de can-utils); y el formato WaveJSON.
+
+Licencias y créditos
+--------------------
+  Formato WaveJSON       Es el de WaveDrom (MIT, https://github.com/wavedrom/wavedrom). Digital no usa su código: solo lee y escribe el mismo formato.
+  jsPDF 4.2.1            MIT   (c) 2010-2025 James Hall, yWorks GmbH            ../compartido/vendor/LICENSE-jspdf.txt
+  svg2pdf.js 2.8.1       MIT   (c) 2015-2026 yWorks GmbH, Vitaly Puzrin         ../compartido/vendor/LICENSE-svg2pdf.txt
+  Latin Modern Roman 10  Licencia GUST (GFL, la de LaTeX)  http://www.gust.org.pl/projects/e-foundry/latin-modern
+  Archivo, JetBrains Mono  SIL Open Font License 1.1    ../compartido/fonts/LICENSE-archivo.txt, ../compartido/fonts/LICENSE-jetbrains-mono.txt
+  CRC-15 de CAN          Polinomio 0x4599 (ISO 11898-1), comprobado con el algoritmo de can-utils (canframelen.c).
+
+Qué no hace
+-----------
+  - CAN FD (solo CAN clásico 2.0A y 2.0B).
+  - Captura en vivo (no se conecta a ningún equipo).

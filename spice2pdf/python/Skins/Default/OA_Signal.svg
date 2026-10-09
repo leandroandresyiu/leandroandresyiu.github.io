@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 256 127">
+  <!-- Generator: Adobe Illustrator 29.5.1, SVG Export Plug-In . SVG Version: 2.1.0 Build 141)  -->
+  <defs>
+    <style>
+      .st0 {
+        stroke-linecap: square;
+      }
+
+      .st0, .st1, .st2 {
+        fill: none;
+      }
+
+      .st0, .st1, .st2, .st3 {
+        stroke: #000;
+        stroke-linejoin: round;
+      }
+
+      .st0, .st2 {
+        stroke-width: 1.5px;
+      }
+
+      .st4 {
+        font-family: CMUSerif-UprightItalic, 'CMU Serif Upright Italic';
+        font-style: italic;
+      }
+
+      .st4, .st5, .st6, .st7, .st8, .st9 {
+        isolation: isolate;
+      }
+
+      .st4, .st8 {
+        font-size: 26.67px;
+      }
+
+      .st1, .st3 {
+        stroke-width: .5px;
+      }
+
+      .st5 {
+        font-size: 30.55px;
+      }
+
+      .st5, .st7, .st8, .st9 {
+        font-family: LMRoman10-Regular, 'Latin Modern Roman';
+      }
+
+      .st2 {
+        stroke-linecap: round;
+      }
+
+      .st7 {
+        font-size: 14.17px;
+      }
+
+      .st9 {
+        font-size: 17.01px;
+      }
+    </style>
+  </defs>
+  <polygon class="st2" points="0 128 0 -128 256 0 0 128"/>
+  <g>
+    <line class="st1" x1="31" y1="72" x2="23" y2="72"/>
+    <rect class="st3" x="22.5" y="71.5" width="9" height="1"/>
+  </g>
+  <g>
+    <line class="st1" x1="83.73" y1="48.09" x2="75.73" y2="48.09"/>
+    <rect class="st3" x="75.23" y="47.59" width="9" height="1"/>
+  </g>
+  <polygon class="st3" points="31.5 -72.52 27.5 -72.52 27.5 -76.52 26.5 -76.52 26.5 -72.52 22.5 -72.52 22.5 -71.52 26.5 -71.52 26.5 -67.52 27.5 -67.52 27.5 -71.52 31.5 -71.52 31.5 -72.52"/>
+  <polygon class="st3" points="84.23 19.66 80.23 19.66 80.23 15.66 79.23 15.66 79.23 19.66 75.23 19.66 75.23 20.66 79.23 20.66 79.23 24.66 80.23 24.66 80.23 20.66 84.23 20.66 84.23 19.66"/>
+  <g>
+    <rect class="st2" x="16" y="-29" width="22" height="58"/>
+    <polyline class="st0" points="0 -64 27 -64 27 -40.2 27 -29.3"/>
+    <polyline class="st0" points="27 29.3 27 40.2 27 64 0 64"/>
+  </g>
+  <g>
+    <rect class="st2" x="120.52" y="-11" width="58" height="22"/>
+    <polyline class="st2" points="256 0 189.72 0 178.82 0"/>
+    <polyline class="st0" points="120.22 0 109.32 0 79.73 0"/>
+  </g>
+  <circle class="st0" cx="79.73" cy="31.99" r="24"/>
+  <g id="Layer_11">
+    <polyline class="st2" points="61.73 63.98 79.73 63.98 97.73 63.98"/>
+    <polyline class="st2" points="70.73 70.28 79.73 70.28 88.73 70.28"/>
+    <polyline class="st2" points="77.03 76.58 79.73 76.58 82.43 76.58"/>
+  </g>
+  <line class="st2" x1="79.73" y1="55.99" x2="79.73" y2="63.98"/>
+  <line class="st2" x1="79.73" x2="79.73" y2="7.99"/>
+  <g class="st6">
+    <text class="st5" transform="translate(42.72 -14.3)"><tspan x="0" y="0">r</tspan></text>
+    <text class="st7" transform="translate(54.7 -14.3)"><tspan x="0" y="0">i</tspan></text>
+  </g>
+  <g class="st6">
+    <text class="st5" transform="translate(121.42 -16.3)"><tspan x="0" y="0">r</tspan></text>
+    <text class="st7" transform="translate(133.4 -16.3)"><tspan x="0" y="0">o</tspan></text>
+  </g>
+  <g class="st6">
+    <text class="st8" transform="translate(105.9 48.59)"><tspan x="0" y="0">A</tspan></text>
+    <text class="st7" transform="translate(125.9 48.59)"><tspan x="0" y="0">0</tspan></text>
+    <text class="st9" transform="translate(132.99 48.59)"><tspan x="0" y="0">.</tspan></text>
+    <text class="st4" transform="translate(137.72 48.59)"><tspan x="0" y="0">ε</tspan></text>
+  </g>
+</svg>

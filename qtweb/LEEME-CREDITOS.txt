@@ -1,0 +1,31 @@
+qtweb: programas de escritorio (PyQt5) dentro del navegador
+==========================================================
+
+Esta carpeta es la base compartida de PlotTool y FilterTool (carpetas ../plottool y ../filtertool). Cada herramienta
+conserva el código original de sus autores y acá se le da lo que necesita para correr en una página:
+
+  pyodide/        Python en el navegador (Pyodide 314.0.7, licencia MPL-2.0, https://pyodide.org) y las bibliotecas
+                  ya compiladas para el navegador: NumPy (BSD-3), SciPy (BSD-3), SymPy (BSD), mpmath (BSD-3),
+                  Matplotlib (licencia PSF/BSD-style), Pillow (HPND), fonttools (MIT), kiwisolver (BSD-3),
+                  contourpy (BSD-3), cycler, pyparsing, python-dateutil, pytz, six, packaging, micropip.
+                  Cada .whl trae sus propias licencias adentro.
+  PyQt5/          Capa de compatibilidad escrita para kumOS: imita la parte de PyQt5 que usan las herramientas y dibuja
+                  con elementos del navegador (no es PyQt5 de verdad). _loader.py arma las ventanas leyendo los
+                  archivos .ui de Qt Designer; _mplqt.py reemplaza el lienzo de Matplotlib para Qt.
+  fusion.css      Estilo parecido a Qt (Fusion).
+  boot.js, boot.py   Arranque: cargan Pyodide, copian los archivos y abren la ventana principal. Cada herramienta lo
+                  configura desde su index.html con window.QTWEB.
+  ltspice/        Lector de archivos .raw de LTspice (paquete "ltspice" 1.0.6, licencia MIT, Donghoon Park,
+                  https://github.com/DongHoonPark/ltspice_pytool). Ver licencias/ltspice-MIT.txt. Se le quitó la
+                  dependencia "deprecated" y se corrigió la lectura de archivos .raw para NumPy 2.
+  mplcursors/     Cursores interactivos para Matplotlib (mplcursors 0.5.2, licencia zlib, Antony Lee,
+                  https://github.com/anntzer/mplcursors). Ver licencias/mplcursors.txt.
+  PyQt5/_marcas.py, _marcas_ui.py   Cursores, puntos y textos para los gráficos (botón "Marks" de la barra de matplotlib):
+                  se dibujan como parte del gráfico y salen en la imagen al guardar. Agregado para kumOS.
+  PyQt5/_info.py  Reemplaza la barra de menú: engranaje (proyecto y ajustes) y botón "i" con la ayuda de cada
+                  herramienta (src/info.py de cada una). Agregado para kumOS.
+  sip.py          Relleno: el original de FilterTool importa "sip" pero no lo usa.
+  manifest.json   Lista de archivos que se copian a Python.
+
+Para regenerar los manifest.json después de agregar o quitar archivos:
+    python kumOS-diseno/plottool-manifest.py     (desde la raíz del repositorio)

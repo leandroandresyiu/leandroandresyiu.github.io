@@ -1,0 +1,25 @@
+LIBRERÍAS Y TIPOGRAFÍAS AUTOALOJADAS PARA LOS APUNTES (artifacts exportados)
+==========================================================================
+
+Los apuntes que vienen de artifacts de Claude Design cargaban estas piezas desde Internet
+(Google Fonts y el CDN de Tailwind). Se bajaron una vez y se guardan acá, para que los apuntes
+se vean y anden igual sin depender de ningún servidor externo.
+Descarga: 2026-10-09. Estas piezas son públicas (software libre): no contienen nada privado.
+
+TAILWIND CSS (play CDN) 3.4.17
+  Archivo: tailwind/tailwind-play-3.4.17.js
+  Origen:  https://cdn.tailwindcss.com (redirige a la versión 3.4.17)
+  Licencia: MIT. Copyright (c) Tailwind Labs, Inc.
+  Nota: el script incluye dependencias empaquetadas (PostCSS, Autoprefixer, browserslist y otras),
+  todas con licencias permisivas (MIT/ISC/BSD). No hace pedidos de red: genera el CSS en el navegador.
+
+TIPOGRAFÍAS (Google Fonts, formato woff2, mismos archivos que servía Google)
+  Archivos: google-fonts/fonts.css y google-fonts/fonts/*.woff2 (23 archivos)
+  Origen:   https://fonts.googleapis.com/css2 (familias y pesos que pedía el artifact)
+  Licencia: SIL Open Font License 1.1 (https://openfontlicense.org), que permite alojarlas y redistribuirlas.
+  - Fraunces        (variable: opsz 9..144, wght 500-700, cursiva 500)  - The Fraunces Project Authors
+  - Source Sans 3   (wght 400, 500, 600, 700)                           - Adobe
+  - IBM Plex Mono   (wght 500, 600)                                     - IBM Corp.
+
+Para agregar otro artifact que use otras piezas: bajarlas EXACTAS (misma versión), guardarlas acá,
+anotar origen, versión y licencia en este archivo y revisar con:  npm run audit:artifact -- <carpeta>

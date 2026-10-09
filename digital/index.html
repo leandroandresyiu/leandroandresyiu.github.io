@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Digital</title>
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+<div class="app" id="app">
+	<header class="top">
+		<div class="marca" aria-label="Digital"><span>Digital</span></div>
+		<nav class="tabs" id="tabs" role="tablist" aria-label="Secciones"></nav>
+		<span class="grow"></span>
+		<button class="btn" id="conversor" type="button" aria-expanded="false" aria-controls="conv" title="Conversor de bits: decimal, hexadecimal, binario, ASCII, bytes y flotantes (se puede abrir en cualquier pestaña)">
+			<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h14M14 4l4 4-4 4M20 16H6M10 12l-4 4 4 4"/></svg>
+			Conversor
+		</button>
+		<button class="btn" id="abrir" type="button" title="Abrir un diagrama WaveJSON o una captura CSV del osciloscopio">
+			<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 16V4M7 9l5-5 5 5M4 20h16"/></svg>
+			Abrir archivo
+		</button>
+		<button class="btn btn--icon" id="info" type="button" aria-label="Cómo se usa" title="Cómo se usa">i</button>
+	</header>
+
+	<main class="work">
+		<aside class="panel" id="panel" aria-label="Opciones"></aside>
+
+		<section class="stage" aria-label="Vista previa">
+			<div class="zoombar">
+				<button class="btn btn--icon" id="z-menos" type="button" aria-label="Alejar" title="Alejar">&minus;</button>
+				<button class="btn btn--chico" id="z-valor" type="button" title="Ajustar a la ventana">Ajustar</button>
+				<button class="btn btn--icon" id="z-mas" type="button" aria-label="Acercar" title="Acercar">+</button>
+				<button class="btn btn--chico" id="z-uno" type="button" title="Tamaño real">1:1</button>
+				<button class="btn btn--chico" id="t-renglones" type="button" aria-pressed="false" hidden title="Parte el dibujo en renglones si no entra en una línea">Renglones</button>
+				<button class="btn btn--chico" id="t-devolver" type="button" hidden title="Devuelve todos los textos a su lugar original">Devolver textos</button>
+				<span class="grow"></span>
+				<span class="dim" id="dim"></span>
+			</div>
+			<div class="lienzo" id="lienzo">
+				<div class="paper" id="paper" hidden></div>
+				<div class="vacio" id="vacio">
+					<svg viewBox="0 0 48 48" width="56" height="56" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 32h8V14h12v18h12V14h8"/></svg>
+					<h3 id="vacio-t">Todavía no hay nada para dibujar</h3>
+					<p id="vacio-p">Completá los datos de la izquierda.</p>
+				</div>
+			</div>
+			<section class="resultados" id="resultados" hidden aria-label="Resultados"></section>
+		</section>
+	</main>
+
+	<footer class="bottom">
+		<div class="bottom__info" id="resumen" role="status">&nbsp;</div>
+		<div class="bottom__acciones">
+			<button class="btn" id="d-copiar" type="button" disabled title="Copia la imagen al portapapeles (con fondo blanco) para pegarla en un informe: Ctrl+C">
+				<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="8.5" y="8.5" width="11.5" height="11.5" rx="1.5"/><path d="M15.5 8.5V5.5A1.5 1.5 0 0 0 14 4H5.5A1.5 1.5 0 0 0 4 5.5V14a1.5 1.5 0 0 0 1.5 1.5h3"/></svg>
+				Copiar imagen
+			</button>
+			<button class="btn" id="d-png" type="button" disabled>PNG</button>
+			<button class="btn" id="d-svg" type="button" disabled>SVG</button>
+			<button class="btn btn--primario" id="d-pdf" type="button" disabled>
+				<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v12M7 11l5 5 5-5M4 20h16"/></svg>
+				Descargar PDF
+			</button>
+		</div>
+	</footer>
+</div>
+
+<div class="soltar" id="soltar" hidden><div><svg viewBox="0 0 24 24" width="34" height="34" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 16V4M7 9l5-5 5 5M4 20h16"/></svg><span id="soltar-t">Soltá el archivo acá</span></div></div>
+
+<div class="conv" id="conv" role="dialog" aria-label="Conversor de bits" hidden></div>
+
+<dialog id="dlg-info" class="dlg">
+	<div class="dlg__bar"><span>Digital: cómo se usa</span><button type="button" class="btn btn--icon" data-cerrar aria-label="Cerrar">&times;</button></div>
+	<div class="dlg__cuerpo" tabindex="0" id="info-cuerpo"></div>
+</dialog>
+
+<input type="file" id="archivo" accept=".json,.csv,.txt,text/csv,text/plain,application/json" hidden>
+<div id="host" aria-hidden="true"></div>
+
+<script src="../compartido/vendor/jspdf.umd.min.js"></script>
+<script src="../compartido/vendor/svg2pdf.umd.min.js"></script>
+<script type="module" src="js/app.js"></script>
+</body>
+</html>

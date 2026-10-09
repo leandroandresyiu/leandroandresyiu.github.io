@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 32 96">
+  <!-- Generator: Adobe Illustrator 29.5.1, SVG Export Plug-In . SVG Version: 2.1.0 Build 141)  -->
+  <defs>
+    <style>
+      .st0, .st1, .st2, .st3, .st4, .st5 {
+        stroke: #000;
+        stroke-linejoin: round;
+      }
+
+      .st0, .st3 {
+        stroke-width: .39px;
+      }
+
+      .st1 {
+        stroke-width: .33px;
+      }
+
+      .st2, .st3, .st4 {
+        fill: none;
+      }
+
+      .st2, .st5 {
+        stroke-width: .5px;
+      }
+
+      .st4 {
+        stroke-linecap: round;
+        stroke-width: 1.5px;
+      }
+    </style>
+  </defs>
+  <line class="st4" y1="16" y2="27"/>
+  <line class="st4" y1="85" y2="96"/>
+  <circle class="st4" cy="56" r="29"/>
+  <g>
+    <line class="st2" x1="4" y1="76.1" x2="-4" y2="76.1"/>
+    <rect class="st5" x="-4.5" y="75.6" width="9" height="1"/>
+  </g>
+  <g>
+    <line class="st3" x1="-37.4" y1="74.1" x2="-43.7" y2="74.1"/>
+    <rect class="st0" x="-44" y="73.7" width="7" height=".8"/>
+  </g>
+  <polygon class="st5" points="4.5 37.9 .5 37.9 .5 33.9 -.5 33.9 -.5 37.9 -4.5 37.9 -4.5 38.9 -.5 38.9 -.5 42.9 .5 42.9 .5 38.9 4.5 38.9 4.5 37.9"/>
+  <polygon class="st1" points="-37.5 39.1 -40.2 39.1 -40.2 36.4 -40.9 36.4 -40.9 39.1 -43.5 39.1 -43.5 39.7 -40.9 39.7 -40.9 42.4 -40.2 42.4 -40.2 39.7 -37.5 39.7 -37.5 39.1"/>
+  <polyline class="st4" points="-24.1 39.9 -32 32 -48 32"/>
+  <polyline class="st4" points="-48 80 -32 80 -24.1 72.1"/>
+</svg>

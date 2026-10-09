@@ -1,0 +1,1230 @@
+/* Aspecto "Fusion" (el estilo claro de Qt) para la ventana de PlotTool. */
+:root {
+	--win: #efefef;
+	--base: #fff;
+	--pane: #fbfbfb;
+	--grp: #f8f8f8;
+	--line: #bcbcbc;
+	--line-soft: #d4d4d4;
+	--text: #1a1a1a;
+	--dim: #9a9a9a;
+	--sel: #308cc6;
+	--font: 'Segoe UI', 'Helvetica Neue', Arial, system-ui, sans-serif;
+}
+* {
+	box-sizing: border-box;
+}
+html,
+body {
+	height: 100%;
+	margin: 0;
+	background: var(--win);
+	color: var(--text);
+	font: 12px/1.25 var(--font);
+	overflow: hidden;
+}
+#app {
+	position: absolute;
+	inset: 0;
+	display: flex;
+	min-width: 0;
+}
+#cargando {
+	position: absolute;
+	inset: 0;
+	display: grid;
+	place-content: center;
+	gap: 10px;
+	background: var(--win);
+	color: #555;
+	text-align: center;
+	z-index: 100;
+}
+#cargando .barra {
+	width: 240px;
+	height: 6px;
+	margin: 0 auto;
+	background: #d8d8d8;
+	border-radius: 3px;
+	overflow: hidden;
+}
+#cargando .barra i {
+	display: block;
+	width: 0;
+	height: 100%;
+	background: var(--sel);
+	transition: width 200ms;
+}
+
+/* ---- ventana principal ---- */
+.qmw {
+	display: flex;
+	flex: 1;
+	flex-direction: column;
+	min-width: 980px;
+	min-height: 0;
+	background: var(--win);
+}
+.qmw-central {
+	flex: 1;
+	min-height: 0;
+	display: flex;
+}
+.qmenubar {
+	display: flex;
+	flex: none;
+	align-items: center;
+	height: var(--menubar-h, 20px);
+	padding: 0 4px;
+	background: var(--win);
+	border-bottom: 1px solid #e0e0e0;
+}
+.qmenu {
+	position: relative;
+}
+.qmenu-title {
+	padding: 2px 6px;
+	border: 0;
+	background: transparent;
+	font: inherit;
+	color: var(--text);
+	cursor: default;
+}
+.qmenu.open .qmenu-title {
+	background: var(--sel);
+	color: #fff;
+}
+.qmenu-items {
+	position: absolute;
+	top: 100%;
+	left: 0;
+	z-index: 30;
+	display: none;
+	min-width: 140px;
+	padding: 2px;
+	background: var(--base);
+	border: 1px solid #aaa;
+	box-shadow: 2px 3px 8px rgba(0, 0, 0, 0.25);
+}
+.qmenu.open .qmenu-items {
+	display: block;
+}
+.qmenu-item {
+	display: block;
+	width: 100%;
+	padding: 4px 22px;
+	border: 0;
+	background: transparent;
+	font: inherit;
+	text-align: left;
+	color: var(--text);
+}
+.qmenu-item:hover {
+	background: var(--sel);
+	color: #fff;
+}
+.qmenu-item.on::before {
+	content: '\2713';
+	margin-left: -16px;
+	margin-right: 6px;
+}
+.qmw .qstatus {
+	flex: none;
+	min-height: var(--status-h, 22px);
+	padding: 4px 10px;
+	color: #444;
+	background: var(--win);
+}
+
+/* ---- layouts ---- */
+.ql {
+	min-width: 0;
+	min-height: 0;
+	padding: 9px;
+}
+.ql-grid {
+	display: grid;
+	gap: 0 6px;
+}
+.ql-h {
+	display: flex;
+	flex-direction: row;
+	gap: 6px;
+	align-items: stretch;
+}
+.ql-v {
+	display: flex;
+	flex-direction: column;
+	gap: 0;
+}
+.qspacer {
+	min-width: 0;
+	min-height: 0;
+}
+.qw {
+	min-width: 0;
+	min-height: 0;
+	position: relative;
+}
+
+/* Un widget con layout: el layout lo llena por completo. */
+.qhas {
+	display: flex;
+	flex-direction: column;
+}
+.qhas > .ql {
+	flex: 1;
+	min-height: 0;
+}
+.qmw-central > * {
+	flex: 1;
+	min-width: 0;
+}
+
+/* ---- etiquetas ---- */
+.qlabel {
+	display: flex;
+	align-items: center;
+	white-space: nowrap;
+}
+.qlabel.wrap {
+	white-space: normal;
+	overflow-wrap: anywhere;
+}
+
+/* ---- botones ---- */
+.qbtn {
+	min-height: 23px;
+	padding: 2px 8px;
+	font: inherit;
+	color: var(--text);
+	background: linear-gradient(#fdfdfd, #eeeeee);
+	border: 1px solid #ababab;
+	border-radius: 2px;
+	cursor: default;
+	white-space: nowrap;
+}
+.qbtn:hover:not(:disabled) {
+	background: linear-gradient(#fff, #f3f3f3);
+	border-color: #9a9a9a;
+}
+.qbtn:active:not(:disabled) {
+	background: linear-gradient(#e6e6e6, #f0f0f0);
+}
+.qbtn:disabled {
+	color: var(--dim);
+	border-color: #cfcfcf;
+	background: #f2f2f2;
+}
+.qtool {
+	min-width: 28px;
+}
+
+/* ---- campos ---- */
+.qedit,
+.qcombo,
+.qspin {
+	display: flex;
+	min-height: 23px;
+}
+.qedit input,
+.qspin input,
+.qcombo select {
+	flex: 1;
+	min-width: 0;
+	width: 100%;
+	height: auto;
+	min-height: 23px;
+	padding: 1px 4px;
+	font: inherit;
+	color: var(--text);
+	background: var(--base);
+	border: 1px solid #b4b4b4;
+	border-radius: 2px;
+	outline: none;
+}
+.qedit input:focus,
+.qspin input:focus,
+.qcombo select:focus {
+	border-color: var(--sel);
+	box-shadow: 0 0 0 1px var(--sel) inset;
+}
+.qedit input:disabled,
+.qspin input:disabled,
+.qcombo select:disabled {
+	color: var(--dim);
+	background: #eeeeee;
+	border-color: #d0d0d0;
+}
+.qcombo select {
+	appearance: none;
+	padding-right: 20px;
+	background: linear-gradient(#fdfdfd, #eeeeee);
+	border-color: #ababab;
+}
+.qcombo::after {
+	content: '';
+	position: absolute;
+	right: 7px;
+	top: 9px;
+	width: 0;
+	height: 0;
+	border: 3.5px solid transparent;
+	border-top-color: #555;
+	pointer-events: none;
+}
+.qcombo.qdis::after {
+	border-top-color: #bbb;
+}
+.qspin,
+.qspin input {
+	min-height: 24px;
+}
+.qspin input {
+	padding-right: 18px;
+	text-align: left;
+}
+.qspin-btns {
+	position: absolute;
+	top: 1px;
+	right: 1px;
+	bottom: 1px;
+	display: flex;
+	flex-direction: column;
+	width: 15px;
+}
+.qspin-up,
+.qspin-dn {
+	position: relative;
+	flex: 1;
+	padding: 0;
+	border: 0;
+	border-left: 1px solid #c8c8c8;
+	background: linear-gradient(#fdfdfd, #ececec);
+}
+.qspin-dn {
+	border-top: 1px solid #d0d0d0;
+}
+.qspin-up::after,
+.qspin-dn::after {
+	content: '';
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	margin-left: -3px;
+	border: 3px solid transparent;
+}
+.qspin-up::after {
+	margin-top: -4px;
+	border-bottom: 3.5px solid #444;
+}
+.qspin-dn::after {
+	margin-top: -1px;
+	border-top: 3.5px solid #444;
+}
+.qspin-up:disabled::after {
+	border-bottom-color: #bbb;
+}
+.qspin-dn:disabled::after {
+	border-top-color: #bbb;
+}
+
+/* ---- casillas ---- */
+.qcheck {
+	min-height: 21px;
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	cursor: default;
+}
+.qcheck input {
+	position: absolute;
+	opacity: 0;
+}
+.qbox {
+	position: relative;
+	width: 13px;
+	height: 13px;
+	background: var(--base);
+	border: 1px solid #8c8c8c;
+	border-radius: 2px;
+}
+.qcheck input:checked + .qbox::after {
+	content: '';
+	position: absolute;
+	left: 3px;
+	top: 0;
+	width: 4px;
+	height: 8px;
+	border: solid #111;
+	border-width: 0 2px 2px 0;
+	transform: rotate(40deg);
+}
+.qdot {
+	position: relative;
+	width: 13px;
+	height: 13px;
+	background: var(--base);
+	border: 1px solid #8c8c8c;
+	border-radius: 50%;
+}
+.qcheck input:checked + .qdot::after {
+	content: '';
+	position: absolute;
+	inset: 3px;
+	background: #222;
+	border-radius: 50%;
+}
+.qdis,
+.qdis * {
+	color: var(--dim);
+}
+
+/* ---- grupos ---- */
+.qgb {
+	display: flex;
+	flex-direction: column;
+}
+.qgb-title {
+	flex: none;
+	padding: 1px 2px 4px;
+	line-height: 14px;
+	min-height: 19px;
+}
+.qgb-box {
+	flex: 1;
+	min-height: 0;
+	display: flex;
+	flex-direction: column;
+	background: var(--grp);
+	border: 1px solid #dcdcdc;
+	border-radius: 2px;
+}
+.qgb-box > .ql {
+	flex: 1;
+	min-height: 0;
+	padding: 9px 11px 9px;
+}
+.qgb.qdis > .qgb-title {
+	color: var(--dim);
+}
+
+/* ---- pestañas ---- */
+.qtabs {
+	display: flex;
+	flex-direction: column;
+}
+.qtabs-row {
+	display: flex;
+	flex: none;
+	margin-bottom: -1px;
+	position: relative;
+	z-index: 1;
+}
+.qtabs-bar {
+	display: flex;
+	flex: 1;
+	min-width: 0;
+	padding-left: 0;
+	overflow-x: auto;
+	overflow-y: hidden;
+	scrollbar-width: none;
+}
+.qtabs-arrow {
+	display: none;
+	flex: none;
+	width: 18px;
+	height: 22px;
+	margin-top: 4px;
+	padding: 0;
+	font: inherit;
+	line-height: 1;
+	color: var(--text);
+	background: linear-gradient(#f0f0f0, #e4e4e4);
+	border: 1px solid #bdbdbd;
+	border-radius: 2px;
+}
+.qtabs-row.desborda .qtabs-arrow {
+	display: block;
+}
+.qtabs-tab {
+	flex: none;
+	white-space: nowrap;
+	height: 22px;
+	margin-right: 0;
+	padding: 0 12px;
+	font: inherit;
+	color: var(--text);
+	background: linear-gradient(#f0f0f0, #e4e4e4);
+	border: 1px solid #bdbdbd;
+	border-bottom: 0;
+	border-radius: 2px 2px 0 0;
+	margin-top: 2px;
+}
+.qtabs-tab.on {
+	height: 26px;
+	margin-top: 0;
+	background: var(--pane);
+	border-color: #bdbdbd;
+	padding-bottom: 1px;
+}
+.qtabs-pane {
+	flex: 1;
+	min-height: 0;
+	display: flex;
+	padding: 1px;
+	background: var(--pane);
+	border: 1px solid #bdbdbd;
+}
+.qtabs-page {
+	flex: 1;
+	min-width: 0;
+	min-height: 0;
+}
+
+/* ---- listas ---- */
+.qlist {
+	overflow: auto;
+	background: var(--base);
+	border: 1px solid #b8b8b8;
+	min-height: 40px;
+	outline: none;
+}
+.qli {
+	height: 20px;
+	padding: 2px 5px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+.qli.dis {
+	color: #a0a0a0;
+}
+.qli.alt {
+	background: #f3f3f3;
+}
+.qli.sel {
+	background: var(--sel);
+	color: #fff;
+}
+
+/* ---- área con scroll ---- */
+.qsa {
+	overflow: auto;
+	background: var(--win);
+	border: 1px solid #d0d0d0;
+}
+.qsa.noframe {
+	border: 0;
+}
+.qsa > .qw {
+	min-height: 100%;
+}
+
+/* barras de desplazamiento tipo Fusion */
+.qsa::-webkit-scrollbar,
+.qlist::-webkit-scrollbar {
+	width: 14px;
+	height: 14px;
+}
+.qsa::-webkit-scrollbar-track,
+.qlist::-webkit-scrollbar-track {
+	background: #f8f8f8;
+	border-left: 1px solid #dcdcdc;
+}
+.qsa::-webkit-scrollbar-thumb,
+.qlist::-webkit-scrollbar-thumb {
+	background: linear-gradient(90deg, #f3f3f3, #e2e2e2);
+	border: 1px solid #b0b0b0;
+	border-radius: 2px;
+}
+
+/* flechas de las barras de desplazamiento */
+.qsa::-webkit-scrollbar-button:single-button,
+.qlist::-webkit-scrollbar-button:single-button {
+	display: block;
+	width: 14px;
+	height: 14px;
+	background-color: #f8f8f8;
+	background-repeat: no-repeat;
+	background-position: center;
+	border-left: 1px solid #dcdcdc;
+}
+.qsa::-webkit-scrollbar-button:vertical:start:decrement,
+.qlist::-webkit-scrollbar-button:vertical:start:decrement {
+	background-image: linear-gradient(135deg, transparent 50%, #444 50%), linear-gradient(225deg, transparent 50%, #444 50%);
+	background-size: 4px 4px;
+	background-position: 3px 5px, 7px 5px;
+	background-image: conic-gradient(from 315deg at 50% 60%, #444 90deg, transparent 0);
+	background-size: 8px 5px;
+}
+.qsa::-webkit-scrollbar-button:vertical:end:increment,
+.qlist::-webkit-scrollbar-button:vertical:end:increment {
+	background-image: conic-gradient(from 135deg at 50% 40%, #444 90deg, transparent 0);
+	background-size: 8px 5px;
+}
+.qsa::-webkit-scrollbar-button:horizontal,
+.qlist::-webkit-scrollbar-button:horizontal {
+	display: none;
+}
+
+/* ---- texto ---- */
+.qtext {
+	overflow: auto;
+	padding: 4px;
+	background: var(--base);
+	border: 1px solid #b8b8b8;
+}
+
+/* ---- gráfico y barra de matplotlib ---- */
+.qcanvas {
+	display: block;
+	min-height: 120px;
+	background: #fff;
+}
+.qcanvas canvas {
+	display: block;
+}
+.qcanvas-over {
+	position: absolute;
+	inset: 0;
+	pointer-events: none;
+}
+.qcanvas-main {
+	touch-action: none;
+}
+.qmpltb {
+	display: flex;
+	align-items: center;
+	gap: 1px;
+	min-height: 36px;
+	padding: 2px 4px;
+	background: var(--pane);
+}
+.qmpltb-btn {
+	display: grid;
+	place-items: center;
+	width: 32px;
+	height: 32px;
+	padding: 0;
+	background: transparent;
+	border: 1px solid transparent;
+	border-radius: 3px;
+}
+.qmpltb-btn img {
+	width: 24px;
+	height: 24px;
+	pointer-events: none;
+}
+.qmpltb-btn:hover:not(:disabled) {
+	background: #e6e6e6;
+	border-color: #cfcfcf;
+}
+.qmpltb-btn.on {
+	background: #cfd8e3;
+	border-color: #9fb3c9;
+}
+.qmpltb-btn:disabled {
+	opacity: 0.35;
+}
+.qmpltb-sep {
+	width: 1px;
+	height: 22px;
+	margin: 0 4px;
+	background: #c8c8c8;
+}
+.qmpltb-fill {
+	flex: 1;
+}
+.qmpltb-msg {
+	padding-right: 6px;
+	color: #333;
+	font-size: 12px;
+	white-space: nowrap;
+}
+.qmpltb {
+	overflow: hidden;
+}
+.qtoolbar {
+	display: flex;
+	align-items: center;
+	gap: 4px;
+	padding: 3px;
+	background: var(--win);
+	border-bottom: 1px solid #d0d0d0;
+}
+.qtoolbar-btn {
+	padding: 2px 8px;
+	font: inherit;
+	background: transparent;
+	border: 1px solid transparent;
+}
+.qtoolbar-btn.on {
+	background: #dcdcdc;
+	border-color: #aaa;
+}
+.qtoolbar-sep {
+	width: 1px;
+	height: 16px;
+	background: #c0c0c0;
+}
+
+/* ---- diálogos ---- */
+.qfloat {
+	position: fixed;
+	inset: 0;
+	pointer-events: none;
+	z-index: 50;
+}
+.qdlg-overlay {
+	position: absolute;
+	inset: 0;
+	display: none;
+	place-items: center;
+	pointer-events: auto;
+	background: rgba(0, 0, 0, 0.28);
+}
+.qdlg-overlay.show {
+	display: grid;
+}
+.qdlg {
+	display: flex;
+	flex-direction: column;
+	max-width: 94vw;
+	max-height: 92vh;
+	background: var(--win);
+	border: 1px solid #8a8a8a;
+	box-shadow: 0 8px 28px rgba(0, 0, 0, 0.4);
+}
+.qdlg-bar {
+	display: flex;
+	flex: none;
+	align-items: center;
+	justify-content: space-between;
+	height: 26px;
+	padding: 0 4px 0 10px;
+	background: linear-gradient(#f7f7f7, #e4e4e4);
+	border-bottom: 1px solid #bbb;
+	font-weight: 600;
+}
+.qdlg-x {
+	width: 24px;
+	height: 22px;
+	padding: 0;
+	font-size: 18px;
+	line-height: 1;
+	background: transparent;
+	border: 0;
+	color: #333;
+}
+.qdlg-x:hover {
+	background: #e5484d;
+	color: #fff;
+}
+.qdlg-content,
+.qdlg-body {
+	min-height: 0;
+	overflow: auto;
+}
+.qdlg-foot {
+	display: flex;
+	flex: none;
+	justify-content: flex-end;
+	gap: 8px;
+	padding: 8px 10px 10px;
+}
+.qbbox {
+	display: flex;
+	justify-content: flex-end;
+	gap: 8px;
+}
+.qbbox-btn {
+	min-width: 76px;
+}
+.qform {
+	display: grid;
+	grid-template-columns: auto minmax(160px, 1fr);
+	gap: 6px 10px;
+	align-items: center;
+	padding: 12px 14px;
+}
+.qform-grande {
+	display: block;
+	min-width: 360px;
+}
+.qform-h {
+	grid-column: 1 / -1;
+	margin: 6px 0 2px;
+	font-size: 13px;
+}
+.qform-span {
+	grid-column: 1 / -1;
+}
+.qform-curva {
+	padding: 6px 0 8px;
+	border-top: 1px solid var(--line-soft);
+}
+.qform-i {
+	width: 100%;
+	height: 22px;
+	padding: 1px 4px;
+	font: inherit;
+	background: var(--base);
+	border: 1px solid #b4b4b4;
+	border-radius: 2px;
+}
+.qform-chk {
+	display: flex;
+	gap: 6px;
+	margin-top: 8px;
+}
+
+/* ---- créditos al pie (dentro del iframe no hace falta; los pone kumOS) ---- */
+
+/* ---- desplegable con casillas y línea separadora ---- */
+.qcheckcombo {
+	display: block;
+	position: relative;
+	min-height: 23px;
+}
+.qcheckcombo-btn {
+	width: 100%;
+	min-height: 23px;
+	padding: 1px 20px 1px 6px;
+	overflow: hidden;
+	font: inherit;
+	color: var(--text);
+	text-align: left;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	background: linear-gradient(#fdfdfd, #eeeeee);
+	border: 1px solid #ababab;
+	border-radius: 2px;
+}
+.qcheckcombo::after {
+	content: '';
+	position: absolute;
+	right: 7px;
+	top: 9px;
+	border: 3.5px solid transparent;
+	border-top-color: #555;
+	pointer-events: none;
+}
+.qcheckcombo-pop {
+	position: absolute;
+	top: 100%;
+	left: 0;
+	z-index: 40;
+	display: none;
+	min-width: 100%;
+	padding: 2px;
+	background: var(--base);
+	border: 1px solid #aaa;
+	box-shadow: 2px 3px 8px rgba(0, 0, 0, 0.25);
+}
+.qcheckcombo-pop.open {
+	display: block;
+}
+.qcheckcombo-fila {
+	display: flex;
+	align-items: center;
+	gap: 6px;
+	padding: 3px 6px;
+	white-space: nowrap;
+}
+.qcheckcombo-fila:hover:not(.off) {
+	background: var(--sel);
+	color: #fff;
+}
+.qcheckcombo-fila.off {
+	color: var(--dim);
+}
+.qline-h {
+	height: 2px;
+	margin: 3px 0;
+	border-top: 1px solid #c0c0c0;
+	border-bottom: 1px solid #fff;
+}
+.qline-v {
+	width: 2px;
+	margin: 0 3px;
+	border-left: 1px solid #c0c0c0;
+	border-right: 1px solid #fff;
+}
+
+/* ventanas flotantes sueltas (por ejemplo, polos y ceros): no tapan el resto de la herramienta */
+.qdlg-overlay.modeless {
+	background: transparent;
+	pointer-events: none;
+}
+.qdlg.qwin {
+	width: min(640px, 92vw);
+	height: min(520px, 88vh);
+	min-width: 320px;
+	min-height: 240px;
+	overflow: hidden;
+	resize: both;
+	pointer-events: auto;
+}
+.qdlg.qwin .qdlg-bar {
+	cursor: move;
+	touch-action: none;
+}
+.qwin-body {
+	display: flex;
+	flex: 1;
+	min-height: 0;
+	overflow: hidden;
+}
+.qwin-body > .qw {
+	flex: 1;
+	min-width: 0;
+}
+
+/* ---- sin barra de menú: ajustes e información en la esquina de las pestañas ---- */
+.qmw {
+	position: relative;
+}
+.qmw.sin-menu .qmenubar {
+	display: none;
+}
+.qmw.sin-menu .qstatus {
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	z-index: 20;
+	min-height: 0;
+	padding: 0;
+	pointer-events: none;
+}
+.qmw.sin-menu .qstatus:not(:empty) {
+	padding: 4px 10px;
+	background: #fffbe0;
+	border-top: 1px solid #d8cf8a;
+}
+.qtabs-corner {
+	display: flex;
+	flex: none;
+	align-items: center;
+	gap: 6px;
+	margin-left: auto;
+	padding: 0 2px 2px 8px;
+}
+.qcorner-btn {
+	display: grid;
+	place-items: center;
+	width: 22px;
+	height: 22px;
+	padding: 0;
+	color: #333;
+	background: linear-gradient(#ffffff, #e6e6e6);
+	border: 1px solid #8f8f8f;
+	border-radius: 50%;
+	cursor: pointer;
+}
+.qcorner-btn:hover {
+	background: linear-gradient(#ffffff, #d5e4f5);
+	border-color: #3d7fbf;
+}
+.qcorner-info {
+	font: italic 700 14px/1 Georgia, 'Times New Roman', serif;
+}
+.qcorner-caja {
+	position: relative;
+}
+.qpop {
+	position: absolute;
+	top: calc(100% + 4px);
+	right: 0;
+	z-index: 40;
+	display: none;
+	min-width: 230px;
+	padding: 4px;
+	background: var(--base);
+	border: 1px solid #aaa;
+	box-shadow: 2px 3px 10px rgba(0, 0, 0, 0.3);
+}
+.qcorner-caja.abierto .qpop {
+	display: block;
+}
+.qpop-t {
+	padding: 6px 8px 2px;
+	font-size: 11px;
+	font-weight: 700;
+	color: #666;
+	text-transform: uppercase;
+	letter-spacing: 0.04em;
+}
+.qpop-i {
+	display: block;
+	width: 100%;
+	padding: 4px 8px 4px 24px;
+	border: 0;
+	background: transparent;
+	font: inherit;
+	text-align: left;
+	color: var(--text);
+}
+.qpop-i:hover {
+	background: var(--sel);
+	color: #fff;
+}
+.qpop-marca.on::before {
+	content: '\2713';
+	margin-left: -16px;
+	margin-right: 6px;
+}
+
+/* ---- ventana de información ---- */
+.qinfo-ov {
+	position: fixed;
+	inset: 0;
+	z-index: 60;
+	display: none;
+	place-items: center;
+	padding: 8px;
+	background: rgba(0, 0, 0, 0.32);
+}
+.qinfo-ov.show {
+	display: grid;
+}
+.qinfo-win {
+	display: flex;
+	flex-direction: column;
+	width: min(780px, 100%);
+	height: min(680px, 100%);
+	min-height: 0;
+	overflow: hidden;
+	background: #fff;
+	border: 1px solid #8a8a8a;
+	box-shadow: 0 8px 28px rgba(0, 0, 0, 0.45);
+}
+.qinfo-bar {
+	display: flex;
+	flex: none;
+	align-items: center;
+	justify-content: space-between;
+	height: 28px;
+	padding: 0 4px 0 12px;
+	font-weight: 600;
+	background: linear-gradient(#f7f7f7, #e4e4e4);
+	border-bottom: 1px solid #bbb;
+}
+.qinfo-body {
+	flex: 1 1 0;
+	min-height: 0;
+	overflow-x: hidden;
+	overflow-y: scroll;
+	overscroll-behavior: contain;
+	outline: none;
+}
+.qinfo-body::-webkit-scrollbar,
+.kmarcas::-webkit-scrollbar {
+	width: 16px;
+}
+.qinfo-body::-webkit-scrollbar-track,
+.kmarcas::-webkit-scrollbar-track {
+	background: #eee;
+	border-left: 1px solid #d4d4d4;
+}
+.qinfo-body::-webkit-scrollbar-thumb,
+.kmarcas::-webkit-scrollbar-thumb {
+	min-height: 40px;
+	background: #a9a9a9;
+	background-clip: content-box;
+	border: 3px solid transparent;
+	border-radius: 8px;
+}
+.qinfo-body::-webkit-scrollbar-thumb:hover,
+.kmarcas::-webkit-scrollbar-thumb:hover {
+	background: #7d7d7d;
+	background-clip: content-box;
+}
+@supports (-moz-appearance: none) {
+	.qinfo-body,
+	.kmarcas {
+		scrollbar-width: auto;
+		scrollbar-color: #a9a9a9 #eee;
+	}
+}
+.qinfo {
+	padding: 14px 20px 24px;
+	font-size: 13px;
+	line-height: 1.55;
+	color: #222;
+	background: #fff;
+	user-select: text;
+}
+.qinfo h3 {
+	margin: 0 0 6px;
+	font-size: 17px;
+}
+.qinfo h4 {
+	margin: 18px 0 4px;
+	padding-bottom: 2px;
+	font-size: 14px;
+	border-bottom: 1px solid #ddd;
+}
+.qinfo p,
+.qinfo ul,
+.qinfo ol {
+	margin: 4px 0 8px;
+}
+.qinfo ul,
+.qinfo ol {
+	padding-left: 22px;
+}
+.qinfo li {
+	margin: 2px 0;
+}
+.qinfo code,
+.qinfo kbd {
+	padding: 0 4px;
+	font: 12px Consolas, 'Courier New', monospace;
+	background: #f0f0f0;
+	border: 1px solid #ddd;
+	border-radius: 3px;
+}
+.qinfo .nota {
+	padding: 6px 10px;
+	background: #eef5fc;
+	border-left: 3px solid #3d7fbf;
+}
+
+/* ---- cursores, puntos y textos ---- */
+.kmarcas-w {
+	display: flex;
+	flex-direction: column;
+	min-height: 0;
+}
+.kmarcas {
+	flex: 1;
+	min-height: 0;
+	padding: 8px 12px 12px;
+	overflow-x: hidden;
+	overflow-y: scroll;
+	font-size: 12px;
+}
+.kayuda {
+	margin-bottom: 8px;
+	color: #444;
+}
+.ksec {
+	margin-bottom: 12px;
+}
+.khead {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	margin-bottom: 4px;
+	border-bottom: 1px solid #c8c8c8;
+}
+.khead h4 {
+	margin: 0;
+	font-size: 13px;
+}
+.klista {
+	display: flex;
+	flex-direction: column;
+	gap: 6px;
+}
+.kvacio {
+	color: #888;
+	font-style: italic;
+}
+.kcard {
+	position: relative;
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+	gap: 4px 10px;
+	padding: 6px 10px 8px;
+	background: #f6f6f6;
+	border: 1px solid #c4c4c4;
+	border-radius: 3px;
+}
+.ktitulo {
+	grid-column: 1 / -1;
+	font-weight: 700;
+	color: #555;
+}
+.kquitar {
+	position: absolute;
+	top: 1px;
+	right: 4px;
+	padding: 0 4px;
+	font-size: 18px;
+	line-height: 1;
+	color: #a33;
+	background: transparent;
+	border: 0;
+}
+.kc {
+	display: flex;
+	flex-direction: column;
+	gap: 1px;
+	min-width: 0;
+	font-size: 11px;
+	color: #555;
+}
+.kc.ancho {
+	grid-column: 1 / -1;
+}
+.kc input,
+.kc select,
+.kc textarea {
+	width: 100%;
+	min-width: 0;
+	height: 22px;
+	padding: 1px 4px;
+	font-family: inherit;
+	font-size: 12px;
+	color: var(--text);
+	background: #fff;
+	border: 1px solid #b4b4b4;
+	border-radius: 2px;
+}
+.kc textarea {
+	height: auto;
+	min-height: 36px;
+	resize: vertical;
+}
+.kc input[type='color'] {
+	padding: 0 1px;
+}
+.kchk {
+	display: flex;
+	align-items: center;
+	gap: 5px;
+	align-self: end;
+	padding-bottom: 2px;
+	font-size: 12px;
+}
+.kinfo {
+	grid-column: 1 / -1;
+	min-height: 14px;
+	font-size: 11px;
+	color: #2a7a3a;
+}
+.kpick {
+	height: 22px;
+}
+.kpie {
+	display: flex;
+	gap: 8px;
+	justify-content: flex-end;
+	margin-top: 8px;
+}
+.kaviso {
+	position: absolute;
+	top: 6px;
+	left: 50%;
+	z-index: 6;
+	transform: translateX(-50%);
+	padding: 4px 8px;
+	font: 12px sans-serif;
+	white-space: nowrap;
+	background: #fff8c4;
+	border: 1px solid #c9b23a;
+	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+}

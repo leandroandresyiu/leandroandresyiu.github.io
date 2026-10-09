@@ -1,0 +1,46 @@
+PlotTool dentro de kumOS
+========================
+
+PlotTool es una herramienta para graficar curvas y mediciones (transferencias de orden arbitrario, simulaciones
+de LTspice y archivos CSV de osciloscopio).
+
+Autores del programa original (Teoría de Circuitos II):
+  - Juan Sbruzzi (juan-sb)
+  - Agustín Gullino
+  - Javier Petrucci
+Repositorio original: https://github.com/TC-II/TC2-PlotTool
+El repositorio original no declara una licencia. Esta copia se publica con la autorización de sus autores.
+
+Qué hay en esta carpeta
+-----------------------
+  index.html        Página que abre la herramienta (hecha para kumOS).
+  app/src/          Código de PlotTool (copiado del repositorio original, ver "Cambios").
+  app/designer/     Diseños de las ventanas (Qt Designer), sin cambios.
+  manifest.json     Lista de archivos de app/ que se copian a Python al abrir la herramienta.
+La capa que imita a PyQt5 en el navegador, Python (Pyodide), las bibliotecas y el lector de LTspice están en
+../qtweb/ (ver ../qtweb/LEEME-CREDITOS.txt); las comparte con FilterTool.
+
+Cambios respecto del original
+-----------------------------
+  - Agregado para kumOS (no es del programa original): la barra de menú se reemplazó por un engranaje (abrir y guardar proyectos) y un
+    botón "i" con la explicación de cómo usar el programa (src/info.py); la barra de herramientas de cada gráfico tiene un
+    botón nuevo, "Marks", para agregar cursores (horizontales o verticales, absolutos o pegados a los datos), puntos
+    (X, círculo, estrella, triángulo, cuadrado), y textos con tamaño y color; cursores y puntos pueden ir o no en la
+    leyenda. Todo se dibuja como parte del gráfico y sale en la imagen al guardar (ver ../qtweb/LEEME-CREDITOS.txt).
+  - src/mainwindow.py: el selector de archivos del navegador reemplaza a QFileDialog (importar y cargar
+    proyectos); "Save..." baja el archivo .pto; se quitó el autoguardado en temp.pto; las acciones del menú
+    Project (Load... / Save...) ahora están conectadas.
+  - src/widgets/exprwidget.py: se quitaron matplotlib.use('QT5Agg') y matplotlib.use('pgf').
+  - src/widgets/scientific_spinbox.py: reemplaza al ScienDSpinBox de qudi por una versión simple
+    (campo con prefijos del SI) que funciona en el navegador.
+  - src/ui/*.py: en el original los generaba pyuic5; acá se arman leyendo designer/*.ui al abrir la herramienta.
+  - La barra de herramientas del gráfico es la de matplotlib, con sus mismos íconos; "Customize" y
+    "Subplots" tienen diálogos propios.
+  - Verificación: el mismo guion (transferencia, respuesta temporal, CSV de osciloscopio con filtro Savitzky-Golay,
+    SPICE con varios casos, .raw de LTspice y opciones de gráfico) se corrió en el PlotTool original y en esta
+    versión: los datos de todos los gráficos coinciden.
+  - Lo que el navegador no puede hacer: exportar a LaTeX/pgf (necesita una instalación de LaTeX).
+  - El resto del código (datasets, transferencias, filtros, gráficos) es el original sin cambios.
+
+Para regenerar la lista de archivos que se copian a Python (manifest.json) después de agregar o quitar archivos
+de app/:  python kumOS-diseno/plottool-manifest.py   (desde la raíz del repositorio)
