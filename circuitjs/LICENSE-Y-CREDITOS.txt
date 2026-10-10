@@ -1,0 +1,10 @@
+Simulador de circuitos: CircuitJS1 de Iain Sharp (https://github.com/sharpie7/circuitjs1),
+basado en el Circuit Simulator de Paul Falstad (https://falstad.com/circuit).
+Licencia: GNU General Public License v2 (https://www.gnu.org/licenses/old-licenses/gpl-2.0.html).
+Los archivos de esta carpeta son la versión compilada publicada en falstad.com/circuit (copiada el 2026-10-02).
+Código fuente completo: https://github.com/sharpie7/circuitjs1
+Íconos: Fontello (font/fontello.css).
+
+Modificación respecto de la versión publicada: en los archivos *.cache.js se cambió el umbral de alto de
+ventana para mostrar la barra de herramientas ("height > 700" pasó a "height > 300"), porque el simulador
+se muestra dentro de una ventana de kumOS más baja que una pantalla completa.

@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Spice2PDF</title>
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+<div class="app" id="app">
+	<header class="top">
+		<div class="marca" aria-label="Spice a PDF">
+			<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12h4l1.5-4 3 8 2-6 1.5 2H21"/></svg>
+			<span>Spice<i>&rarr;</i>PDF</span>
+		</div>
+		<button class="btn btn--on" id="abrir" type="button">
+			<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 16V4M7 9l5-5 5 5M4 20h16"/></svg>
+			Abrir .asc
+		</button>
+		<button class="btn" id="catalogo" type="button" title="Abre un esquemático con todos los símbolos disponibles">
+			<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="6.5" height="6.5"/><rect x="13.5" y="4" width="6.5" height="6.5"/><rect x="4" y="13.5" width="6.5" height="6.5"/><rect x="13.5" y="13.5" width="6.5" height="6.5"/></svg>
+			Ver catálogo
+		</button>
+		<span class="grow"></span>
+		<button class="btn btn--icon" id="info" type="button" aria-label="Cómo se usa" title="Cómo se usa">i</button>
+	</header>
+
+	<main class="work">
+		<aside class="panel" id="panel">
+			<section class="sec">
+				<h2>Archivos</h2>
+				<ul class="lista" id="lista"></ul>
+				<p class="nota" id="lista-vacia">Todavía no cargaste ningún esquemático.</p>
+			</section>
+
+			<section class="sec" id="avisos" hidden></section>
+
+			<section class="sec">
+				<h2>Encuadre</h2>
+				<label class="campo">
+					<span>Recorte</span>
+					<select id="o-encuadre">
+						<option value="auto">Automático</option>
+						<option value="contenido">Ajustar al dibujo</option>
+						<option value="rect">Rectángulo del .asc</option>
+					</select>
+				</label>
+				<p class="nota nota--chica" id="nota-encuadre"></p>
+				<label class="campo campo--rango">
+					<span>Margen <output id="v-margen"></output></span>
+					<input type="range" id="o-margen" min="0" max="120" step="2">
+				</label>
+				<label class="campo campo--rango">
+					<span>Escala del PDF <output id="v-escala"></output></span>
+					<input type="range" id="o-escala" min="30" max="200" step="5">
+				</label>
+			</section>
+
+			<section class="sec">
+				<h2>Aspecto</h2>
+				<label class="campo campo--rango">
+					<span>Tamaño de letra <output id="v-letra"></output></span>
+					<input type="range" id="o-letra" min="60" max="220" step="5">
+				</label>
+				<label class="campo campo--rango">
+					<span>Grosor de líneas <output id="v-grosor"></output></span>
+					<input type="range" id="o-grosor" min="50" max="300" step="5">
+				</label>
+			</section>
+
+			<section class="sec">
+				<h2>Mostrar</h2>
+				<div class="checks">
+					<label><input type="checkbox" id="o-nombres"> Nombres <small>R1, C2, Q3…</small></label>
+					<label><input type="checkbox" id="o-valores"> Valores <small>10kΩ, 100nF…</small></label>
+					<label><input type="checkbox" id="o-etiquetas"> Etiquetas de nodo <small>Vin, 15V…</small></label>
+					<label><input type="checkbox" id="o-comentarios"> Comentarios <small>texto con ;</small></label>
+					<label><input type="checkbox" id="o-nodos"> Puntos de unión</label>
+					<label><input type="checkbox" id="o-faltantes"> Recuadros de símbolos sin dibujo</label>
+				</div>
+			</section>
+
+			<section class="sec">
+				<h2>Textos</h2>
+				<p class="nota">Arrastrá cualquier texto del dibujo para ponerlo donde quieras. Con <kbd>Mayús</kbd> se mueve en línea recta; doble clic lo devuelve a su lugar.</p>
+				<div class="fila-botones">
+					<button class="btn btn--chico" id="t-deshacer" type="button" disabled title="Deshace el último movimiento (Ctrl+Z)">Deshacer</button>
+					<button class="btn btn--chico" id="t-restaurar" type="button" disabled>Devolver todos <span id="t-n"></span></button>
+				</div>
+			</section>
+
+			<section class="sec">
+				<h2>Exportar</h2>
+				<div class="checks">
+					<label><input type="checkbox" id="o-fondo"> Fondo blanco <small>en PDF, SVG y PNG</small></label>
+				</div>
+				<label class="campo">
+					<span>Resolución del PNG</span>
+					<select id="o-dpi">
+						<option value="150">150 dpi</option>
+						<option value="300">300 dpi</option>
+						<option value="600">600 dpi</option>
+					</select>
+				</label>
+				<button class="btn btn--chico" id="restaurar" type="button">Volver a los valores originales</button>
+			</section>
+		</aside>
+
+		<section class="stage" aria-label="Vista previa">
+			<div class="zoombar">
+				<button class="btn btn--icon" id="z-menos" type="button" aria-label="Alejar" title="Alejar">&minus;</button>
+				<button class="btn btn--chico" id="z-valor" type="button" title="Ajustar a la ventana">Ajustar</button>
+				<button class="btn btn--icon" id="z-mas" type="button" aria-label="Acercar" title="Acercar">+</button>
+				<button class="btn btn--chico" id="z-uno" type="button" title="Tamaño real">1:1</button>
+				<span class="grow"></span>
+				<span class="dim" id="dim"></span>
+			</div>
+			<div class="lienzo" id="lienzo">
+				<div class="paper" id="paper" hidden></div>
+				<div class="vacio" id="vacio">
+					<svg viewBox="0 0 48 48" width="56" height="56" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 6h22l10 10v26H8z"/><path d="M30 6v10h10"/><path d="M14 30h5l2-6 4 10 3-8 2 4h4"/></svg>
+					<h3>Soltá un archivo .asc de LTspice</h3>
+					<p>o tocá <b>Abrir .asc</b>. Podés cargar varios a la vez. Los archivos se procesan en tu navegador: no se suben a ningún lado.</p>
+					<button class="btn" id="abrir2" type="button">Elegir archivos…</button>
+				</div>
+			</div>
+		</section>
+	</main>
+
+	<footer class="bottom">
+		<div class="bottom__info" id="resumen">&nbsp;</div>
+		<div class="bottom__acciones">
+			<button class="btn" id="d-todos" type="button" hidden title="Un PDF por esquemático, todos juntos en un .zip">Todos (.zip)</button>
+			<button class="btn" id="d-copiar" type="button" disabled title="Copia la imagen al portapapeles (con fondo blanco) para pegarla en un informe: Ctrl+C">
+				<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="8.5" y="8.5" width="11.5" height="11.5" rx="1.5"/><path d="M15.5 8.5V5.5A1.5 1.5 0 0 0 14 4H5.5A1.5 1.5 0 0 0 4 5.5V14a1.5 1.5 0 0 0 1.5 1.5h3"/></svg>
+				Copiar imagen
+			</button>
+			<button class="btn" id="d-png" type="button" disabled>PNG</button>
+			<button class="btn" id="d-svg" type="button" disabled>SVG</button>
+			<button class="btn btn--primario" id="d-pdf" type="button" disabled>
+				<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v12M7 11l5 5 5-5M4 20h16"/></svg>
+				Descargar PDF
+			</button>
+		</div>
+	</footer>
+</div>
+
+<div class="soltar" id="soltar" hidden><div><svg viewBox="0 0 24 24" width="34" height="34" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 16V4M7 9l5-5 5 5M4 20h16"/></svg><span>Soltá los archivos .asc acá</span></div></div>
+
+<div class="cargando" id="cargando" role="status">
+	<div class="cargando__caja">
+		<div class="cargando__titulo" id="msg">Iniciando Python…</div>
+		<div class="barra"><i id="prog"></i></div>
+		<small>La primera vez baja unos 10 MB; después queda en la memoria del navegador.</small>
+	</div>
+</div>
+
+<dialog id="dlg-info" class="dlg">
+	<div class="dlg__bar"><span>Spice2PDF: cómo se usa</span><button type="button" class="btn btn--icon" data-cerrar aria-label="Cerrar">&times;</button></div>
+	<div class="dlg__cuerpo" tabindex="0" id="info-cuerpo"></div>
+</dialog>
+
+<input type="file" id="archivo" accept=".asc,text/plain" multiple hidden>
+<div id="host" aria-hidden="true"></div>
+
+<script src="../compartido/vendor/jspdf.umd.min.js"></script>
+<script src="../compartido/vendor/svg2pdf.umd.min.js"></script>
+<script src="../compartido/vendor/fflate.umd.js"></script>
+<script src="../qtweb/pyodide/pyodide.js"></script>
+<script src="info.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

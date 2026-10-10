@@ -1,0 +1,16 @@
+Fondo de olas (public/olas/)
+============================
+
+Las imágenes de esta carpeta son "La gran ola de Kanagawa" (神奈川沖浪裏), de Katsushika Hokusai (c. 1831), pasada a líneas
+blancas sobre negro. La obra es de dominio público.
+
+Fuente: escaneo "Tsunami_by_hokusai_19th_century.jpg" de Wikimedia Commons (3859 x 2594 px, dominio público).
+El escaneo NO se publica: se convirtió con un detector de bordes (bordes entre colores en el espacio Lab, tinta del
+contorno y limpieza del ruido del papel; se quitaron el recuadro del título y la firma) y quedaron solo las líneas.
+
+  olas-3800.webp, olas-2800.webp, olas-2000.webp, olas-1400.webp   El mismo dibujo en cuatro tamaños (sin pérdida; las líneas se detectan
+                                                    en el más grande y los otros salen de achicarlo). El fondo usa el que más
+                                                    se parece a los píxeles reales de la pantalla, así las líneas no titilan.
+
+Para rehacerlas:   python kumOS-diseno/olas-lineas.py <escaneo.jpg> public/olas
+(necesita Pillow, NumPy y SciPy). Cómo se anima: src/scripts/os/olas.ts.

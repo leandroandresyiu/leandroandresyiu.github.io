@@ -1,0 +1,59 @@
+FilterTool dentro de kumOS
+=========================
+
+FilterTool es una herramienta para diseñar filtros analógicos (pasa-bajos, pasa-altos, pasa-banda, rechaza-banda y
+retardo de grupo) con las aproximaciones Butterworth, Chebyshev, Chebyshev 2, Cauer, Legendre, Bessel y Gauss, ver sus
+gráficos (atenuación, módulo, fase, retardo de grupo, polos y ceros, escalón e impulso) y armar sus etapas.
+
+Autores del programa original (Teoría de Circuitos II), según el repositorio:
+  - juan-sb
+  - tacc-tacc
+  - javierpetrucci
+Repositorio original: https://github.com/TC-II/TC2-FilterTool
+El repositorio original no declara una licencia. Esta copia se publica con la autorización de sus autores.
+
+Qué hay en esta carpeta
+-----------------------
+  index.html        Página que abre la herramienta (hecha para kumOS).
+  app/src/          Código de FilterTool (copiado del repositorio original, ver "Cambios").
+  app/designer/     Diseños de las ventanas (Qt Designer), sin cambios.
+  manifest.json     Lista de archivos de app/ que se copian a Python al abrir la herramienta.
+La capa que imita a PyQt5 en el navegador, Python (Pyodide) y las bibliotecas están en ../qtweb/ (ver
+../qtweb/LEEME-CREDITOS.txt); las comparte con PlotTool.
+
+Cambios respecto del original
+-----------------------------
+  - Agregado para kumOS (no es del programa original): la barra de menú se reemplazó por un engranaje (proyectos, unidades Hz / rad/s, colores y ganancia forzada) y un
+    botón "i" con la explicación de cómo usar el programa (src/info.py); la barra de herramientas de cada gráfico tiene un
+    botón nuevo, "Marks", para agregar cursores (horizontales o verticales, absolutos o pegados a los datos), puntos
+    (X, círculo, estrella, triángulo, cuadrado), y textos con tamaño y color; cursores y puntos pueden ir o no en la
+    leyenda. Todo se dibuja como parte del gráfico y sale en la imagen al guardar (ver ../qtweb/LEEME-CREDITOS.txt).
+  - src/mainwindow.py: el selector de archivos del navegador reemplaza a QFileDialog (importar archivos y cargar
+    proyectos); "Save..." baja el archivo .fto; se quitó el autoguardado en temp.fto.
+  - src/widgets/exprwidget.py: se quitaron matplotlib.use('QT5Agg') y matplotlib.use('pgf'); el lienzo lo pone el navegador.
+  - src/widgets/scientific_spinbox.py: reemplaza al ScienDSpinBox de qudi por una versión simple (campo con prefijos
+    del SI: "1.00 kHz") que funciona en el navegador.
+  - src/widgets/multiple_cbox.py: desplegable con casillas hecho con elementos del navegador (mismo uso que el original).
+  - src/ui/*.py: en el original los generaba pyuic5; acá se arman leyendo designer/*.ui al abrir la herramienta.
+  - No se copiaron los diseños rc_window / rlc_window (el programa original no los usa en ningún lado) ni app.py / test.py.
+  - El resto del código (filtros, etapas, transferencias, gráficos) es el original sin cambios.
+
+Verificación
+------------
+El mismo guion se corrió en el FilterTool original (Python + PyQt5) y en esta versión, y los resultados coinciden:
+  - 9 filtros (pasa-bajos, pasa-altos, pasa-banda y rechaza-banda con Butterworth, Chebyshev, Chebyshev 2, Cauer y Legendre;
+    retardo de grupo con Bessel; comparación con otras aproximaciones; modificar un filtro; filtro inválido):
+    orden, polos y ceros, ganancia, Q máximo, pérdida de rango dinámico y los datos de los 7 gráficos de cada uno.
+  - Etapas: armar una a mano eligiendo polos, "Auto select", subir/bajar, quitar; listas, ganancias restantes, pérdida de
+    rango dinámico, tipos de implementación posibles y los 10 gráficos de etapas.
+  - Implementación Fleischer-Tow (frecuencia, Q, ancho de banda y resistencias calculadas), polos y ceros de una
+    transferencia, cambio Hz / rad/s, guardar y cargar un proyecto (.fto).
+Detalles que no se ven igual: la forma exacta de los gráficos con aspecto fijo (mapa de polos y ceros) depende del
+tamaño de la ventana; algunos márgenes de la interfaz difieren unos píxeles del original.
+Para que "seleccionar polos en la lista" funcione, el original necesita mplcursors 0.5.2 (la versión que pide su
+requirements.txt); con versiones nuevas falla. Acá se incluye esa versión.
+
+Lo que el navegador no puede hacer: exportar a LaTeX/pgf (necesita una instalación de LaTeX).
+
+Para regenerar la lista de archivos que se copian a Python (manifest.json) después de agregar o quitar archivos
+de app/:  python kumOS-diseno/plottool-manifest.py   (desde la raíz del repositorio)

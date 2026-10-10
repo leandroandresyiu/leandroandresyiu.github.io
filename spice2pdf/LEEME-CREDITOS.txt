@@ -1,0 +1,61 @@
+Spice2PDF dentro de kumOS
+=========================
+
+Spice2PDF convierte esquemáticos de LTspice (.asc) en figuras vectoriales prolijas para informes: PDF (con el texto como
+texto, en la tipografía de LaTeX), SVG o PNG.
+
+Programa original: Spice-a-PDF, de Javier Petrucci y colaboradores (Teoría de Circuitos II).
+Repositorio original: https://github.com/TC-II/Spice-a-PDF
+El repositorio original no declara una licencia. Antes de publicar esta herramienta en el sitio hay que confirmar la
+autorización de sus autores.
+
+Qué hay en esta carpeta
+-----------------------
+  index.html, app.css, app.js, info.js   La interfaz hecha para kumOS (carga de archivos, vista previa, opciones, exportación).
+  python/spice2pdf.py                    El código del programa original (Main.py) con cambios mínimos, ver "Cambios".
+  python/Skins/Default/*.svg             Los símbolos de los componentes, del programa original, sin cambios.
+  python/svgwrite.py                     Reemplazo mínimo de la biblioteca svgwrite (la usa el original para armar el dibujo).
+  python/manifest.json                   Lista de archivos que se copian a Python al abrir la herramienta.
+  catalogo/catalogo.asc                  "Catalogo completo.asc" del repositorio original: todos los símbolos disponibles (botón "Ver catálogo").
+Compartido con Flanco, en ../compartido/:
+  fonts/                                 Tipografías: Latin Modern Roman 10 y CMU Serif Italic (las del programa original,
+                                         dibujo y PDF) y Archivo y JetBrains Mono (la interfaz, las mismas del sitio).
+  vendor/                                Bibliotecas de JavaScript: jsPDF y svg2pdf.js (PDF) y fflate (.zip).
+Python corre con Pyodide, que está en ../qtweb/pyodide/ (compartido con PlotTool y FilterTool).
+
+Licencias
+---------
+  jsPDF 4.2.1            MIT   (c) 2010-2025 James Hall, yWorks GmbH            ../compartido/vendor/LICENSE-jspdf.txt
+  svg2pdf.js 2.8.1       MIT   (c) 2015-2026 yWorks GmbH, Vitaly Puzrin         ../compartido/vendor/LICENSE-svg2pdf.txt
+  fflate 0.8.3           MIT   (c) 2026 Arjun Barrett                            ../compartido/vendor/LICENSE-fflate.txt
+  Pyodide 314.0.7        MPL-2.0  https://pyodide.org
+  Latin Modern Roman 10  Licencia GUST (GFL, la de LaTeX)  http://www.gust.org.pl/projects/e-foundry/latin-modern
+  CMU Serif (Computer Modern Unicode)  SIL Open Font License 1.1
+  Archivo, JetBrains Mono  SIL Open Font License 1.1    ../compartido/fonts/LICENSE-archivo.txt, ../compartido/fonts/LICENSE-jetbrains-mono.txt
+
+Cambios respecto del original
+-----------------------------
+En python/spice2pdf.py (Main.py del original):
+  - Se quitó la instalación automática de librerías y el recorrido de las carpetas ASC_Files/ y PDFs/: ahora recibe el texto
+    de un .asc y devuelve el dibujo en SVG (función convertir()).
+  - Los símbolos se incrustan dentro del SVG (en vez de enlazarlos con <image>), con su estilo (clases CSS) aplicado como
+    atributos y una sola matriz de giro/espejado por símbolo. El dibujo es autocontenido.
+  - Los textos y nodos llevan una clase (nombre, valor, flag, comentario, nodo) para poder mostrarlos u ocultarlos.
+  - Los símbolos que el programa no conoce se dibujan como un recuadro rojo punteado con su nombre y se avisa (antes se
+    salteaban en silencio).
+  - La lectura del .asc tolera líneas vacías o incompletas.
+  - Se quitó la conversión a PDF con svglib/reportlab: el PDF se arma en el navegador (jsPDF + svg2pdf.js). La página del
+    PDF ahora es del tamaño exacto del dibujo (el original usaba la del rectángulo sin escalar y dejaba márgenes en blanco).
+  - Posiciones de los textos, unidades (Ω, F, H, V, A), giros y espejados de cada componente: sin cambios.
+Agregado en la interfaz (no es del original): recorte automático al dibujo, margen, escala del PDF, tamaño de letra y grosor
+de líneas, qué mostrar, fondo blanco, SVG y PNG, copiar la imagen al portapapeles, mover los textos con el mouse (se guarda en el navegador), varios archivos a la vez con .zip, vista previa con zoom y ayuda.
+
+Verificación
+------------
+El mismo conjunto de esquemáticos (ASC_Files/ del original) se convirtió con el programa original y con esta versión: los
+cables, líneas, nodos y textos (contenido, posición, anclaje y giro) son idénticos, y los dibujos de los símbolos
+coinciden con los PDF que trae el repositorio original. Lo único que cambia: los textos vacíos que el original dejaba en el
+SVG ya no se escriben.
+
+Para regenerar la lista de archivos que se copian a Python (python/manifest.json) después de agregar o quitar símbolos:
+    python kumOS-diseno/plottool-manifest.py     (desde la raíz del repositorio)

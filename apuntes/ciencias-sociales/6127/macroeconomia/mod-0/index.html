@@ -1,0 +1,1573 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Módulo 0 — Coyuntura Económica</title>
+
+
+<link href="/apuntes-vendor/google-fonts/fonts.css" rel="stylesheet">
+<script src="/apuntes-vendor/tailwind/tailwind-play-3.4.17.js"></script>
+<script>
+  // Restaurar el tema elegido antes del primer render, para evitar parpadeo.
+  try{
+    var __th = localStorage.getItem('theme-pref');
+    if(__th){ document.documentElement.setAttribute('data-theme', __th); }
+  }catch(e){}
+</script>
+
+<style>
+  /* ============ TOKENS (idénticos a Módulo 0, para mantener la colección) ============ */
+  :root{
+    --bg:#F2F5F3;
+    --bg-grid:#E4E9E6;
+    --surface:#FFFFFF;
+    --surface-2:#E8EDEA;
+    --border:#D6DDD9;
+    --ink:#0F211C;
+    --ink-muted:#556661;
+    --ink-faint:#8B9994;
+    --accent:#0E5C67;
+    --accent-ink:#FFFFFF;
+    --accent-soft:#DCEEEF;
+    --accent-soft-border:#B7D9DB;
+    --gold:#B5790E;
+    --gold-soft:#F7E9CE;
+    --gold-soft-border:#E7CE9C;
+    --brick:#A6412F;
+    --brick-soft:#F5DED8;
+    --brick-soft-border:#E4BBB0;
+    --good:#2E7D4F;
+    --good-soft:#DEEFE3;
+    --bad:#B23A32;
+    --bad-soft:#F6DEDC;
+    --shadow: 0 1px 2px rgba(15,33,28,.04), 0 8px 24px -12px rgba(15,33,28,.18);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#0D1613; --bg-grid:#132019; --surface:#16211E; --surface-2:#1C2925; --border:#2A3A35;
+      --ink:#E8EFEC; --ink-muted:#9FB2AC; --ink-faint:#6C7D77;
+      --accent:#5FC2CC; --accent-ink:#06282C; --accent-soft:#173438; --accent-soft-border:#28565C;
+      --gold:#E8B559; --gold-soft:#332711; --gold-soft-border:#5A431C;
+      --brick:#E28A78; --brick-soft:#33201B; --brick-soft-border:#5C362C;
+      --good:#6FCB94; --good-soft:#173B26; --bad:#E5847C; --bad-soft:#3B211F;
+      --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px -12px rgba(0,0,0,.5);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#0D1613; --bg-grid:#132019; --surface:#16211E; --surface-2:#1C2925; --border:#2A3A35;
+    --ink:#E8EFEC; --ink-muted:#9FB2AC; --ink-faint:#6C7D77;
+    --accent:#5FC2CC; --accent-ink:#06282C; --accent-soft:#173438; --accent-soft-border:#28565C;
+    --gold:#E8B559; --gold-soft:#332711; --gold-soft-border:#5A431C;
+    --brick:#E28A78; --brick-soft:#33201B; --brick-soft-border:#5C362C;
+    --good:#6FCB94; --good-soft:#173B26; --bad:#E5847C; --bad-soft:#3B211F;
+    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px -12px rgba(0,0,0,.5);
+  }
+
+  *{box-sizing:border-box;}
+  html,body{overflow-x:clip; max-width:100%;} /* "clip", no "hidden": hidden fuerza overflow-y:auto por regla de la espec CSS */
+  .overflow-x-auto{overflow-x:auto !important; -webkit-overflow-scrolling:touch;}
+  :root{ --tbh:48px; }
+  body{
+    padding-top:var(--tbh);
+    background: linear-gradient(var(--bg-grid) 1px, transparent 1px) 0 0/100% 42px, var(--bg);
+    color:var(--ink); font-family:'Source Sans 3', ui-sans-serif, system-ui, sans-serif; -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,.font-display{font-family:'Fraunces', ui-serif, Georgia, serif; text-wrap:balance;}
+  .font-mono{font-family:'IBM Plex Mono', ui-monospace, monospace;}
+  p, li {max-width:68ch;}
+  ::selection{background:var(--accent); color:var(--accent-ink);}
+
+  .eyebrow{font-family:'IBM Plex Mono', ui-monospace, monospace; font-size:.68rem; letter-spacing:.11em; font-weight:600; text-transform:uppercase;}
+
+  .card{background:var(--surface); border:1px solid var(--border); border-radius:14px; box-shadow:var(--shadow);}
+  .tag{display:inline-flex; align-items:center; gap:.35em; border-radius:999px; padding:.22em .75em; font-size:.72rem; font-family:'IBM Plex Mono', ui-monospace, monospace; font-weight:600; letter-spacing:.03em; white-space:nowrap; border:1px solid transparent;}
+  .tag-def{background:var(--accent-soft); color:var(--accent); border-color:var(--accent-soft-border);}
+  .tag-clave{background:var(--gold-soft); color:var(--gold); border-color:var(--gold-soft-border);}
+  .tag-ej{background:var(--brick-soft); color:var(--brick); border-color:var(--brick-soft-border);}
+
+  .num-badge{font-family:'Fraunces', serif; font-weight:600; font-size:1.05rem; width:2.5rem; height:2.5rem; border-radius:10px; display:flex; align-items:center; justify-content:center; background:var(--accent); color:var(--accent-ink); flex:none;}
+
+  .nav-link{display:flex; align-items:center; gap:.6rem; padding:.5rem .6rem; border-radius:9px; font-size:.86rem; color:var(--ink-muted); text-decoration:none; border:1px solid transparent;}
+  .nav-link:hover{background:var(--surface-2); color:var(--ink);}
+  .nav-link.active{background:var(--accent-soft); color:var(--accent); border-color:var(--accent-soft-border); font-weight:600;}
+  .nav-num{font-family:'IBM Plex Mono',monospace; font-size:.68rem; color:var(--ink-faint); width:1.4rem; text-align:right; flex:none;}
+  .nav-link.active .nav-num{color:var(--accent);}
+
+  #progressbar{position:fixed; top:0; left:0; height:3px; width:0%; background:var(--accent); z-index:90; transition:width .1s linear;}
+
+  details.flash{border:1px solid var(--gold-soft-border); background:var(--gold-soft); border-radius:12px; padding:0; overflow:hidden;}
+  details.flash > summary{list-style:none; cursor:pointer; padding:.9rem 1.1rem; display:flex; align-items:center; gap:.7rem; font-weight:600; color:var(--ink);}
+  details.flash > summary::-webkit-details-marker{display:none;}
+  details.flash > summary .flip-icon{margin-left:auto; flex:none; color:var(--gold); transition:transform .2s ease;}
+  details.flash[open] > summary .flip-icon{transform:rotate(180deg);}
+  details.flash > summary .qmark{flex:none; width:1.6rem; height:1.6rem; border-radius:999px; background:var(--gold); color:var(--surface); display:flex; align-items:center; justify-content:center; font-family:'IBM Plex Mono',monospace; font-size:.75rem; font-weight:700;}
+  details.flash .flash-back{padding:0 1.1rem 1.05rem 1.1rem; border-top:1px dashed var(--gold-soft-border); margin-top:.1rem; padding-top:.8rem; color:var(--ink); animation:reveal .22s ease;}
+  @keyframes reveal{ from{opacity:0; transform:translateY(-4px);} to{opacity:1; transform:translateY(0);} }
+
+  .tnode{border:1px solid var(--border); background:var(--surface); border-radius:10px; padding:.6rem .8rem; font-size:.85rem;}
+  .tnode-root{background:var(--accent); color:var(--accent-ink); border-color:var(--accent); font-weight:700;}
+  details.tleaf{border:1px solid var(--border); background:var(--surface); border-radius:10px;}
+  details.tleaf>summary{list-style:none; cursor:pointer; padding:.55rem .75rem; font-size:.83rem; font-weight:600; display:flex; gap:.5rem; align-items:center;}
+  details.tleaf>summary::-webkit-details-marker{display:none;}
+  details.tleaf>summary::after{content:"+"; margin-left:auto; color:var(--ink-faint); font-family:'IBM Plex Mono',monospace;}
+  details.tleaf[open]>summary::after{content:"–";}
+  details.tleaf .tleaf-body{padding:0 .75rem .7rem .75rem; font-size:.82rem; color:var(--ink-muted); animation:reveal .2s ease;}
+
+  .diagram-svg text{font-family:'Source Sans 3', sans-serif;}
+  .diagram-svg .lbl{font-family:'IBM Plex Mono', monospace;}
+  .diagram-svg .node-box{fill:var(--surface); stroke:var(--border); transition:fill .15s;}
+  .diagram-svg .node-box.root{fill:var(--accent); stroke:var(--accent);}
+  .diagram-svg .node-g:hover .node-box:not(.root){fill:var(--accent-soft); stroke:var(--accent-soft-border);}
+  .diagram-svg .node-g[data-more]{cursor:pointer;}
+  .diagram-svg .node-g[data-more]:focus-visible{outline:2px solid var(--accent); outline-offset:3px; border-radius:4px;}
+  .diagram-svg .node-g.is-open .node-box:not(.root){fill:var(--accent-soft); stroke:var(--accent);}
+  .diagram-svg line, .diagram-svg path.link{stroke:var(--ink-faint); stroke-width:1.5;}
+  .diagram-svg .curve{stroke:var(--brick); stroke-width:2.5; fill:none;}
+  .diagram-svg .ref-line{stroke:var(--ink-faint); stroke-dasharray:4 4; stroke-width:1;}
+  .diagram-svg .pt{fill:var(--surface); stroke:var(--brick); stroke-width:2;}
+  .diagram-svg .node-g:hover .pt{fill:var(--brick-soft);}
+  .diagram-svg .node-g.is-open .pt{fill:var(--brick-soft); stroke-width:3;}
+
+  .tree-hint{font-size:.78rem; color:var(--ink-faint); margin-top:.5rem; display:flex; align-items:center; gap:.4rem;}
+  .tree-hint .hint-plus{flex:none; width:1.1rem; height:1.1rem; border-radius:999px; border:1px solid var(--ink-faint); display:flex; align-items:center; justify-content:center; font-family:'IBM Plex Mono',monospace; font-size:.68rem;}
+  .tree-detail{margin-top:.6rem; border:1px solid var(--accent-soft-border); background:var(--accent-soft); border-radius:10px; padding:.7rem .95rem; font-size:.85rem; color:var(--ink); animation:reveal .2s ease;}
+  .tree-detail .tree-detail-title{display:block; font-family:'IBM Plex Mono',monospace; font-size:.72rem; font-weight:700; text-transform:uppercase; letter-spacing:.03em; color:var(--accent); margin-bottom:.3rem;}
+
+  /* ---- circuitos numéricos (propio de Módulo 1, mismos tokens) ---- */
+  .circuit{background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:1.1rem 1.15rem; box-shadow:var(--shadow); margin:1.1rem 0;}
+  .circuit-title{font-family:'IBM Plex Mono',monospace; font-size:.68rem; letter-spacing:.08em; text-transform:uppercase; color:var(--ink-faint); text-align:center; margin-bottom:.7rem;}
+  .circuit-row{display:flex; justify-content:center; align-items:center; gap:.5rem 1rem; flex-wrap:wrap; margin:.5rem 0;}
+  .circuit-node{border:1.5px solid var(--accent); border-radius:999px; padding:.5rem 1rem; font-weight:700; font-size:.85rem; text-align:center; min-width:92px; background:var(--accent-soft); color:var(--accent);}
+  .circuit-node .sm{display:block; font-family:'IBM Plex Mono',monospace; font-weight:600; font-size:.78rem; margin-top:.15em;}
+  .circuit-market{font-family:'IBM Plex Mono',monospace; font-size:.75rem; text-align:center; color:var(--ink-muted); border:1px dashed var(--border); border-radius:10px; padding:.4rem .7rem;}
+  .circuit-market b{display:block; color:var(--ink); font-size:.92rem; margin-top:.15em; font-family:'Source Sans 3',sans-serif;}
+  .circuit-eq{font-family:'IBM Plex Mono',monospace; font-weight:700;}
+  .circuit-eq.ok{color:var(--good);}
+  .circuit-eq.bad{color:var(--bad);}
+  .circuit-val{color:var(--bad);}
+  .circuit-footer{margin-top:.85rem; text-align:center; font-family:'Fraunces',serif; font-weight:600; font-size:.94rem; padding:.5rem; border-radius:10px;}
+  .circuit-footer.ok{background:var(--good-soft); color:var(--good);}
+  .circuit-footer.bad{background:var(--bad-soft); color:var(--bad);}
+  .circuit-footer.warn{background:var(--gold-soft); color:var(--gold);}
+  .formula-line{text-align:center; font-family:'IBM Plex Mono',monospace; font-size:.92rem; color:var(--ink-muted); margin:.5rem 0;}
+
+  .quiz-opt{display:flex; gap:.7rem; align-items:flex-start; width:100%; text-align:left; border:1px solid var(--border); background:var(--surface); border-radius:10px; padding:.7rem .85rem; cursor:pointer; font-size:.92rem;}
+  .quiz-opt:hover{border-color:var(--accent-soft-border);}
+  .quiz-opt .bullet{flex:none; width:1.45rem; height:1.45rem; border-radius:999px; border:1.5px solid var(--ink-faint); display:flex; align-items:center; justify-content:center; font-family:'IBM Plex Mono',monospace; font-size:.7rem; color:var(--ink-faint);}
+  .quiz-opt.correct{border-color:var(--good); background:var(--good-soft);}
+  .quiz-opt.correct .bullet{border-color:var(--good); background:var(--good); color:var(--surface);}
+  .quiz-opt.incorrect{border-color:var(--bad); background:var(--bad-soft);}
+  .quiz-opt.incorrect .bullet{border-color:var(--bad); background:var(--bad); color:var(--surface);}
+  .quiz-opt[disabled]{cursor:default;}
+  .quiz-opt:not(.correct):not(.incorrect)[disabled]{opacity:.55;}
+  .quiz-justif{display:none; font-size:.86rem; color:var(--ink-muted); border-left:3px solid var(--accent); padding:.6rem .8rem; background:var(--accent-soft); border-radius:0 8px 8px 0; margin-top:.7rem;}
+  .quiz-justif.show{display:block; animation:reveal .25s ease;}
+  .quiz-card.answered .quiz-justif{display:block;}
+
+  #topbar{ position:fixed; top:0; left:0; right:0; height:var(--tbh); z-index:70; background:var(--surface); border-bottom:1px solid var(--border); }
+  .tb-in{ max-width:920px; margin:0 auto; height:100%; display:flex; align-items:center; gap:.5rem; padding:0 1rem; } /* mismo ancho y mismo padding que el contenido (max-w-[920px] + px-4/sm:px-6/md:px-8): el chip y el botón de tema quedan alineados con los bordes del texto */
+  @media (min-width:640px){ .tb-in{ padding:0 1.5rem; } }
+  @media (min-width:768px){ .tb-in{ padding:0 2rem; } }
+  .tb-chip{ font-family:'IBM Plex Mono',monospace; font-size:.72rem; font-weight:600; padding:.25rem .5rem; border-radius:6px; background:var(--accent); color:var(--accent-ink); flex:none; }
+  .tb-title{ font-family:'Fraunces',Georgia,serif; font-weight:600; font-size:.98rem; color:var(--ink); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; min-width:0; flex:0 1 auto; }
+  .tb-space{ flex:1 1 0; min-width:0; }
+  .tb-btn{ width:2.15rem; height:2.15rem; border-radius:10px; flex:none; border:1px solid var(--border); background:var(--surface); color:var(--ink-muted); display:inline-flex; align-items:center; justify-content:center; cursor:pointer; }
+  .tb-btn:hover{ background:var(--surface-2); color:var(--ink); }
+  .tb-btn svg{ width:1.05rem; height:1.05rem; }
+  .tb-idx{ display:inline-flex; align-items:center; gap:.4rem; height:2.15rem; border:1px solid var(--border); background:var(--surface); color:var(--ink-muted); border-radius:10px; padding:0 .7rem; font-size:.86rem; font-weight:600; cursor:pointer; font-family:inherit; flex:none; }
+  .tb-idx svg{ width:1rem; height:1rem; }
+  .tb-idx:hover{ border-color:var(--accent); color:var(--accent); }
+  .tb-idx[aria-expanded="true"]{ background:var(--accent); border-color:var(--accent); color:var(--accent-ink); }
+  .tb-search{ position:relative; flex:1 1 320px; min-width:110px; max-width:420px; display:flex; align-items:center; }
+  .tb-search > svg{ position:absolute; left:.65rem; width:.95rem; height:.95rem; color:var(--ink-faint); pointer-events:none; }
+  .tb-search input{ width:100%; border:1px solid var(--border); background:var(--bg); color:var(--ink); border-radius:999px; padding:.4rem 1.9rem .4rem 2.05rem; font-size:.9rem; font-family:inherit; }
+  .tb-search input:focus{ outline:2px solid var(--accent); outline-offset:0; border-color:var(--accent); background:var(--surface); }
+  .tb-search input[type=search]::-webkit-search-cancel-button{ -webkit-appearance:none; appearance:none; display:none; }
+  .tb-search #tb-clr{ position:absolute; right:.35rem; border:none; background:transparent; color:var(--ink-muted); font-size:1.1rem; cursor:pointer; padding:0 .4rem; line-height:1; }
+  .tb-sopen{ display:none; }
+  .tb-sclose{ display:none; border:none; background:transparent; color:var(--ink-muted); font-size:1.4rem; padding:0 .6rem; cursor:pointer; }
+  @media (max-width:900px){ .tb-title{ display:none; } }
+  @media (max-width:767px){
+    .tb-search{ display:none; }
+    .tb-sopen{ display:inline-flex; }
+    .tb-in.searching > *:not(.tb-search):not(.tb-sclose){ display:none !important; }
+    .tb-in.searching .tb-search{ display:flex; max-width:none; }
+    .tb-in.searching .tb-sclose{ display:block; }
+  }
+  @media (max-width:520px){ .tb-idx span{ display:none; } .tb-idx{ padding:0 .5rem; } }
+  .tb-results{ position:fixed; top:calc(var(--tbh) + 6px); right:max(.5rem, calc(50% - 460px + 2rem)); width:min(680px, calc(100vw - 1rem)); max-height:calc(100vh - var(--tbh) - 1rem); overflow-y:auto; overscroll-behavior:contain; z-index:78; background:var(--surface); border:1px solid var(--border); border-radius:14px; box-shadow:0 18px 50px -12px rgba(0,0,0,.45); padding:.5rem; }
+  .tb-results[hidden]{ display:none; }
+  @media (max-width:767px){ .tb-results{ left:.5rem; right:.5rem; width:auto; } }
+  .tb-rh{ font-family:'IBM Plex Mono',monospace; font-size:.66rem; letter-spacing:.11em; text-transform:uppercase; color:var(--accent); font-weight:700; margin:.5rem .5rem .25rem; }
+  .tb-rr{ display:block; width:100%; text-align:left; border:none; background:transparent; color:var(--ink); border-radius:9px; padding:.45rem .6rem; cursor:pointer; font-family:inherit; }
+  .tb-rr.on{ background:var(--accent-soft); }
+  .tb-rr .t{ display:block; font-weight:700; font-size:.92rem; line-height:1.25; }
+  .tb-rr .b{ display:block; font-size:.68rem; color:var(--ink-faint); font-family:'IBM Plex Mono',monospace; margin:.05rem 0 .15rem; }
+  .tb-rr .s{ display:block; font-size:.82rem; color:var(--ink-muted); line-height:1.35; }
+  .tb-rr mark{ background:var(--gold-soft); color:var(--ink); border-radius:3px; padding:0 .1rem; box-shadow:0 0 0 1px var(--gold-soft-border); }
+  .tb-rnone, .tb-rmore{ margin:.5rem; font-size:.84rem; color:var(--ink-muted); }
+  @keyframes tbFlash{ 0%{ background:var(--gold-soft); box-shadow:0 0 0 6px var(--gold-soft); } 100%{ background:transparent; box-shadow:0 0 0 6px transparent; } }
+  .tb-flash{ animation:tbFlash 2.2s ease-out 1; border-radius:6px; }
+  aside#sidebar{ display:none; position:fixed; top:calc(var(--tbh) + 6px); right:max(.5rem, calc(50% - 460px + 2rem)); width:min(380px, calc(100vw - 1rem)); max-height:calc(100vh - var(--tbh) - 1rem); overflow-y:auto; overscroll-behavior:contain; z-index:75; background:var(--surface); border:1px solid var(--border); border-radius:14px; box-shadow:0 18px 50px -12px rgba(0,0,0,.4); padding:1rem 1rem 1.2rem; }
+  html[data-idx="open"] aside#sidebar{ display:block; }
+  /* ---- botón flotante de glosario (Módulo 1: acompaña el scroll, no vive en el rail) ---- */
+  #glossary-fab{
+    position:fixed; bottom:1.25rem; right:1.25rem; z-index:60;
+    width:2.6rem; height:2.6rem; border-radius:999px;
+    border:1px solid var(--border); background:var(--accent); color:var(--accent-ink);
+    display:flex; align-items:center; justify-content:center; box-shadow:var(--shadow); cursor:pointer;
+    font-family:'IBM Plex Mono',monospace; font-weight:700; font-size:1rem;
+  }
+  #glossary-fab:hover{ filter:brightness(1.06); }
+  /* ---- switch de tema claro/oscuro (mismo botón muestra sol u luna según el tema activo) ---- */
+  .theme-icon-moon{ display:block; }
+  .theme-icon-sun{ display:none; }
+  html[data-theme="dark"] .theme-icon-moon{ display:none; }
+  html[data-theme="dark"] .theme-icon-sun{ display:block; }
+  @media (prefers-color-scheme: dark){
+    html:not([data-theme]) .theme-icon-moon{ display:none; }
+    html:not([data-theme]) .theme-icon-sun{ display:block; }
+  }
+
+  /* ---- glosario: cómo leer la guía + siglas/símbolos del módulo ---- */
+  dialog#glossary-dialog{ border:1px solid var(--border); border-radius:14px; padding:1.25rem; background:var(--surface); color:var(--ink); box-shadow:var(--shadow); max-width:440px; width:92vw; max-height:80vh; overflow-y:auto; }
+  dialog#glossary-dialog::backdrop{ background:rgba(15,33,28,.45); }
+  .legend-row{ display:flex; gap:.65rem; align-items:flex-start; padding:.5rem 0; border-top:1px solid var(--border); }
+  .legend-row.first{ border-top:none; padding-top:0; }
+  .legend-sigla{ font-family:'IBM Plex Mono',monospace; font-weight:700; font-size:.78rem; color:var(--accent); background:var(--accent-soft); border:1px solid var(--accent-soft-border); border-radius:6px; padding:.15em .5em; flex:none; white-space:nowrap; }
+  .legend-plus{ display:inline-flex; width:1.1rem; height:1.1rem; border-radius:999px; border:1px solid var(--ink-faint); align-items:center; justify-content:center; font-family:'IBM Plex Mono',monospace; font-size:.68rem; flex:none; }
+  .legend-desc{ font-size:.85rem; color:var(--ink-muted); }
+  .legend-close{ margin-top:1rem; width:100%; padding:.55rem; border-radius:9px; border:1px solid var(--border); background:var(--surface-2); color:var(--ink); cursor:pointer; font-weight:600; }
+
+  .icon{width:1.3rem; height:1.3rem; flex:none;}
+  section{scroll-margin-top:4.5rem;}
+
+  /* ---- lectura en voz alta (Web Speech API — nada sale del artifact) ---- */
+  @media (max-width:400px){ .num-badge{width:2.1rem; height:2.1rem; font-size:.9rem;} }
+</style>
+
+<div id="progressbar"></div>
+
+<button id="glossary-fab" onclick="openGlossary()" aria-label="Ver glosario">Aa</button>
+
+<dialog id="glossary-dialog">
+  <p class="eyebrow mb-3" style="color:var(--accent);">Siglas y símbolos de este módulo</p>
+  <div class="legend-row first"><span class="legend-sigla">PBI</span><span class="legend-desc">Producto Bruto Interno — el indicador que resume el tamaño de una economía.</span></div>
+  <div class="legend-row"><span class="legend-sigla">FPP</span><span class="legend-desc">Frontera de Posibilidades de Producción — combinaciones máximas de dos bienes que puede producir una economía con sus recursos.</span></div>
+  <div class="legend-row"><span class="legend-sigla">IPC</span><span class="legend-desc">Índice de Precios al Consumidor — mide el nivel de precios.</span></div>
+  <div class="legend-row"><span class="legend-sigla">INDEC</span><span class="legend-desc">Instituto Nacional de Estadística y Censos — organismo que mide el IPC en Argentina.</span></div>
+  <button class="legend-close" onclick="document.getElementById('glossary-dialog').close()">Cerrar</button>
+</dialog>
+
+<!-- ============ BARRA SUPERIOR FIJA: siempre visible, en toda la página ============ -->
+<div id="topbar"><div class="tb-in">
+  <span class="tb-chip">61.27</span>
+  <span class="tb-title">Módulo 0 · Introducción</span>
+  <span class="tb-space"></span>
+  <div class="tb-search" id="tb-search" role="search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+    <input id="tb-q" type="search" placeholder="Buscar en el módulo…" autocomplete="off" aria-label="Buscar en todo el módulo" aria-controls="tb-results" aria-expanded="false">
+    <button type="button" id="tb-clr" hidden aria-label="Borrar búsqueda">×</button>
+  </div>
+  <button type="button" id="tb-sopen" class="tb-btn tb-sopen" aria-label="Buscar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg></button>
+  <button type="button" id="tb-sclose" class="tb-sclose" aria-label="Cerrar búsqueda">×</button>
+  <button type="button" id="tb-idx" class="tb-idx" aria-expanded="false" aria-controls="sidebar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg><span>Índice</span></button>
+  <button type="button" class="tb-btn" onclick="toggleTheme()" aria-label="Cambiar tema claro/oscuro"><svg class="icon theme-icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg><svg class="icon theme-icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1111.2 3 7 7 0 0021 12.8z"/></svg></button>
+</div></div>
+<div id="tb-results" class="tb-results" role="listbox" hidden></div>
+<!-- ============ ÍNDICE (panel desplegable desde la barra superior) ============ -->
+<aside id="sidebar" aria-label="Índice del módulo">
+  <p class="eyebrow" style="color:var(--accent);">61.27 · Índice</p>
+  <p class="font-display text-[1.2rem] leading-tight font-semibold mt-1 mb-3" style="color:var(--ink);">Análisis de Coyuntura Económica (MACRO)</p>
+  <nav class="flex flex-col gap-0.5" id="navlist"></nav>
+  <p class="eyebrow mt-4 pt-3 border-t" style="color:var(--ink-faint); border-color:var(--border);">Guía de estudio · Módulo 0 · Introducción</p>
+</aside>
+<div class="max-w-[920px] mx-auto px-4 sm:px-6 md:px-8 pb-24 layout-shell">
+
+  <!-- ============ MAIN ============ -->
+  <main class="min-w-0 pt-6 md:pt-10">
+
+    <!-- HERO -->
+    <div class="card p-6 sm:p-8 mb-10" style="background:var(--surface);">
+      <p class="eyebrow" style="color:var(--accent);">Módulo 0 — Introducción</p>
+      <h1 class="font-display text-[1.9rem] sm:text-[2.3rem] leading-[1.08] font-semibold mt-2 mb-4" style="color:var(--ink);">Coyuntura económica: el problema, los sistemas y la caja de herramientas</h1>
+      <p style="color:var(--ink-muted);" class="text-[.98rem] leading-relaxed">Antes de meterse con inflación, tipo de cambio o PBI trimestre a trimestre, hace falta el mapa completo: qué estudia la economía, cómo se organiza una sociedad para resolver su escasez, con qué pensadores se construyó la disciplina y qué herramientas — modelos, la Frontera de Posibilidades de Producción, el costo de oportunidad — usa la macro para razonar. Este módulo es esa base.</p>
+      <!-- Los 3 chips de referencia ya NO van acá: el glosario (#glossary-dialog, botón "Aa" del rail) es solo siglas/símbolos del módulo. -->
+    </div>
+
+    <!-- ============================================================ -->
+    <!-- 1. QUÉ ES LA ECONOMÍA -->
+    <!-- ============================================================ -->
+    <section id="s1" data-title="Qué es la Economía" class="mb-14">
+      <div class="flex items-start gap-4 mb-5">
+        <span class="num-badge">1</span>
+        <div>
+          <p class="eyebrow" style="color:var(--ink-faint);">Punto de partida</p>
+          <h2 class="font-display text-[1.55rem] font-semibold" style="color:var(--ink);">¿Qué es la Economía?</h2>
+        </div>
+      </div>
+
+      <div class="card p-6 sm:p-7 space-y-4" style="color:var(--ink);">
+        <p><span class="tag tag-def mr-2">Origen</span>La palabra viene del griego <em>oikonomía</em>: <strong>oikos</strong> (hogar/casa) + <strong>nomos</strong> (ley/administración). Literalmente, la "administración del hogar" — y a escala de un país, la administración de sus recursos.</p>
+        <p><span class="tag tag-def mr-2">Definición</span>Es la ciencia que estudia cómo una sociedad <strong>asigna recursos escasos</strong> para producir bienes y servicios y <strong>distribuirlos</strong>, buscando alcanzar un conjunto de objetivos (bienestar general).</p>
+        <p style="color:var(--ink-muted);" class="text-[.92rem]">Dos autores clásicos lo dicen con matices distintos: para <strong>Mochón y Beker</strong> es "la asignación más conveniente de los recursos escasos para la obtención de un conjunto ordenado de objetivos"; para <strong>Samuelson y Nordhaus</strong> es "el estudio de la manera en que las sociedades utilizan recursos escasos para producir mercancías valiosas y distribuirlas entre los individuos". El núcleo es el mismo: <strong>escasez → asignación → distribución</strong>.</p>
+      </div>
+
+      <details class="flash mt-4">
+        <summary><span class="qmark">?</span> ¿Cómo se define "Economía" en una sola frase?<svg class="icon flip-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></summary>
+        <div class="flash-back">La ciencia social que estudia cómo se <strong>asignan recursos escasos</strong> para producir y distribuir bienes y servicios, buscando satisfacer necesidades ilimitadas de la mejor manera posible. Viene del griego <em>oikos</em> (casa) + <em>nomos</em> (norma): "administración del hogar".</div>
+      </details>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- 2. COYUNTURA ECONÓMICA -->
+    <!-- ============================================================ -->
+    <section id="s2" data-title="Coyuntura económica" class="mb-14">
+      <div class="flex items-start gap-4 mb-5">
+        <span class="num-badge">2</span>
+        <div>
+          <p class="eyebrow" style="color:var(--ink-faint);">El objeto de esta materia</p>
+          <h2 class="font-display text-[1.55rem] font-semibold" style="color:var(--ink);">Coyuntura económica</h2>
+        </div>
+      </div>
+
+      <div class="card p-6 sm:p-7 space-y-4">
+        <p><span class="tag tag-def mr-2">Definición</span>Es la <strong>situación de la economía en un momento determinado</strong>: el "estado del clima" económico hoy. Incluye crecimiento, inflación, desempleo, política fiscal y monetaria, comercio internacional, entre otros factores — y puede estar en <strong>expansión, recesión o estancamiento</strong>.</p>
+        <p style="color:var(--ink-muted);" class="text-[.92rem]">Analizar la coyuntura no es solo mirar un número: es un proceso con pasos concretos, que además condiciona decisiones de política pública, de empresas y de inversores.</p>
+      </div>
+
+      <!-- 7-step horizontal flow -->
+      <div class="mt-5 overflow-x-auto">
+        <div class="flex gap-3 min-w-[720px] sm:min-w-0 sm:grid sm:grid-cols-4 lg:grid-cols-7">
+          <!-- step template -->
+          <details class="tleaf"><summary><span class="font-mono text-[.7rem]" style="color:var(--accent);">01</span> Recopila datos</summary><div class="tleaf-body">PBI, tasa de desempleo, inflación, tasas de interés, comercio internacional.</div></details>
+          <details class="tleaf"><summary><span class="font-mono text-[.7rem]" style="color:var(--accent);">02</span> Interpreta indicadores</summary><div class="tleaf-body">Busca patrones: ¿un PBI creciendo indica expansión? ¿un desempleo subiendo, recesión?</div></details>
+          <details class="tleaf"><summary><span class="font-mono text-[.7rem]" style="color:var(--accent);">03</span> Compara con el pasado</summary><div class="tleaf-body">Contrasta datos actuales contra series históricas para dimensionar la situación.</div></details>
+          <details class="tleaf"><summary><span class="font-mono text-[.7rem]" style="color:var(--accent);">04</span> Analiza políticas</summary><div class="tleaf-body">Evalúa cómo la política fiscal y monetaria vigentes afectan la coyuntura.</div></details>
+          <details class="tleaf"><summary><span class="font-mono text-[.7rem]" style="color:var(--accent);">05</span> Evalúa factores externos</summary><div class="tleaf-body">Geopolítica, mercados financieros globales, demanda internacional.</div></details>
+          <details class="tleaf"><summary><span class="font-mono text-[.7rem]" style="color:var(--accent);">06</span> Prevé tendencias</summary><div class="tleaf-body">Proyecta cómo evolucionarían las variables a corto y largo plazo.</div></details>
+          <details class="tleaf"><summary><span class="font-mono text-[.7rem]" style="color:var(--accent);">07</span> Comunica resultados</summary><div class="tleaf-body">Presenta los hallazgos con claridad para políticos, empresarios e inversores.</div></details>
+        </div>
+      </div>
+
+      <details class="flash mt-4">
+        <summary><span class="qmark">?</span> ¿Qué tres estados puede tener la coyuntura económica?<svg class="icon flip-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></summary>
+        <div class="flash-back"><strong>Expansión</strong> (la actividad crece), <strong>recesión</strong> (cae) o <strong>estancamiento</strong> (no se mueve). El análisis de coyuntura existe para identificar en cuál de los tres está la economía y anticipar hacia dónde va.</div>
+      </details>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- 3. EL PROBLEMA ECONÓMICO -->
+    <!-- ============================================================ -->
+    <section id="s3" data-title="El problema económico" class="mb-14">
+      <div class="flex items-start gap-4 mb-5">
+        <span class="num-badge">3</span>
+        <div>
+          <p class="eyebrow" style="color:var(--ink-faint);">La raíz de todo</p>
+          <h2 class="font-display text-[1.55rem] font-semibold" style="color:var(--ink);">El problema económico</h2>
+        </div>
+      </div>
+
+      <div class="card p-6 sm:p-7 space-y-4">
+        <p><span class="tag tag-def mr-2">Definición</span>Las sociedades buscan <strong>satisfacer necesidades y deseos ilimitados</strong> con <strong>recursos escasos</strong>. Como no alcanza para todo, hay que elegir — y elegir bien es ser <strong>eficiente</strong>: obtener el máximo resultado con los recursos disponibles.</p>
+        <p style="color:var(--ink-muted);" class="text-[.92rem]">Todo el problema económico se resume en cuatro preguntas que va a reaparecer en microeconomía: <strong>¿qué producir, cuánto producir, cómo producir y para quién producir?</strong></p>
+      </div>
+
+      <!-- necesidades -->
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-5">
+        <div class="tnode" style="border-color:var(--brick-soft-border); background:var(--brick-soft);">
+          <p class="font-semibold text-[.85rem]" style="color:var(--brick);">Primarias o vitales</p>
+          <p class="text-[.82rem] mt-1" style="color:var(--ink-muted);">Alimento, agua, abrigo, salud. Su insatisfacción compromete la supervivencia.</p>
+        </div>
+        <div class="tnode" style="border-color:var(--gold-soft-border); background:var(--gold-soft);">
+          <p class="font-semibold text-[.85rem]" style="color:var(--gold);">Secundarias o psicológicas</p>
+          <p class="text-[.82rem] mt-1" style="color:var(--ink-muted);">Pertenencia, afecto, reconocimiento — ej. formar una familia.</p>
+        </div>
+        <div class="tnode" style="border-color:var(--accent-soft-border); background:var(--accent-soft);">
+          <p class="font-semibold text-[.85rem]" style="color:var(--accent);">Terciarias o superfluas</p>
+          <p class="text-[.82rem] mt-1" style="color:var(--ink-muted);">Lujos — ej. un yate. No vitales, pero mueven demanda igual.</p>
+        </div>
+      </div>
+
+      <!-- clasificación de bienes: 5 mini branches -->
+      <p class="eyebrow mt-8 mb-3" style="color:var(--ink-faint);">Clasificación de los bienes — 5 criterios independientes</p>
+      <div class="overflow-x-auto">
+        <div class="flex gap-3 min-w-[900px] lg:min-w-0 lg:grid lg:grid-cols-5">
+
+          <div class="flex flex-col items-center gap-2">
+            <div class="tnode tnode-root text-center w-full">Grado de escasez</div>
+            <svg width="2" height="14" class="diagram-svg"><line x1="1" y1="0" x2="1" y2="14"/></svg>
+            <details class="tleaf w-full"><summary>Bienes libres</summary><div class="tleaf-body">No requieren esfuerzo para obtenerse ni tienen precio: aire, luz solar.</div></details>
+            <details class="tleaf w-full"><summary>Bienes económicos</summary><div class="tleaf-body">Escasos en relación a su demanda: requieren esfuerzo/pago para obtenerse.</div></details>
+          </div>
+
+          <div class="flex flex-col items-center gap-2">
+            <div class="tnode tnode-root text-center w-full">Naturaleza</div>
+            <svg width="2" height="14" class="diagram-svg"><line x1="1" y1="0" x2="1" y2="14"/></svg>
+            <details class="tleaf w-full"><summary>Materiales</summary><div class="tleaf-body">Bienes tangibles: un celular, una computadora.</div></details>
+            <details class="tleaf w-full"><summary>Servicios</summary><div class="tleaf-body">Intangibles: un corte de pelo, una clase particular.</div></details>
+          </div>
+
+          <div class="flex flex-col items-center gap-2">
+            <div class="tnode tnode-root text-center w-full">Funcionalidad</div>
+            <svg width="2" height="14" class="diagram-svg"><line x1="1" y1="0" x2="1" y2="14"/></svg>
+            <details class="tleaf w-full"><summary>Consumo</summary><div class="tleaf-body">Satisfacen necesidades directamente: comida, ropa.</div></details>
+            <details class="tleaf w-full"><summary>Inversión</summary><div class="tleaf-body">Se usan para producir otros bienes: una máquina, una fábrica.</div></details>
+          </div>
+
+          <div class="flex flex-col items-center gap-2">
+            <div class="tnode tnode-root text-center w-full">Grado de transformación</div>
+            <svg width="2" height="14" class="diagram-svg"><line x1="1" y1="0" x2="1" y2="14"/></svg>
+            <details class="tleaf w-full"><summary>Intermedios</summary><div class="tleaf-body">Insumos que aún serán transformados: harina para hacer pan.</div></details>
+            <details class="tleaf w-full"><summary>Finales</summary><div class="tleaf-body">Listos para el consumidor: el pan ya horneado.</div></details>
+          </div>
+
+          <div class="flex flex-col items-center gap-2">
+            <div class="tnode tnode-root text-center w-full">Facilidad de acceso</div>
+            <svg width="2" height="14" class="diagram-svg"><line x1="1" y1="0" x2="1" y2="14"/></svg>
+            <details class="tleaf w-full"><summary>Privados</summary><div class="tleaf-body">Su consumo es excluyente: un auto.</div></details>
+            <details class="tleaf w-full"><summary>Públicos</summary><div class="tleaf-body">No excluyentes, provistos típicamente por el Estado: alumbrado, defensa.</div></details>
+          </div>
+
+        </div>
+      </div>
+
+      <details class="flash mt-5">
+        <summary><span class="qmark">?</span> ¿Cuáles son las 3 categorías de necesidades y qué las distingue?<svg class="icon flip-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></summary>
+        <div class="flash-back"><strong>Primarias/vitales</strong> (supervivencia: comida, agua), <strong>secundarias/psicológicas</strong> (afecto, pertenencia) y <strong>terciarias/superfluas</strong> (lujos). El problema económico existe precisamente porque los recursos escasos no alcanzan para satisfacerlas todas a la vez.</div>
+      </details>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- 4. SISTEMAS ECONÓMICOS -->
+    <!-- ============================================================ -->
+    <section id="s4" data-title="Sistemas económicos" class="mb-14">
+      <div class="flex items-start gap-4 mb-5">
+        <span class="num-badge">4</span>
+        <div>
+          <p class="eyebrow" style="color:var(--ink-faint);">Cómo se organiza una sociedad</p>
+          <h2 class="font-display text-[1.55rem] font-semibold" style="color:var(--ink);">Sistemas económicos</h2>
+        </div>
+      </div>
+
+      <div class="card p-6 sm:p-7 space-y-4">
+        <p><span class="tag tag-def mr-2">Definición</span>Un <strong>sistema económico</strong> es un conjunto de personas y organizaciones que persiguen un fin común (el bienestar general), compartiendo motivaciones, capacidades y limitaciones de recursos y contexto. Para lograrlo, se estructura mediante <strong>instituciones, mecanismos y regulaciones</strong> que ordenan las relaciones de producción, intercambio-distribución y consumo entre los agentes.</p>
+        <p style="color:var(--ink-muted);" class="text-[.92rem]">Históricamente existieron dos modelos puros y opuestos para resolver el problema económico:</p>
+      </div>
+
+      <figure class="mt-5">
+        <svg class="diagram-svg w-full h-auto" viewBox="0 0 660 280" role="img" aria-label="Diagrama: el Sistema Económico se divide en Economía de Mercado, con propiedad privada, decisiones descentralizadas y mercados competitivos; y Economía Planificada, con propiedad colectiva, una agencia central que decide, y pseudomercados." style="color:var(--ink);">
+          <!-- root -->
+          <g class="node-g">
+            <rect class="node-box root" x="8" y="108" width="150" height="44" rx="9"/>
+            <text x="83" y="126" text-anchor="middle" font-size="10.5" font-weight="700" fill="currentColor">SISTEMA</text>
+            <text x="83" y="140" text-anchor="middle" font-size="10.5" font-weight="700" fill="currentColor">ECONÓMICO</text>
+          </g>
+          <!-- links to branches -->
+          <path class="link" fill="none" d="M158,130 C210,130 210,38 250,38"/>
+          <path class="link" fill="none" d="M158,130 C210,130 210,222 250,222"/>
+          <!-- branch: mercado -->
+          <g class="node-g" data-title="De Mercado" data-more="También llamada capitalismo o economía de libre mercado: el Estado interviene poco, solo garantiza reglas de juego (propiedad, contratos) y corrige fallas puntuales.">
+            <rect class="node-box" x="250" y="18" width="170" height="40" rx="8" style="stroke:var(--accent); stroke-width:1.5;"/>
+            <text x="335" y="42" text-anchor="middle" font-size="11.5" font-weight="700" fill="var(--accent)">De Mercado</text>
+          </g>
+          <!-- branch: planificada -->
+          <g class="node-g" data-title="Planificada" data-more="También llamada centralizada o colectivista. La URSS y la Cuba previa a 1990 son los ejemplos históricos más citados de este sistema puro.">
+            <rect class="node-box" x="250" y="202" width="170" height="40" rx="8" style="stroke:var(--brick); stroke-width:1.5;"/>
+            <text x="335" y="226" text-anchor="middle" font-size="11.5" font-weight="700" fill="var(--brick)">Planificada</text>
+          </g>
+          <!-- links mercado to leaves -->
+          <path class="link" fill="none" d="M420,38 C445,38 445,19 470,19"/>
+          <path class="link" fill="none" d="M420,38 C445,38 445,61 470,61"/>
+          <path class="link" fill="none" d="M420,38 C445,38 445,103 470,103"/>
+          <!-- leaves mercado -->
+          <g class="node-g" data-title="Propiedad privada" data-more="Ejemplo: una fábrica, un campo o una empresa de software pertenecen a personas o accionistas privados, no al Estado."><rect class="node-box" x="470" y="2" width="182" height="34" rx="7"/><text x="561" y="16" text-anchor="middle" font-size="9.5" font-weight="600" fill="currentColor">Propiedad privada</text><text x="561" y="28" text-anchor="middle" font-size="8" fill="var(--ink-faint)">de medios de producción</text></g>
+          <g class="node-g" data-title="Decisiones individuales" data-more="Cada consumidor y cada empresa decide qué comprar, vender o producir según su propio interés, sin que nadie las coordine desde arriba."><rect class="node-box" x="470" y="44" width="182" height="34" rx="7"/><text x="561" y="58" text-anchor="middle" font-size="9.5" font-weight="600" fill="currentColor">Decisiones individuales</text><text x="561" y="70" text-anchor="middle" font-size="8" fill="var(--ink-faint)">descentralizadas</text></g>
+          <g class="node-g" data-title="Mercados competitivos" data-more="El precio surge del cruce entre oferta y demanda, sin que ningún ente central lo fije de antemano."><rect class="node-box" x="470" y="86" width="182" height="34" rx="7"/><text x="561" y="100" text-anchor="middle" font-size="9.5" font-weight="600" fill="currentColor">Mercados competitivos</text><text x="561" y="112" text-anchor="middle" font-size="8" fill="var(--ink-faint)">oferta y demanda</text></g>
+          <!-- links planificada to leaves -->
+          <path class="link" fill="none" d="M420,222 C445,222 445,175 470,175"/>
+          <path class="link" fill="none" d="M420,222 C445,222 445,217 470,217"/>
+          <path class="link" fill="none" d="M420,222 C445,222 445,259 470,259"/>
+          <!-- leaves planificada -->
+          <g class="node-g" data-title="Propiedad colectiva" data-more="Los medios de producción (fábricas, tierra, maquinaria) pertenecen al Estado o a la colectividad, no a privados."><rect class="node-box" x="470" y="158" width="182" height="34" rx="7"/><text x="561" y="172" text-anchor="middle" font-size="9.5" font-weight="600" fill="currentColor">Propiedad colectiva</text><text x="561" y="184" text-anchor="middle" font-size="8" fill="var(--ink-faint)">de medios de producción</text></g>
+          <g class="node-g" data-title="Agencia Central" data-more="Ejemplo histórico: el Gosplan soviético fijaba cuánto acero, pan o calzado debía producir cada fábrica del país."><rect class="node-box" x="470" y="200" width="182" height="34" rx="7"/><text x="561" y="214" text-anchor="middle" font-size="9.5" font-weight="600" fill="currentColor">Agencia Central</text><text x="561" y="226" text-anchor="middle" font-size="8" fill="var(--ink-faint)">decide qué, cómo, para quién</text></g>
+          <g class="node-g" data-title="Pseudomercados" data-more="Existen puntos de venta, pero sin negociación real: el precio y la cantidad ya vienen fijados, no hay verdadero intercambio de mercado."><rect class="node-box" x="470" y="242" width="182" height="34" rx="7"/><text x="561" y="256" text-anchor="middle" font-size="9.5" font-weight="600" fill="currentColor">Pseudomercados</text><text x="561" y="268" text-anchor="middle" font-size="8" fill="var(--ink-faint)">bienes racionados, sin negociar</text></g>
+        </svg>
+        <p class="tree-hint"><span class="hint-plus">+</span>Tocá un nodo del diagrama para ver un ejemplo</p>
+        <div class="tree-detail" hidden></div>
+        <figcaption class="text-[.82rem] mt-2 text-center" style="color:var(--ink-faint);">Los dos sistemas puros se diferencian en <strong>quién es dueño</strong> de los medios de producción y <strong>quién decide</strong> qué, cómo y para quién producir. La ex URSS es el ejemplo histórico de economía planificada; sus "pseudomercados" repartían bienes sin que las partes pudieran negociar precio ni cantidad.</figcaption>
+      </figure>
+
+      <p class="eyebrow mt-8 mb-3" style="color:var(--ink-faint);">Cómo llegamos hasta acá — evolución del capitalismo</p>
+      <div class="overflow-x-auto">
+        <div class="flex gap-3 min-w-[760px] lg:min-w-0 lg:grid lg:grid-cols-4">
+          <details class="tleaf w-full"><summary><span class="font-mono text-[.7rem]" style="color:var(--accent);">Edad Media</span> Capitalismo mercantil</summary><div class="tleaf-body">Comerciantes y banqueros mal vistos por la Iglesia (se asociaba lucro con usura). Cambia con la imprenta, el descubrimiento de América y la Reforma.</div></details>
+          <details class="tleaf w-full"><summary><span class="font-mono text-[.7rem]" style="color:var(--accent);">S. XVIII-XIX</span> Industrial "salvaje"</summary><div class="tleaf-body">Gran innovación tecnológica financiada con fuerte explotación laboral: sin límite de jornada, trabajo infantil, hacinamiento. Marx predijo su colapso por lucha de clases — no se cumplió.</div></details>
+          <details class="tleaf w-full"><summary><span class="font-mono text-[.7rem]" style="color:var(--accent);">S. XX</span> Regulado o mixto</summary><div class="tleaf-body">Presión sindical y socialista logra jornada de 8hs, vacaciones pagas, licencias. El Estado empieza a regular el mercado.</div></details>
+          <details class="tleaf w-full"><summary><span class="font-mono text-[.7rem]" style="color:var(--accent);">Fines S.XX-hoy</span> Neoliberalismo y globalización</summary><div class="tleaf-body">El Estado se repliega (privatizaciones, desregulación). Domina lo supranacional: capitales financieros internacionales y acreedores de deuda pública.</div></details>
+        </div>
+      </div>
+
+      <details class="flash mt-5">
+        <summary><span class="qmark">?</span> ¿Cuál es la diferencia clave entre economía de mercado y planificada?<svg class="icon flip-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></summary>
+        <div class="flash-back">En el <strong>mercado</strong>, la propiedad es privada y millones de decisiones individuales y descentralizadas se coordinan vía precios en mercados competitivos. En la <strong>planificada</strong>, la propiedad es colectiva y una <strong>Agencia Central de Planificación</strong> decide de forma centralizada qué, cuánto, cómo y para quién producir — sin negociación entre las partes.</div>
+      </details>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- 5. PENSADORES ECONÓMICOS -->
+    <!-- ============================================================ -->
+    <section id="s5" data-title="Pensadores económicos" class="mb-14">
+      <div class="flex items-start gap-4 mb-5">
+        <span class="num-badge">5</span>
+        <div>
+          <p class="eyebrow" style="color:var(--ink-faint);">Quiénes construyeron la disciplina</p>
+          <h2 class="font-display text-[1.55rem] font-semibold" style="color:var(--ink);">Pensadores económicos</h2>
+        </div>
+      </div>
+
+      <div class="card p-6 sm:p-7 mb-5">
+        <p style="color:var(--ink-muted);" class="text-[.92rem]">No hace falta memorizar biografías: lo importante es <strong>qué idea central aportó cada corriente</strong>, porque esas ideas son las que después chocan entre "intervenir" o "no intervenir" el mercado.</p>
+      </div>
+
+      <p class="eyebrow mb-2" style="color:var(--accent);">Los clásicos (liberales)</p>
+      <div class="overflow-x-auto mb-6">
+        <div class="flex gap-3 min-w-[860px] xl:min-w-0 xl:grid xl:grid-cols-4">
+          <div class="tnode" style="min-height:118px;">
+            <p class="font-semibold">Adam Smith <span class="font-mono text-[.7rem]" style="color:var(--ink-faint);">1723–1790</span></p>
+            <p class="text-[.8rem] mt-1" style="color:var(--ink-muted);"><em>La riqueza de las naciones</em> (1776). Propone la metáfora de la <strong>"mano invisible"</strong>: sin planificarlo, el interés individual de compradores y vendedores termina acercándolos a un acuerdo de mercado. Padre de la Economía.</p>
+          </div>
+          <div class="tnode" style="min-height:118px;">
+            <p class="font-semibold">David Ricardo</p>
+            <p class="text-[.8rem] mt-1" style="color:var(--ink-muted);">Teoría del <strong>valor-trabajo</strong> y de la <strong>ventaja comparativa</strong>: conviene que cada país se especialice en lo que produce con menor costo relativo, y comercie el resto.</p>
+          </div>
+          <div class="tnode" style="min-height:118px;">
+            <p class="font-semibold">John Stuart Mill</p>
+            <p class="text-[.8rem] mt-1" style="color:var(--ink-muted);">Continúa la teoría del valor-trabajo en una economía todavía muy manual, donde el costo de un bien dependía sobre todo de la mano de obra requerida.</p>
+          </div>
+          <div class="tnode" style="min-height:118px;">
+            <p class="font-semibold">Karl Marx</p>
+            <p class="text-[.8rem] mt-1" style="color:var(--ink-muted);">Considerado el último clásico. Vio en el capitalismo industrial una <strong>lucha de clases</strong> y predijo su colapso por revolución — reemplazado por una economía planificada. La predicción no se cumplió: el capitalismo se adaptó regulándose.</p>
+          </div>
+        </div>
+      </div>
+
+      <p class="eyebrow mb-2" style="color:var(--gold);">Marginalistas / neoclásicos</p>
+      <div class="overflow-x-auto mb-6">
+        <div class="flex gap-3 min-w-[860px] xl:min-w-0 xl:grid xl:grid-cols-4">
+          <div class="tnode" style="min-height:100px;"><p class="font-semibold">Jevons y Menger</p><p class="text-[.8rem] mt-1" style="color:var(--ink-muted);">Impulsan el análisis <strong>marginalista</strong>: utilidad marginal, producto marginal, costo marginal — la base de buena parte de la microeconomía.</p></div>
+          <div class="tnode" style="min-height:100px;"><p class="font-semibold">Léon Walras</p><p class="text-[.8rem] mt-1" style="color:var(--ink-muted);">Modelo de <strong>equilibrio general</strong>: si todos los mercados están en equilibrio a la vez, hay equilibrio de conjunto — bajo supuestos muy fuertes (competencia perfecta, información simétrica, sin externalidades) que en la práctica casi nunca se cumplen.</p></div>
+          <div class="tnode" style="min-height:100px;"><p class="font-semibold">Alfred Marshall</p><p class="text-[.8rem] mt-1" style="color:var(--ink-muted);">Autor del clásico gráfico de <strong>oferta y demanda</strong> que usamos hoy en microeconomía (1890).</p></div>
+          <div class="tnode" style="min-height:100px; background:var(--surface-2);"><p class="font-semibold" style="color:var(--ink-muted);">En síntesis</p><p class="text-[.8rem] mt-1" style="color:var(--ink-muted);">Siguen el ideario liberal de Smith pero con más herramienta matemática. Todavía piensan en términos de mercados individuales (microeconomía).</p></div>
+        </div>
+      </div>
+
+      <p class="eyebrow mb-2" style="color:var(--brick);">Keynes y el nacimiento de la macroeconomía</p>
+      <div class="card p-6 sm:p-7 space-y-3">
+        <p><strong>John Maynard Keynes</strong> (1883–1946), británico, publica la <em>Teoría General de la ocupación, el interés y el dinero</em> (1936) tras la Gran Depresión de 1929. Es considerado el <strong>padre de la Macroeconomía</strong>.</p>
+        <p style="color:var(--ink-muted);" class="text-[.92rem]">Su idea disruptiva: el mercado <strong>no siempre se autorregula</strong>. Si hay una crisis, esperar que "la mano invisible" ajuste precios y salarios puede tardar demasiado — y mientras tanto, empresas quiebran y sube el desempleo. Por eso el <strong>Estado debe intervenir</strong> activamente con política económica <strong>anticíclica</strong>: gastar y estimular en la recesión, enfriar en el auge.</p>
+        <p style="color:var(--ink-muted);" class="text-[.92rem]">Después de Keynes, el debate siguió: los <strong>monetaristas</strong> (Milton Friedman) responsabilizaron a la emisión monetaria excesiva por la inflación de posguerra y pidieron reglas monetarias estrictas; los <strong>nuevos keynesianos</strong> (Krugman, Bernanke, entre otros) retomaron el rol activo del Estado en los 80. Hoy la disciplina es bastante <strong>ecléctica</strong>: toma elementos de ambas tradiciones según el problema.</p>
+      </div>
+
+      <div class="grid sm:grid-cols-2 gap-4 mt-5">
+        <details class="flash">
+          <summary><span class="qmark">?</span> ¿Qué propone la "mano invisible" de Adam Smith?<svg class="icon flip-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></summary>
+          <div class="flash-back">Que sin ninguna coordinación central, el interés propio de compradores y vendedores —cada uno buscando lo mejor para sí— termina acercándolos a un precio y cantidad de equilibrio que beneficia al conjunto. Es una metáfora, no un modelo matemático: Smith no llegó a graficar oferta y demanda.</div>
+        </details>
+        <details class="flash">
+          <summary><span class="qmark">?</span> ¿Por qué se dice que Keynes es el "padre de la Macroeconomía"?<svg class="icon flip-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></summary>
+          <div class="flash-back">Porque frente a la Gran Depresión sostuvo que los mercados <strong>pueden fallar</strong> y no autoajustarse en el corto plazo, y que el <strong>Estado debe intervenir</strong> con política anticíclica para sostener el empleo y la actividad — la base de todo el análisis macroeconómico moderno.</div>
+        </details>
+      </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- 6. MICRO Y MACROECONOMÍA -->
+    <!-- ============================================================ -->
+    <section id="s6" data-title="Micro y Macroeconomía" class="mb-14">
+      <div class="flex items-start gap-4 mb-5">
+        <span class="num-badge">6</span>
+        <div>
+          <p class="eyebrow" style="color:var(--ink-faint);">Las dos escalas de análisis</p>
+          <h2 class="font-display text-[1.55rem] font-semibold" style="color:var(--ink);">Microeconomía y Macroeconomía</h2>
+        </div>
+      </div>
+
+      <div class="grid sm:grid-cols-2 gap-4">
+        <div class="card p-5 sm:p-6">
+          <p class="tag tag-def mb-2">Microeconomía</p>
+          <p class="text-[.9rem]">Estudia la <strong>conducta de las unidades económicas individuales</strong> (familia, empresa) y el funcionamiento de <strong>mercados particulares</strong>: cómo se asignan recursos escasos y se distribuye el ingreso a esa escala.</p>
+          <ul class="mt-3 space-y-1.5 text-[.85rem]" style="color:var(--ink-muted);">
+            <li>→ ¿Qué y cuánto producir? — asignación de recursos</li>
+            <li>→ ¿Cómo producir? — teoría de la producción</li>
+            <li>→ ¿Cómo se fijan los precios relativos? — teoría de precios</li>
+            <li>→ ¿Cómo se distribuyen los ingresos?</li>
+          </ul>
+        </div>
+        <div class="card p-5 sm:p-6" style="border-color:var(--accent-soft-border); background:var(--accent-soft);">
+          <p class="tag" style="background:var(--accent); color:var(--accent-ink);">Macroeconomía</p>
+          <p class="text-[.9rem] mt-2">Estudia el <strong>funcionamiento global</strong> del sistema económico (normalmente a escala nacional), integrando familias, empresas y dándole un <strong>rol protagónico al Gobierno</strong>. Es, en esencia, la <strong>teoría de la política económica</strong>.</p>
+        </div>
+      </div>
+
+      <!-- corto vs largo plazo -->
+      <div class="grid sm:grid-cols-2 gap-4 mt-4">
+        <div class="tnode" style="padding:1.1rem;">
+          <p class="font-semibold" style="color:var(--gold);">Macro coyuntural — corto plazo</p>
+          <p class="text-[.85rem] mt-1.5" style="color:var(--ink-muted);">Analiza las <strong>fluctuaciones del momento</strong>: nivel de actividad, empleo/desempleo, inflación. Objetivo: tomar medidas rápidas para "apagar incendios" — reactivar si hay caída, frenar si está recalentada.</p>
+        </div>
+        <div class="tnode" style="padding:1.1rem;">
+          <p class="font-semibold" style="color:var(--brick);">Macro estructural — largo plazo</p>
+          <p class="text-[.85rem] mt-1.5" style="color:var(--ink-muted);">Apunta a metas superiores y más lentas de lograr: <strong>crecimiento sostenido</strong>, mejorar la distribución del ingreso, reducir pobreza e indigencia. Objetivo: que el crecimiento cuantitativo se traduzca en <strong>desarrollo y bienestar</strong> real.</p>
+        </div>
+      </div>
+      <p class="text-[.85rem] mt-3" style="color:var(--ink-faint);">El desafío del policy-maker es usar ambas cajas de herramientas <strong>a la vez</strong>: resolver la urgencia de hoy sin perder de vista la planificación de largo plazo.</p>
+
+      <!-- niveles de política económica: SVG tree -->
+      <p class="eyebrow mt-8 mb-3" style="color:var(--ink-faint);">Los 6 niveles que aborda la política económica</p>
+      <figure>
+        <svg class="diagram-svg w-full h-auto" viewBox="0 0 680 340" role="img" aria-label="Diagrama: la Política Económica se organiza en seis niveles — Actividad, Empleo, Monetario, Precios, Público y Externo." style="color:var(--ink);">
+          <g class="node-g"><rect class="node-box root" x="8" y="148" width="140" height="44" rx="9"/><text x="78" y="166" text-anchor="middle" font-size="10" font-weight="700" fill="currentColor">POLÍTICA</text><text x="78" y="180" text-anchor="middle" font-size="10" font-weight="700" fill="currentColor">ECONÓMICA</text></g>
+          <path class="link" fill="none" d="M148,170 C260,170 260,32 420,32"/>
+          <path class="link" fill="none" d="M148,170 C260,170 260,86 420,86"/>
+          <path class="link" fill="none" d="M148,170 C260,170 260,140 420,140"/>
+          <path class="link" fill="none" d="M148,170 C260,170 260,194 420,194"/>
+          <path class="link" fill="none" d="M148,170 C260,170 260,248 420,248"/>
+          <path class="link" fill="none" d="M148,170 C260,170 260,302 420,302"/>
+          <g class="node-g" data-title="Nivel de Actividad" data-more="Meta de referencia (Ventura): ~5% de crecimiento anual del PBI, aunque lo razonable depende del grado de desarrollo de cada país."><rect class="node-box" x="420" y="10" width="250" height="44" rx="8"/><text x="435" y="27" font-size="10.5" font-weight="700" fill="currentColor">Nivel de Actividad</text><text x="435" y="41" font-size="8.3" fill="var(--ink-faint)">PBI, valor agregado, ingreso nacional</text></g>
+          <g class="node-g" data-title="Nivel de Empleo" data-more="Meta de referencia: desempleo cercano al 5%, considerado el desempleo natural de una economía sana."><rect class="node-box" x="420" y="64" width="250" height="44" rx="8"/><text x="435" y="81" font-size="10.5" font-weight="700" fill="currentColor">Nivel de Empleo</text><text x="435" y="95" font-size="8.3" fill="var(--ink-faint)">Tasas de empleo, desempleo, subempleo</text></g>
+          <g class="node-g" data-title="Nivel Monetario" data-more="El Banco Central maneja la tasa de interés y la cantidad de dinero en circulación para influir sobre el crédito y el consumo."><rect class="node-box" x="420" y="118" width="250" height="44" rx="8"/><text x="435" y="135" font-size="10.5" font-weight="700" fill="currentColor">Nivel Monetario</text><text x="435" y="149" font-size="8.3" fill="var(--ink-faint)">Oferta de dinero, tasas de interés, crédito</text></g>
+          <g class="node-g" data-title="Nivel de Precios" data-more="En Argentina lo mide el INDEC con el IPC (Índice de Precios al Consumidor); el objetivo es una inflación baja y estable."><rect class="node-box" x="420" y="172" width="250" height="44" rx="8"/><text x="435" y="189" font-size="10.5" font-weight="700" fill="currentColor">Nivel de Precios</text><text x="435" y="203" font-size="8.3" fill="var(--ink-faint)">IPC (INDEC), tasa de inflación</text></g>
+          <g class="node-g" data-title="Nivel Público" data-more="Mide si el Estado gasta más de lo que recauda (déficit fiscal) y cómo se financia esa diferencia: con deuda o con emisión."><rect class="node-box" x="420" y="226" width="250" height="44" rx="8"/><text x="435" y="243" font-size="10.5" font-weight="700" fill="currentColor">Nivel Público</text><text x="435" y="257" font-size="8.3" fill="var(--ink-faint)">Presupuesto, gasto, déficit, deuda</text></g>
+          <g class="node-g" data-title="Nivel Externo" data-more="El tipo de cambio y la balanza de pagos miden cuánto entra y sale del país en comercio de bienes y en movimientos de capital."><rect class="node-box" x="420" y="280" width="250" height="44" rx="8"/><text x="435" y="297" font-size="10.5" font-weight="700" fill="currentColor">Nivel Externo</text><text x="435" y="311" font-size="8.3" fill="var(--ink-faint)">Tipo de cambio, balanza de pagos, comercio</text></g>
+        </svg>
+        <p class="tree-hint"><span class="hint-plus">+</span>Tocá un nivel para ver su meta de referencia</p>
+        <div class="tree-detail" hidden></div>
+        <figcaption class="text-[.82rem] mt-2 text-center" style="color:var(--ink-faint);">Metas de referencia (Ventura): ~5% de crecimiento anual, desempleo natural ~5%, inflación baja (idealmente &lt;10%), equilibrio fiscal y estabilidad cambiaria. Son valores <strong>relativos</strong>: pedirle 5% de crecimiento a una economía desarrollada no es lo mismo que pedírselo a una en vías de desarrollo.</figcaption>
+      </figure>
+
+      <p class="eyebrow mt-8 mb-3" style="color:var(--ink-faint);">La caja de herramientas: instrumentos de política económica</p>
+      <div class="overflow-x-auto">
+        <div class="flex gap-3 min-w-[760px] lg:min-w-0 lg:grid lg:grid-cols-4">
+          <details class="tleaf w-full"><summary>Fiscal y tributaria</summary><div class="tleaf-body">Manejo de impuestos y gasto público.</div></details>
+          <details class="tleaf w-full"><summary>Monetaria y cambiaria</summary><div class="tleaf-body">Controla la cantidad de dinero circulante, las tasas de interés y el valor de la moneda.</div></details>
+          <details class="tleaf w-full"><summary>Comercio internacional e interno</summary><div class="tleaf-body">Aranceles, cuotas de importación, retenciones a la exportación, control de precios.</div></details>
+          <details class="tleaf w-full"><summary>Mercado laboral y deuda</summary><div class="tleaf-body">Regulaciones salariales y gestión de obligaciones internacionales.</div></details>
+        </div>
+      </div>
+
+      <details class="flash mt-5">
+        <summary><span class="qmark">?</span> Macro coyuntural vs. estructural — ¿en qué se diferencian?<svg class="icon flip-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></summary>
+        <div class="flash-back">La <strong>coyuntural (corto plazo)</strong> mira las fluctuaciones del momento — actividad, empleo, inflación — y busca reaccionar rápido. La <strong>estructural (largo plazo)</strong> apunta a metas más ambiciosas y lentas: crecimiento sostenido, mejor distribución del ingreso, menos pobreza. El desafío es atender la urgencia sin perder de vista el largo plazo.</div>
+      </details>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- 7. LA ECONOMÍA COMO CIENCIA -->
+    <!-- ============================================================ -->
+    <section id="s7" data-title="La Economía como ciencia" class="mb-14">
+      <div class="flex items-start gap-4 mb-5">
+        <span class="num-badge">7</span>
+        <div>
+          <p class="eyebrow" style="color:var(--ink-faint);">Con qué reglas juega esta disciplina</p>
+          <h2 class="font-display text-[1.55rem] font-semibold" style="color:var(--ink);">La Economía como ciencia</h2>
+        </div>
+      </div>
+
+      <figure>
+        <svg class="diagram-svg w-full h-auto" viewBox="0 0 780 280" role="img" aria-label="Diagrama: las Ciencias se dividen en Formales o Abstractas y Fácticas o Empíricas; estas últimas se dividen en Naturales, con enunciados universales, y Sociales —como la Economía— con validez particular." style="color:var(--ink);">
+          <g class="node-g"><rect class="node-box root" x="8" y="94" width="130" height="48" rx="9"/><text x="73" y="114" text-anchor="middle" font-size="11" font-weight="700" fill="currentColor">CIENCIAS</text><text x="73" y="128" text-anchor="middle" font-size="8" fill="var(--accent-ink)" opacity=".85">clasificación</text></g>
+          <path class="link" fill="none" d="M138,118 C190,118 190,38 240,38"/>
+          <path class="link" fill="none" d="M138,118 C190,118 190,192 240,192"/>
+          <g class="node-g" data-title="Formales / Abstractas" data-more="Ejemplo: en matemática, 2+2=4 es verdad en cualquier país y época — no depende de ningún dato del mundo real."><rect class="node-box" x="240" y="10" width="220" height="56" rx="8"/><text x="255" y="30" font-size="11" font-weight="700" fill="currentColor">Formales / Abstractas</text><text x="255" y="45" font-size="8.3" fill="var(--ink-faint)">Matemática, lógica: parten de</text><text x="255" y="56" font-size="8.3" fill="var(--ink-faint)">axiomas — enunciados universales</text></g>
+          <g class="node-g" data-title="Fácticas / Empíricas" data-more="Sus enunciados se contrastan con la observación de la realidad y pueden ser refutados por nueva evidencia."><rect class="node-box" x="240" y="170" width="220" height="44" rx="8" style="stroke:var(--accent); stroke-width:1.5;"/><text x="255" y="190" font-size="11" font-weight="700" fill="var(--accent)">Fácticas / Empíricas</text><text x="255" y="203" font-size="8.3" fill="var(--ink-faint)">Estudian hechos de la realidad</text></g>
+          <path class="link" fill="none" d="M460,192 C480,192 480,152 500,152"/>
+          <path class="link" fill="none" d="M460,192 C480,192 480,240 500,240"/>
+          <g class="node-g" data-title="Naturales" data-more="Ejemplo: la ley de gravedad se cumple igual en Argentina que en Japón, sin excepciones culturales."><rect class="node-box" x="500" y="128" width="272" height="48" rx="8"/><text x="515" y="148" font-size="11" font-weight="700" fill="currentColor">Naturales</text><text x="515" y="162" font-size="8.3" fill="var(--ink-faint)">Física, química — leyes universales</text></g>
+          <g class="node-g" data-title="Sociales — acá vive la Economía" data-more="Ejemplo: una inflación del 20% anual se considera catastrófica en algunos países y manejable en otros, según su historia económica."><rect class="node-box" x="500" y="214" width="272" height="52" rx="8" style="stroke:var(--brick); stroke-width:1.5;"/><text x="515" y="234" font-size="11" font-weight="700" fill="var(--brick)">Sociales — acá vive la Economía</text><text x="515" y="248" font-size="8.3" fill="var(--ink-faint)">Validez particular, según cada</text><text x="515" y="259" font-size="8.3" fill="var(--ink-faint)">sociedad y su coyuntura</text></g>
+        </svg>
+        <p class="tree-hint"><span class="hint-plus">+</span>Tocá una categoría para ver un ejemplo</p>
+        <div class="tree-detail" hidden></div>
+        <figcaption class="text-[.82rem] mt-2 text-center" style="color:var(--ink-faint);">A diferencia de la física o la matemática, en Economía la validez de una teoría <strong>depende del comportamiento humano, la cultura y las condiciones de cada sociedad</strong> — no es universal. Por eso una misma receta de política económica puede funcionar en un país y fracasar en otro.</figcaption>
+      </figure>
+
+      <p class="eyebrow mt-8 mb-3" style="color:var(--ink-faint);">Modelos económicos</p>
+      <div class="card p-6 sm:p-7 space-y-3">
+        <p><span class="tag tag-def mr-2">Definición</span>Un <strong>modelo</strong> es una abstracción o representación simplificada de la realidad. No es la realidad ni tiene que serlo: recorta una parte para poder describirla o pronosticarla.</p>
+        <p><span class="tag tag-def mr-2">Ceteris paribus</span>Del latín "lo demás constante". Es el supuesto que permite aislar unas pocas variables asumiendo que <strong>todas las demás permanecen sin cambios</strong> — pasan de ser variables a ser parámetros. Ej.: "el dólar hará tal cosa, <em>ceteris paribus</em> no cambia el gobierno, no sube un arancel de Trump, no estalla una guerra".</p>
+      </div>
+
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 mt-4">
+        <div class="tnode text-center"><p class="font-semibold text-[.85rem]">Consistencia</p><p class="text-[.78rem] mt-1" style="color:var(--ink-muted);">Coherencia lógica interna: no proponer dos cosas contradictorias a la vez.</p></div>
+        <div class="tnode text-center"><p class="font-semibold text-[.85rem]">Racionalidad</p><p class="text-[.78rem] mt-1" style="color:var(--ink-muted);">Quien modela sabe qué parte de la realidad estudiar y qué información es relevante.</p></div>
+        <div class="tnode text-center"><p class="font-semibold text-[.85rem]">Eficiencia</p><p class="text-[.78rem] mt-1" style="color:var(--ink-muted);">Lograr el objetivo con el menor esfuerzo, tiempo y recursos posibles.</p></div>
+        <div class="tnode text-center"><p class="font-semibold text-[.85rem]">Trascendencia</p><p class="text-[.78rem] mt-1" style="color:var(--ink-muted);">Sirve más allá del propio autor: resuelve problemas reales de la sociedad.</p></div>
+      </div>
+
+      <p class="eyebrow mt-6 mb-2" style="color:var(--ink-faint);">¿Cuántas variables debe incluir un modelo? — ni muchas ni pocas</p>
+      <div class="grid sm:grid-cols-2 gap-4">
+        <div class="card p-5" style="border-color:var(--gold-soft-border);">
+          <p class="font-semibold" style="color:var(--gold);">Pocas variables → gana eficiencia, pierde eficacia</p>
+          <p class="text-[.85rem] mt-1.5" style="color:var(--ink-muted);">Ej.: explicar la inflación solo con la emisión monetaria, sin mirar la demanda de dinero o el crecimiento. El pronóstico se vuelve impreciso: hay <strong>sesgo por omisión de variables relevantes</strong>.</p>
+        </div>
+        <div class="card p-5" style="border-color:var(--brick-soft-border);">
+          <p class="font-semibold" style="color:var(--brick);">Demasiadas variables → gana eficacia, pierde eficiencia</p>
+          <p class="text-[.85rem] mt-1.5" style="color:var(--ink-muted);">Si se agregan variables redundantes y muy correlacionadas entre sí, el sistema queda <strong>indeterminado</strong> (matemáticamente, el determinante tiende a cero) y el pronóstico deja de servir.</p>
+        </div>
+      </div>
+
+      <!-- flujo vs stock / endogenas vs exogenas -->
+      <div class="grid sm:grid-cols-2 gap-4 mt-6">
+        <div class="tnode" style="padding:1.1rem;">
+          <p class="font-semibold" style="color:var(--accent);">Variable flujo — "la película"</p>
+          <p class="text-[.85rem] mt-1.5" style="color:var(--ink-muted);">Mide la evolución de una variable <strong>durante un período</strong> de tiempo. Ej.: consumo mensual, la oferta y demanda, el PBI, el ahorro del mes, la inversión.</p>
+        </div>
+        <div class="tnode" style="padding:1.1rem;">
+          <p class="font-semibold" style="color:var(--accent);">Variable stock — "la foto"</p>
+          <p class="text-[.85rem] mt-1.5" style="color:var(--ink-muted);">Mide el estado de una variable en un <strong>corte del tiempo</strong>, a una fecha específica. Ej.: la riqueza acumulada hoy, el saldo final de una cuenta al 31 del mes, el capital de una empresa.</p>
+        </div>
+        <div class="tnode" style="padding:1.1rem;">
+          <p class="font-semibold" style="color:var(--gold);">Variables endógenas</p>
+          <p class="text-[.85rem] mt-1.5" style="color:var(--ink-muted);">Las que el modelo busca explicar o pronosticar: sus valores se determinan <strong>dentro</strong> del propio modelo.</p>
+        </div>
+        <div class="tnode" style="padding:1.1rem;">
+          <p class="font-semibold" style="color:var(--gold);">Variables exógenas</p>
+          <p class="text-[.85rem] mt-1.5" style="color:var(--ink-muted);">Se toman como un dato, parámetro o constante (asociadas al <em>ceteris paribus</em>): vienen dadas <strong>desde afuera</strong> del modelo.</p>
+        </div>
+      </div>
+
+      <!-- positiva vs normativa -->
+      <p class="eyebrow mt-8 mb-3" style="color:var(--ink-faint);">Enfoques: economía positiva vs. normativa</p>
+      <div class="grid sm:grid-cols-2 gap-4">
+        <div class="card p-5" style="border-color:var(--accent-soft-border);">
+          <p class="tag tag-def">Positiva — lo que ES</p>
+          <p class="text-[.88rem] mt-2">100% objetiva: describe, explica o pronostica <strong>sin emitir juicios de valor</strong>. Se ocupa de lo que es, lo que pasó o lo que puede pasar.</p>
+          <p class="text-[.82rem] mt-2 font-mono p-2 rounded" style="background:var(--surface-2); color:var(--ink-muted);">"La inflación en Argentina de enero 2024 fue del 20,6%."</p>
+        </div>
+        <div class="card p-5" style="border-color:var(--brick-soft-border);">
+          <p class="tag tag-ej">Normativa — lo que DEBERÍA ser</p>
+          <p class="text-[.88rem] mt-2">Implica una valoración u opinión sobre la realidad: dictamina qué está bien o mal, qué es deseable.</p>
+          <p class="text-[.82rem] mt-2 font-mono p-2 rounded" style="background:var(--surface-2); color:var(--ink-muted);">"...y fue un valor <strong>demasiado alto</strong>."</p>
+        </div>
+      </div>
+
+      <div class="card p-5 sm:p-6 mt-4" style="background:var(--surface-2);">
+        <p class="tag tag-ej mb-2">El matiz que discutió toda la clase</p>
+        <p class="text-[.88rem]">Frase: <em>"Si el presidente del Banco Central emite 20 millones de pesos mensuales, entonces la inflación del 2025 será mayor al 150%."</em></p>
+        <p class="text-[.85rem] mt-2" style="color:var(--ink-muted);">Gramaticalmente es una relación causa-efecto sin adjetivos calificativos → parece <strong>positiva</strong>. Pero al no justificar de dónde sale ese "150%" ni aportar ningún modelo que lo respalde, y al señalar explícitamente un responsable, puede leerse como una <strong>crítica normativa disfrazada de dato objetivo</strong>. Moraleja: la frontera entre positivo y normativo a veces depende de <strong>quién habla y con qué intención</strong>, no solo de las palabras usadas.</p>
+      </div>
+
+      <div class="grid sm:grid-cols-2 gap-4 mt-5">
+        <details class="flash">
+          <summary><span class="qmark">?</span> Variable flujo vs. stock — ¿cuál es la diferencia?<svg class="icon flip-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></summary>
+          <div class="flash-back">El <strong>flujo</strong> mide cómo cambia una variable durante un período ("la película": el ahorro mensual, el PBI). El <strong>stock</strong> mide su estado en un momento puntual ("la foto": la riqueza acumulada hoy).</div>
+        </details>
+        <details class="flash">
+          <summary><span class="qmark">?</span> Economía positiva vs. normativa, en una frase<svg class="icon flip-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></summary>
+          <div class="flash-back">La <strong>positiva</strong> describe lo que es o puede ser, sin opinar. La <strong>normativa</strong> agrega un juicio de valor sobre lo que debería ser — se detecta por adjetivos o valoraciones ("demasiado alto", "mal manejado").</div>
+        </details>
+      </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- 8. FRONTERA DE POSIBILIDADES DE PRODUCCIÓN -->
+    <!-- ============================================================ -->
+    <section id="s8" data-title="Frontera de Posibilidades de Producción" class="mb-14">
+      <div class="flex items-start gap-4 mb-5">
+        <span class="num-badge">8</span>
+        <div>
+          <p class="eyebrow" style="color:var(--ink-faint);">El primer modelo gráfico de la macro</p>
+          <h2 class="font-display text-[1.55rem] font-semibold" style="color:var(--ink);">Frontera de Posibilidades de Producción (FPP)</h2>
+        </div>
+      </div>
+
+      <div class="card p-6 sm:p-7 space-y-3">
+        <p><span class="tag tag-def mr-2">Definición</span>Modelo gráfico que muestra el <strong>máximo de combinaciones</strong> de dos bienes que una economía puede producir usando <strong>todos</strong> los recursos disponibles. Simplifica la realidad a solo dos productos para poder graficarla en dos ejes.</p>
+      </div>
+
+      <figure class="mt-5 card p-4 sm:p-6">
+        <svg class="diagram-svg w-full h-auto" viewBox="0 0 600 400" role="img" aria-label="Gráfico de la Frontera de Posibilidades de Producción entre teléfonos celulares y computadoras personales, con los puntos A a E sobre la curva, el punto I dentro de la frontera (ineficiente) y el punto H fuera de ella (inalcanzable)." style="color:var(--ink);">
+          <defs>
+            <marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+              <path d="M0,0 L10,5 L0,10 z" fill="var(--ink-faint)"/>
+            </marker>
+          </defs>
+          <!-- axes -->
+          <line x1="50" y1="20" x2="50" y2="340" stroke="currentColor" stroke-width="1.4"/>
+          <line x1="50" y1="340" x2="580" y2="340" stroke="currentColor" stroke-width="1.4"/>
+          <text x="50" y="12" font-size="10.5" fill="var(--ink-muted)">Teléfonos celulares</text>
+          <text x="500" y="368" font-size="10.5" fill="var(--ink-muted)">Computadoras personales</text>
+          <!-- y ticks -->
+          <text x="40" y="24" text-anchor="end" font-size="9" class="lbl" fill="var(--ink-faint)">18</text>
+          <text x="40" y="184" text-anchor="end" font-size="9" class="lbl" fill="var(--ink-faint)">9</text>
+          <text x="40" y="344" text-anchor="end" font-size="9" class="lbl" fill="var(--ink-faint)">0</text>
+          <!-- x ticks -->
+          <text x="50" y="356" text-anchor="middle" font-size="9" class="lbl" fill="var(--ink-faint)">0</text>
+          <text x="182" y="356" text-anchor="middle" font-size="9" class="lbl" fill="var(--ink-faint)">1</text>
+          <text x="315" y="356" text-anchor="middle" font-size="9" class="lbl" fill="var(--ink-faint)">2</text>
+          <text x="447" y="356" text-anchor="middle" font-size="9" class="lbl" fill="var(--ink-faint)">3</text>
+          <text x="580" y="356" text-anchor="middle" font-size="9" class="lbl" fill="var(--ink-faint)">4</text>
+          <!-- FPP curve -->
+          <path d="M50,20 C120,20 150,25 182.5,37.8 C230,55 280,70 315,98.2 C360,120 410,150 447.5,185.3 C500,230 550,290 580,340" fill="none" stroke="var(--accent)" stroke-width="2.6"/>
+          <!-- interior shading hint (ineficiencia zone) -->
+          <path d="M50,340 L50,20 C120,20 150,25 182.5,37.8 C230,55 280,70 315,98.2 C360,120 410,150 447.5,185.3 C500,230 550,290 580,340 Z" fill="var(--accent)" opacity="0.045"/>
+          <!-- points on curve -->
+          <g fill="var(--accent)">
+            <circle cx="50" cy="20" r="4.5"/><text x="58" y="16" font-size="11" font-weight="700" fill="currentColor">A</text>
+            <circle cx="182.5" cy="37.8" r="4.5"/><text x="190" y="34" font-size="11" font-weight="700" fill="currentColor">B</text>
+            <circle cx="315" cy="98.2" r="4.5"/><text x="323" y="95" font-size="11" font-weight="700" fill="currentColor">C</text>
+            <circle cx="447.5" cy="185.3" r="4.5"/><text x="455" y="182" font-size="11" font-weight="700" fill="currentColor">D</text>
+            <circle cx="580" cy="340" r="4.5"/><text x="562" y="332" font-size="11" font-weight="700" fill="currentColor">E</text>
+          </g>
+          <!-- point I: interior / ineficiencia -->
+          <circle cx="315" cy="251" r="4.5" fill="var(--gold)"/>
+          <text x="323" y="255" font-size="11" font-weight="700" fill="var(--gold)">I</text>
+          <path d="M315,246 L315,103" stroke="var(--gold)" stroke-width="1.4" stroke-dasharray="3,3" marker-end="url(#arr)"/>
+          <!-- point H: exterior / inalcanzable -->
+          <circle cx="447.5" cy="73" r="4.5" fill="var(--brick)"/>
+          <text x="457" y="70" font-size="11" font-weight="700" fill="var(--brick)">H</text>
+          <circle cx="447.5" cy="73" r="13" fill="none" stroke="var(--brick)" stroke-width="1.2" stroke-dasharray="2,3"/>
+        </svg>
+        <figcaption class="text-[.82rem] mt-3" style="color:var(--ink-faint);">Con una dotación fija de recursos (ej. 2 millones de trabajadores), la economía puede producir en <strong style="color:var(--accent);">cualquier punto sobre la curva</strong> (A-E: eficiencia y pleno empleo), en el punto <strong style="color:var(--gold);">I, por dentro</strong> (posible pero ineficiente: sobran recursos ociosos) o querer llegar al punto <strong style="color:var(--brick);">H, por fuera</strong> (técnicamente imposible hoy).</figcaption>
+      </figure>
+
+      <div class="grid sm:grid-cols-3 gap-3 mt-4">
+        <div class="tnode" style="border-color:var(--accent-soft-border);"><p class="font-semibold text-[.85rem]" style="color:var(--accent);">Sobre la curva</p><p class="text-[.8rem] mt-1" style="color:var(--ink-muted);">Máxima eficiencia y pleno empleo de los factores. Para tener más de un bien, hay que resignar el otro.</p></div>
+        <div class="tnode" style="border-color:var(--gold-soft-border);"><p class="font-semibold text-[.85rem]" style="color:var(--gold);">Por dentro (punto I)</p><p class="text-[.8rem] mt-1" style="color:var(--ink-muted);">Posible pero ineficiente: hay recursos ociosos o desempleo. Se podría producir más de ambos bienes sin sacrificar nada.</p></div>
+        <div class="tnode" style="border-color:var(--brick-soft-border);"><p class="font-semibold text-[.85rem]" style="color:var(--brick);">Por fuera (punto H)</p><p class="text-[.8rem] mt-1" style="color:var(--ink-muted);">Inalcanzable con la dotación y tecnología actuales — no es un tema de eficiencia sino de capacidad física.</p></div>
+      </div>
+
+      <div class="card p-6 sm:p-7 mt-5 space-y-3">
+        <p class="font-semibold" style="color:var(--ink);">¿Por qué la curva es cóncava y no una recta?</p>
+        <p class="text-[.9rem]" style="color:var(--ink-muted);">Porque supone cierto <strong>grado de especialización</strong> de los factores: no todos los trabajadores rinden igual en cualquier tarea. Si la curva fuera una <strong>recta</strong>, no habría especialización (todos rinden igual en cualquier producto). Si hubiera especialización <strong>total y absoluta</strong>, la frontera directamente desaparecería: solo existiría un único punto de pleno empleo, sin posibilidad de mudar recursos de una actividad a otra.</p>
+        <p class="text-[.9rem]" style="color:var(--ink-muted);"><span class="tag tag-def mr-2">Elección de la sociedad</span>De todas las combinaciones posibles sobre la frontera (A, B, C, D, E…), ¿cuál es la "mejor"? Eso depende exclusivamente de las <strong>necesidades y preferencias de los consumidores</strong> — gráficamente, del punto donde una curva de indiferencia social es tangente a la FPP.</p>
+      </div>
+
+      <details class="flash mt-5">
+        <summary><span class="qmark">?</span> ¿Qué representa un punto por dentro de la frontera?<svg class="icon flip-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></summary>
+        <div class="flash-back"><strong>Ineficiencia y desempleo de recursos.</strong> Es técnicamente posible, pero no es óptimo: hay fábricas paradas o trabajadores desocupados. Desde ahí se podría aumentar la producción de ambos bienes a la vez, sin sacrificar nada, con solo poner a trabajar los recursos ociosos.</div>
+      </details>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- 9. COSTO DE OPORTUNIDAD -->
+    <!-- ============================================================ -->
+    <section id="s9" data-title="Costo de oportunidad" class="mb-14">
+      <div class="flex items-start gap-4 mb-5">
+        <span class="num-badge">9</span>
+        <div>
+          <p class="eyebrow" style="color:var(--ink-faint);">Elegir siempre cuesta algo</p>
+          <h2 class="font-display text-[1.55rem] font-semibold" style="color:var(--ink);">Costo de oportunidad</h2>
+        </div>
+      </div>
+
+      <div class="card p-6 sm:p-7 space-y-3">
+        <p><span class="tag tag-def mr-2">Definición</span>Es el <strong>valor de la mejor alternativa no elegida</strong>. Cada vez que se toma una decisión, se están dejando de lado otras — el costo de oportunidad es el valor de la mejor de esas alternativas descartadas.</p>
+        <p style="color:var(--ink-muted);" class="text-[.9rem]">Solo aplica entre alternativas <strong>mutuamente excluyentes</strong>. Si en una encrucijada solo puedo tomar un camino, el costo de oportunidad es el otro camino. Pero si dedico 3 horas a esta clase y esas 3 horas podían haberse repartido entre estudiar, dormir y jugar al fútbol, el costo de oportunidad es la <strong>suma</strong> de esas satisfacciones — no puedo elegir "la mejor" porque las tres eran compatibles entre sí.</p>
+        <p><span class="tag tag-def mr-2">En la FPP</span>Se mide en unidades del otro bien: <strong>cuántos teléfonos celulares hay que resignar</strong> para producir una computadora personal adicional.</p>
+      </div>
+
+      <div class="card p-6 sm:p-7 mt-5 space-y-3">
+        <p class="font-semibold" style="color:var(--ink);">¿Por qué el costo de oportunidad es creciente?</p>
+        <p class="text-[.9rem]" style="color:var(--ink-muted);">La razón no es matemática, es económica: al pasar del punto <strong>A a B</strong>, la industria de teléfonos libera primero a sus trabajadores <strong>menos productivos</strong> — jóvenes, sin experiencia, peor pagos — así que la producción de teléfonos cae <strong>poco</strong>. Pero para seguir avanzando de <strong>B a C</strong>, hay que mudar operarios cada vez <strong>más capacitados y experimentados</strong>, así que la caída en teléfonos es cada vez <strong>mayor</strong>. Por eso el costo de oportunidad crece a medida que se insiste en producir más de un mismo bien: se van agotando primero los recursos menos aptos para la otra actividad.</p>
+      </div>
+
+      <details class="flash mt-5">
+        <summary><span class="qmark">?</span> ¿Cómo se mide el costo de oportunidad en la FPP?<svg class="icon flip-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></summary>
+        <div class="flash-back">Contando <strong>cuántas unidades del otro bien</strong> hay que sacrificar por cada unidad adicional del bien que se quiere producir más. En el ejemplo de la FPP: cuántos teléfonos celulares se resignan por cada computadora personal extra — y esa cantidad crece a medida que se avanza sobre la curva.</div>
+      </details>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- 10. CRECIMIENTO Y DESARROLLO ECONÓMICO -->
+    <!-- ============================================================ -->
+    <section id="s10" data-title="Crecimiento y desarrollo" class="mb-14">
+      <div class="flex items-start gap-4 mb-5">
+        <span class="num-badge">10</span>
+        <div>
+          <p class="eyebrow" style="color:var(--ink-faint);">Correr el límite hacia afuera</p>
+          <h2 class="font-display text-[1.55rem] font-semibold" style="color:var(--ink);">Crecimiento y desarrollo económico</h2>
+        </div>
+      </div>
+
+      <div class="card p-6 sm:p-7 space-y-3">
+        <p><span class="tag tag-def mr-2">Definición</span>El <strong>crecimiento económico</strong> es el desplazamiento de la Frontera de Posibilidades de Producción hacia afuera (a la derecha): permite alcanzar puntos que antes eran físicamente imposibles, como el punto H. Puede ser <strong>neutro</strong> (crecen ambos bienes) o <strong>desparejo</strong> (crece más uno que otro).</p>
+      </div>
+
+      <figure class="mt-4">
+        <svg class="diagram-svg w-full h-auto" viewBox="0 0 560 300" role="img" aria-label="La Frontera de Posibilidades de Producción se desplaza hacia afuera cuando hay crecimiento económico, permitiendo alcanzar antes-imposibles combinaciones de producción." style="color:var(--ink);">
+          <line x1="50" y1="20" x2="50" y2="260" stroke="currentColor" stroke-width="1.3"/>
+          <line x1="50" y1="260" x2="480" y2="260" stroke="currentColor" stroke-width="1.3"/>
+          <path d="M50,120 C120,120 150,124 175,132 C220,146 260,158 285,190 C330,225 355,245 380,260" fill="none" stroke="var(--ink-faint)" stroke-width="2"/>
+          <path d="M50,40 C150,40 200,50 240,68 C300,94 350,120 390,170 C430,215 460,240 480,260" fill="none" stroke="var(--accent)" stroke-width="2.6"/>
+          <text x="55" y="34" font-size="10" fill="var(--accent)" font-weight="700">Nueva frontera</text>
+          <text x="55" y="112" font-size="10" fill="var(--ink-faint)">Frontera original</text>
+          <path d="M175,132 L240,68" stroke="var(--gold)" stroke-width="1.6" marker-end="url(#arr)"/>
+          <text x="188" y="95" font-size="9.5" fill="var(--gold)" font-weight="600">crecimiento</text>
+        </svg>
+        <figcaption class="text-[.82rem] mt-2 text-center" style="color:var(--ink-faint);">Crecer no es moverse <em>sobre</em> la curva — es correr la curva entera hacia afuera.</figcaption>
+      </figure>
+
+      <p class="eyebrow mt-6 mb-3" style="color:var(--ink-faint);">Dos vías para lograrlo</p>
+      <figure>
+        <svg class="diagram-svg w-full h-auto" viewBox="0 0 780 260" role="img" aria-label="El crecimiento económico se logra por mejora cuantitativa, sumando factor trabajo y factor capital, o por mejora cualitativa, invirtiendo en capital humano y en capital y tecnología." style="color:var(--ink);">
+          <g class="node-g"><rect class="node-box root" x="8" y="88" width="150" height="48" rx="9"/><text x="83" y="108" text-anchor="middle" font-size="10" font-weight="700" fill="currentColor">CRECIMIENTO</text><text x="83" y="122" text-anchor="middle" font-size="10" font-weight="700" fill="currentColor">ECONÓMICO</text></g>
+          <path class="link" fill="none" d="M158,112 C210,112 210,42 260,42"/>
+          <path class="link" fill="none" d="M158,112 C210,112 210,182 260,182"/>
+          <g class="node-g" data-title="Mejora cuantitativa" data-more="Ejemplo: un país que recibe una ola de inmigración joven aumenta su fuerza laboral y, con ella, su capacidad productiva."><rect class="node-box" x="260" y="16" width="220" height="52" rx="8" style="stroke:var(--accent); stroke-width:1.5;"/><text x="275" y="36" font-size="11" font-weight="700" fill="var(--accent)">Mejora cuantitativa</text><text x="275" y="50" font-size="8.3" fill="var(--ink-faint)">tener MÁS recursos</text><text x="275" y="61" font-size="8.3" fill="var(--ink-faint)">disponibles</text></g>
+          <g class="node-g" data-title="Mejora cualitativa" data-more="Ejemplo: la misma cantidad de trabajadores produce más si están mejor educados o si usan maquinaria más moderna."><rect class="node-box" x="260" y="156" width="220" height="52" rx="8" style="stroke:var(--brick); stroke-width:1.5;"/><text x="275" y="176" font-size="11" font-weight="700" fill="var(--brick)">Mejora cualitativa</text><text x="275" y="190" font-size="8.3" fill="var(--ink-faint)">mejorar el RENDIMIENTO</text><text x="275" y="201" font-size="8.3" fill="var(--ink-faint)">de los recursos existentes</text></g>
+          <path class="link" fill="none" d="M480,42 C505,42 505,22 530,22"/>
+          <path class="link" fill="none" d="M480,42 C505,42 505,64 530,64"/>
+          <g class="node-g" data-title="Factor Trabajo" data-more="Depende de la natalidad, la inmigración y la edad de jubilación: cuánta gente en edad de trabajar hay disponible."><rect class="node-box" x="530" y="4" width="242" height="38" rx="7"/><text x="543" y="19" font-size="10" font-weight="700" fill="currentColor">Factor Trabajo</text><text x="543" y="31" font-size="8" fill="var(--ink-faint)">natalidad, inmigración, edad jubilatoria</text></g>
+          <g class="node-g" data-title="Factor Capital" data-more="Ejemplo: comprar más tractores no cambia cuántos agricultores hay, pero sí cuánto puede producir cada uno."><rect class="node-box" x="530" y="46" width="242" height="38" rx="7"/><text x="543" y="61" font-size="10" font-weight="700" fill="currentColor">Factor Capital</text><text x="543" y="73" font-size="8" fill="var(--ink-faint)">invertir en máquinas, equipos, infraestructura</text></g>
+          <path class="link" fill="none" d="M480,182 C505,182 505,162 530,162"/>
+          <path class="link" fill="none" d="M480,182 C505,182 505,204 530,204"/>
+          <g class="node-g" data-title="Capital Humano" data-more="Ejemplo: dos operarios con la misma máquina rinden distinto si uno tiene formación técnica y el otro no."><rect class="node-box" x="530" y="144" width="242" height="38" rx="7"/><text x="543" y="159" font-size="10" font-weight="700" fill="currentColor">Capital Humano</text><text x="543" y="171" font-size="8" fill="var(--ink-faint)">educación, salud, alimentación</text></g>
+          <g class="node-g" data-title="Capital y Tecnología" data-more="Ejemplo: la inversión en I+D que impulsó la robotización industrial multiplicó la producción por trabajador sin sumar más gente."><rect class="node-box" x="530" y="186" width="242" height="38" rx="7"/><text x="543" y="201" font-size="10" font-weight="700" fill="currentColor">Capital y Tecnología</text><text x="543" y="213" font-size="8" fill="var(--ink-faint)">I+D, métodos de producción más eficientes</text></g>
+        </svg>
+        <p class="tree-hint"><span class="hint-plus">+</span>Tocá un nodo para ver un ejemplo</p>
+        <div class="tree-detail" hidden></div>
+        <figcaption class="text-[.82rem] mt-2 text-center" style="color:var(--ink-faint);">Ambas vías requieren <strong>financiamiento</strong> — el gran desafío de gobierno es sostenerlo sin desviarlo a otros fines.</figcaption>
+      </figure>
+
+      <div class="card p-6 sm:p-7 mt-5 space-y-3">
+        <p style="color:var(--ink-muted);" class="text-[.9rem]"><span class="tag tag-clave mr-2">Ojo con la palabra</span><strong>Crecimiento</strong> es el aumento cuantitativo de lo que se produce (mover la frontera hacia afuera). <strong>Desarrollo</strong> es un concepto más amplio: que ese crecimiento se traduzca en <strong>bienestar real</strong> para la población — mejor distribución del ingreso, menos pobreza e indigencia. Se puede crecer sin desarrollarse.</p>
+      </div>
+
+      <p class="eyebrow mt-6 mb-3" style="color:var(--ink-faint);">Casos especiales: la forma de la curva según la especialización</p>
+      <div class="grid sm:grid-cols-3 gap-3">
+        <div class="tnode"><p class="font-semibold text-[.85rem]">Curva cóncava (el caso normal)</p><p class="text-[.8rem] mt-1" style="color:var(--ink-muted);">Hay especialización: costo de oportunidad creciente.</p></div>
+        <div class="tnode"><p class="font-semibold text-[.85rem]">Recta</p><p class="text-[.8rem] mt-1" style="color:var(--ink-muted);">Sin especialización: todos rinden igual en cualquier tarea, costo de oportunidad constante.</p></div>
+        <div class="tnode"><p class="font-semibold text-[.85rem]">Un solo punto</p><p class="text-[.8rem] mt-1" style="color:var(--ink-muted);">Especialización total y absoluta: no se puede mudar recursos de una actividad a otra, la "frontera" desaparece.</p></div>
+      </div>
+
+      <details class="flash mt-5">
+        <summary><span class="qmark">?</span> ¿Cuáles son las dos vías para lograr crecimiento económico?<svg class="icon flip-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></summary>
+        <div class="flash-back"><strong>Mejora cuantitativa</strong> (más factor trabajo y más factor capital) y <strong>mejora cualitativa</strong> (mejor capital humano vía educación y salud, y más capital y tecnología vía I+D). Ambas requieren financiamiento sostenido.</div>
+      </details>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- MINI-EXAMEN -->
+    <!-- ============================================================ -->
+    <section id="quiz" data-title="Mini-examen final" class="mb-14">
+      <div class="flex items-start gap-4 mb-5">
+        <span class="num-badge" style="background:var(--brick);">✓</span>
+        <div>
+          <p class="eyebrow" style="color:var(--ink-faint);">Poné a prueba todo el módulo</p>
+          <h2 class="font-display text-[1.55rem] font-semibold" style="color:var(--ink);">Mini-examen final</h2>
+        </div>
+      </div>
+
+      <div class="card p-4 sm:p-5 mb-5 flex items-center justify-between gap-4" style="background:var(--surface-2);">
+        <p class="text-[.88rem]" style="color:var(--ink-muted);">Elegí una opción por pregunta. Se corrige al toque, con la justificación de cada respuesta.</p>
+        <p class="font-mono text-[.95rem] font-semibold flex-none" style="color:var(--ink);">Puntaje: <span id="score">0</span> / 30</p>
+      </div>
+
+      <div class="space-y-4">
+
+        <div class="card p-5 sm:p-6 quiz-card" id="q1">
+          <p class="font-semibold mb-3">1. ¿Qué elementos combina la etimología griega de la palabra "Economía"?</p>
+          <div class="grid sm:grid-cols-2 gap-2.5">
+            <button class="quiz-opt" data-correct="true" onclick="answerQuiz(this)"><span class="bullet">a</span> Oikos (hogar) + nomos (ley/administración)</button>
+            <button class="quiz-opt" data-correct="false" onclick="answerQuiz(this)"><span class="bullet">b</span> Oikos (mercado) + logos (estudio)</button>
+            <button class="quiz-opt" data-correct="false" onclick="answerQuiz(this)"><span class="bullet">c</span> Ethos (costumbre) + nomos (ley)</button>
+            <button class="quiz-opt" data-correct="false" onclick="answerQuiz(this)"><span class="bullet">d</span> Oikos (hogar) + polis (ciudad)</button>
+          </div>
+          <div class="quiz-justif">Correcta: <strong>a</strong>. "Oikos" significa hogar/casa y "nomos" ley o administración: literalmente, la "administración del hogar".</div>
+        </div>
+
+        <div class="card p-5 sm:p-6 quiz-card" id="q2">
+          <p class="font-semibold mb-3">2. Según Mochón-Beker y Samuelson-Nordhaus, ¿cuál es el núcleo común de la definición de Economía?</p>
+          <div class="grid sm:grid-cols-2 gap-2.5">
+            <button class="quiz-opt" data-correct="false" onclick="answerQuiz(this)"><span class="bullet">a</span> Producción, consumo y ahorro</button>
+            <button class="quiz-opt" data-correct="true" onclick="answerQuiz(this)"><span class="bullet">b</span> Escasez, asignación y distribución</button>
+            <button class="quiz-opt" data-correct="false" onclick="answerQuiz(this)"><span class="bullet">c</span> Oferta, demanda y precio</button>
+            <button class="quiz-opt" data-correct="false" onclick="answerQuiz(this)"><span class="bullet">d</span> Estado, mercado y sociedad</button>
+          </div>
+          <div class="quiz-justif">Correcta: <strong>b</strong>. Ambas definiciones giran en torno a lo mismo: los recursos son escasos, hay que asignarlos y luego distribuir lo producido.</div>
+        </div>
+
+        <div class="card p-5 sm:p-6 quiz-card" id="q3">
+          <p class="font-semibold mb-3">3. La coyuntura económica se define como:</p>
+          <div class="grid sm:grid-cols-2 gap-2.5">
+            <button class="quiz-opt" data-correct="false" onclick="answerQuiz(this)"><span class="bullet">a</span> El crecimiento potencial de largo plazo de una economía</button>
+            <button class="quiz-opt" data-correct="false" onclick="answerQuiz(this)"><span class="bullet">b</span> El conjunto de leyes que regulan el comercio exterior</button>
+            <button class="quiz-opt" data-correct="true" onclick="answerQuiz(this)"><span class="bullet">c</span> La situación de la economía en un momento determinado</button>
+            <button class="quiz-opt" data-correct="false" onclick="answerQuiz(this)"><span class="bullet">d</span> El nivel de reservas del Banco Central</button>
+          </div>
+          <div class="quiz-justif">Correcta: <strong>c</strong>. Es un "estado del clima" económico en un momento dado, no una proyección de largo plazo ni una norma legal.</div>
+        </div>
+
+        <div class="card p-5 sm:p-6 quiz-card" id="q4">
+          <p class="font-semibold mb-3">4. ¿Cuáles son los tres estados posibles de la coyuntura económica?</p>
+          <div class="grid sm:grid-cols-2 gap-2.5">
+            <button class="quiz-opt" data-correct="false" onclick="answerQuiz(this)"><span class="bullet">a</span> Auge, crisis y recuperación</button>
+            <button class="quiz-opt" data-correct="false" onclick="answerQuiz(this)"><span class="bullet">b</span> Superávit, déficit y equilibrio</button>
+            <button class="quiz-opt" data-correct="false" onclick="answerQuiz(this)"><span class="bullet">c</span> Inflación, deflación y estanflación</button>
+            <button class="quiz-opt" data-correct="true" onclick="answerQuiz(this)"><span class="bullet">d</span> Expansión, recesión y estancamiento</button>
+          </div>
+          <div class="quiz-justif">Correcta: <strong>d</strong>. La economía puede estar creciendo (expansión), cayendo (recesión) o sin moverse (estancamiento).</div>
+        </div>
+
+        <div class="card p-5 sm:p-6 quiz-card" id="q5">
+          <p class="font-semibold mb-3">5. Una necesidad cuya insatisfacción compromete la supervivencia, como el alimento o el agua, se clasifica como:</p>
+          <div class="grid sm:grid-cols-2 gap-2.5">
+            <button class="quiz-opt" data-correct="true" onclick="answerQuiz(this)"><span class="bullet">a</span> Primaria o vital</button>
+            <button class="quiz-opt" data-correct="false" onclick="answerQuiz(this)"><span class="bullet">b</span> Secundaria o psicológica</button>
+            <button class="quiz-opt" data-correct="false" onclick="answerQuiz(this)"><span class="bullet">c</span> Terciaria o superflua</button>
+            <button class="quiz-opt" data-correct="false" onclick="answerQuiz(this)"><span class="bullet">d</span> Complementaria</button>
+          </div>
+          <div class="quiz-justif">Correcta: <strong>a</strong>. Las necesidades primarias o vitales son las que, de no satisfacerse, ponen en riesgo la supervivencia.</div>
+        </div>
+
+        <div class="card p-5 sm:p-6 quiz-card" id="q6">
+          <p class="font-semibold mb-3">6. Un bien que no requiere esfuerzo para obtenerse ni tiene precio (por ejemplo, el aire) se llama:</p>
+          <div class="grid sm:grid-cols-2 gap-2.5">
+            <button class="quiz-opt" data-correct="false" onclick="answerQuiz(this)"><span class="bullet">a</span> Bien económico</button>
+            <button class="quiz-opt" data-correct="true" onclick="answerQuiz(this)"><span class="bullet">b</span> Bien libre</button>
+            <button class="quiz-opt" data-correct="false" onclick="answerQuiz(this)"><span class="bullet">c</span> Bien de capital</button>
+            <button class="quiz-opt" data-correct="false" onclick="answerQuiz(this)"><span class="bullet">d</span> Bien intermedio</button>
+          </div>
+          <div class="quiz-justif">Correcta: <strong>b</strong>. Los bienes libres no son escasos en relación a su demanda, por eso no requieren esfuerzo ni tienen precio.</div>
+        </div>
+
+        <div class="card p-5 sm:p-6 quiz-card" id="q7">
+          <p class="font-semibold mb-3">7. La harina que todavía será transformada en pan es un ejemplo de bien:</p>
+          <div class="grid sm:grid-cols-2 gap-2.5">
+            <button class="quiz-opt" data-correct="false" onclick="answerQuiz(this)"><span class="bullet">a</span> Final</button>
+            <button class="quiz-opt" data-correct="false" onclick="answerQuiz(this)"><span class="bullet">b</span> De capital</button>
+            <button class="quiz-opt" data-correct="true" onclick="answerQuiz(this)"><span class="bullet">c</span> Intermedio</button>
+            <button class="quiz-opt" data-correct="false" onclick="answerQuiz(this)"><span class="bullet">d</span> Público</button>
+          </div>
+          <div class="quiz-justif">Correcta: <strong>c</strong>. Un bien intermedio todavía va a ser transformado antes de llegar al consumidor; el pan ya horneado sería el bien final.</div>
+        </div>
+
+        <div class="card p-5 sm:p-6 quiz-card" id="q8">
+          <p class="font-semibold mb-3">8. En una economía de mercado, ¿quién decide qué, cómo y para quién producir?</p>
+          <div class="grid sm:grid-cols-2 gap-2.5">
+            <button class="quiz-opt" data-correct="false" onclick="answerQuiz(this)"><span class="bullet">a</span> Una Agencia Central de Planificación</button>
+            <button class="quiz-opt" data-correct="false" onclick="answerQuiz(this)"><span class="bullet">b</span> El Estado exclusivamente</button>
+            <button class="quiz-opt" data-correct="false" onclick="answerQuiz(this)"><span class="bullet">c</span> Un comité de empresarios</button>
+            <button class="quiz-opt" data-correct="true" onclick="answerQuiz(this)"><span class="bullet">d</span> Millones de decisiones individuales y descentralizadas, coordinadas por los precios</button>
+          </div>
+          <div class="quiz-justif">Correcta: <strong>d</strong>. En el mercado no hay un ente central: el precio coordina las decisiones descentralizadas de millones de agentes.</div>
+        </div>
+
+        <div class="card p-5 sm:p-6 quiz-card" id="q9">
+          <p class="font-semibold mb-3">9. El período histórico marcado por una gran innovación tecnológica financiada con fuerte explotación laboral (jornada sin límite, trabajo infantil) corresponde a:</p>
+          <div class="grid sm:grid-cols-2 gap-2.5">
+            <button class="quiz-opt" data-correct="true" onclick="answerQuiz(this)"><span class="bullet">a</span> El capitalismo industrial "salvaje" de los siglos XVIII-XIX</button>
+            <button class="quiz-opt" data-correct="false" onclick="answerQuiz(this)"><span class="bullet">b</span> El capitalismo mercantil de la Edad Media</button>
+            <button class="quiz-opt" data-correct="false" onclick="answerQuiz(this)"><span class="bullet">c</span> El capitalismo regulado del siglo XX</button>
+            <button class="quiz-opt" data-correct="false" onclick="answerQuiz(this)"><span class="bullet">d</span> El neoliberalismo de fines del siglo XX</button>
+          </div>
+          <div class="quiz-justif">Correcta: <strong>a</strong>. Es la etapa de gran innovación tecnológica sostenida con condiciones laborales muy duras, previa a la regulación del siglo XX.</div>
+        </div>
+
+        <div class="card p-5 sm:p-6 quiz-card" id="q10">
+          <p class="font-semibold mb-3">10. Los "pseudomercados" de una economía planificada se caracterizan por:</p>
+          <div class="grid sm:grid-cols-2 gap-2.5">
+            <button class="quiz-opt" data-correct="false" onclick="answerQuiz(this)"><span class="bullet">a</span> Precios que surgen libremente de la oferta y la demanda</button>
+            <button class="quiz-opt" data-correct="true" onclick="answerQuiz(this)"><span class="bullet">b</span> Puntos de venta donde no hay negociación real de precio ni cantidad</button>
+            <button class="quiz-opt" data-correct="false" onclick="answerQuiz(this)"><span class="bullet">c</span> Subastas competitivas entre empresas estatales</button>
+            <button class="quiz-opt" data-correct="false" onclick="answerQuiz(this)"><span class="bullet">d</span> Mercados negros no regulados</button>
+          </div>
+          <div class="quiz-justif">Correcta: <strong>b</strong>. Existen puntos de venta, pero el precio y la cantidad ya vienen fijados de antemano: no hay verdadera negociación de mercado.</div>
+        </div>
+
+        <div class="card p-5 sm:p-6 quiz-card" id="q11">
+          <p class="font-semibold mb-3">11. ¿Qué idea introdujo Adam Smith con la metáfora de la "mano invisible"?</p>
+          <div class="grid sm:grid-cols-2 gap-2.5">
+            <button class="quiz-opt" data-correct="false" onclick="answerQuiz(this)"><span class="bullet">a</span> Que el Estado debe planificar centralmente la producción</button>
+            <button class="quiz-opt" data-correct="false" onclick="answerQuiz(this)"><span class="bullet">b</span> Que el capitalismo colapsará inevitablemente por lucha de clases</button>
+            <button class="quiz-opt" data-correct="true" onclick="answerQuiz(this)"><span class="bullet">c</span> Que el interés individual, sin coordinación central, tiende a acercar a compradores y vendedores a un equilibrio</button>
+            <button class="quiz-opt" data-correct="false" onclick="answerQuiz(this)"><span class="bullet">d</span> Que la emisión monetaria es la única causa de la inflación</button>
+          </div>
+          <div class="quiz-justif">Correcta: <strong>c</strong>. Es una metáfora: nadie planifica el resultado, pero el interés propio de cada parte termina acercándolas a un acuerdo que beneficia al conjunto.</div>
+        </div>
+
+        <div class="card p-5 sm:p-6 quiz-card" id="q12">
+          <p class="font-semibold mb-3">12. La teoría de la ventaja comparativa, que sostiene que cada país debe especializarse en lo que produce con menor costo relativo, se atribuye a:</p>
+          <div class="grid sm:grid-cols-2 gap-2.5">
+            <button class="quiz-opt" data-correct="false" onclick="answerQuiz(this)"><span class="bullet">a</span> Adam Smith</button>
+            <button class="quiz-opt" data-correct="false" onclick="answerQuiz(this)"><span class="bullet">b</span> Karl Marx</button>
+            <button class="quiz-opt" data-correct="false" onclick="answerQuiz(this)"><span class="bullet">c</span> John Maynard Keynes</button>
+            <button class="quiz-opt" data-correct="true" onclick="answerQuiz(this)"><span class="bullet">d</span> David Ricardo</button>
+          </div>
+          <div class="quiz-justif">Correcta: <strong>d</strong>. Ricardo formuló la ventaja comparativa: conviene especializarse en lo que se produce con menor costo relativo y comerciar el resto.</div>
+        </div>
+
+        <div class="card p-5 sm:p-6 quiz-card" id="q13">
+          <p class="font-semibold mb-3">13. ¿Qué propuso Keynes frente a la Gran Depresión de 1929?</p>
+          <div class="grid sm:grid-cols-2 gap-2.5">
+            <button class="quiz-opt" data-correct="true" onclick="answerQuiz(this)"><span class="bullet">a</span> Que el Estado debe intervenir con política anticíclica porque el mercado no siempre se autoajusta a tiempo</button>
+            <button class="quiz-opt" data-correct="false" onclick="answerQuiz(this)"><span class="bullet">b</span> Que el mercado se autorregula siempre y el Estado no debe intervenir</button>
+            <button class="quiz-opt" data-correct="false" onclick="answerQuiz(this)"><span class="bullet">c</span> Que la única solución era una economía totalmente planificada</button>
+            <button class="quiz-opt" data-correct="false" onclick="answerQuiz(this)"><span class="bullet">d</span> Que la inflación depende solo de la cantidad de dinero en circulación</button>
+          </div>
+          <div class="quiz-justif">Correcta: <strong>a</strong>. Para Keynes, esperar que el mercado se autorregule solo, en plena crisis, puede tardar demasiado — de ahí la necesidad de una política anticíclica activa.</div>
+        </div>
+
+        <div class="card p-5 sm:p-6 quiz-card" id="q14">
+          <p class="font-semibold mb-3">14. El análisis marginalista (utilidad marginal, costo marginal), base de buena parte de la microeconomía, fue impulsado principalmente por:</p>
+          <div class="grid sm:grid-cols-2 gap-2.5">
+            <button class="quiz-opt" data-correct="false" onclick="answerQuiz(this)"><span class="bullet">a</span> Smith y Ricardo</button>
+            <button class="quiz-opt" data-correct="true" onclick="answerQuiz(this)"><span class="bullet">b</span> Jevons y Menger</button>
+            <button class="quiz-opt" data-correct="false" onclick="answerQuiz(this)"><span class="bullet">c</span> Marx y Mill</button>
+            <button class="quiz-opt" data-correct="false" onclick="answerQuiz(this)"><span class="bullet">d</span> Friedman y Krugman</button>
+          </div>
+          <div class="quiz-justif">Correcta: <strong>b</strong>. Jevons y Menger introdujeron el análisis marginalista (utilidad, producto y costo marginal).</div>
+        </div>
+
+        <div class="card p-5 sm:p-6 quiz-card" id="q15">
+          <p class="font-semibold mb-3">15. La microeconomía se ocupa principalmente de:</p>
+          <div class="grid sm:grid-cols-2 gap-2.5">
+            <button class="quiz-opt" data-correct="false" onclick="answerQuiz(this)"><span class="bullet">a</span> El nivel general de precios de toda la economía</button>
+            <button class="quiz-opt" data-correct="false" onclick="answerQuiz(this)"><span class="bullet">b</span> La balanza de pagos de un país</button>
+            <button class="quiz-opt" data-correct="true" onclick="answerQuiz(this)"><span class="bullet">c</span> La conducta de unidades económicas individuales y el funcionamiento de mercados particulares</button>
+            <button class="quiz-opt" data-correct="false" onclick="answerQuiz(this)"><span class="bullet">d</span> El desempleo agregado nacional</button>
+          </div>
+          <div class="quiz-justif">Correcta: <strong>c</strong>. La macroeconomía, en cambio, mira agregados como el PBI, el desempleo o la inflación a nivel de todo el país.</div>
+        </div>
+
+        <div class="card p-5 sm:p-6 quiz-card" id="q16">
+          <p class="font-semibold mb-3">16. El seguimiento del Índice de Precios al Consumidor (IPC) publicado por el INDEC corresponde al:</p>
+          <div class="grid sm:grid-cols-2 gap-2.5">
+            <button class="quiz-opt" data-correct="false" onclick="answerQuiz(this)"><span class="bullet">a</span> Nivel de Actividad</button>
+            <button class="quiz-opt" data-correct="false" onclick="answerQuiz(this)"><span class="bullet">b</span> Nivel Externo</button>
+            <button class="quiz-opt" data-correct="false" onclick="answerQuiz(this)"><span class="bullet">c</span> Nivel Público</button>
+            <button class="quiz-opt" data-correct="true" onclick="answerQuiz(this)"><span class="bullet">d</span> Nivel de Precios</button>
+          </div>
+          <div class="quiz-justif">Correcta: <strong>d</strong>. El IPC mide la evolución de los precios al consumidor, el indicador central del Nivel de Precios.</div>
+        </div>
+
+        <div class="card p-5 sm:p-6 quiz-card" id="q17">
+          <p class="font-semibold mb-3">17. La diferencia entre macroeconomía coyuntural y estructural es que la primera:</p>
+          <div class="grid sm:grid-cols-2 gap-2.5">
+            <button class="quiz-opt" data-correct="true" onclick="answerQuiz(this)"><span class="bullet">a</span> Mira las fluctuaciones de corto plazo, mientras la segunda apunta a metas de largo plazo como el desarrollo</button>
+            <button class="quiz-opt" data-correct="false" onclick="answerQuiz(this)"><span class="bullet">b</span> Mira el largo plazo y la segunda el corto plazo</button>
+            <button class="quiz-opt" data-correct="false" onclick="answerQuiz(this)"><span class="bullet">c</span> Se ocupa solo del sector externo</button>
+            <button class="quiz-opt" data-correct="false" onclick="answerQuiz(this)"><span class="bullet">d</span> No existe: son sinónimos</button>
+          </div>
+          <div class="quiz-justif">Correcta: <strong>a</strong>. La coyuntural reacciona a las fluctuaciones del momento; la estructural persigue metas más lentas y ambiciosas de largo plazo.</div>
+        </div>
+
+        <div class="card p-5 sm:p-6 quiz-card" id="q18">
+          <p class="font-semibold mb-3">18. Según la clasificación de las ciencias vista en el módulo, la Economía pertenece al grupo de ciencias:</p>
+          <div class="grid sm:grid-cols-2 gap-2.5">
+            <button class="quiz-opt" data-correct="false" onclick="answerQuiz(this)"><span class="bullet">a</span> Formales o abstractas, como la matemática</button>
+            <button class="quiz-opt" data-correct="true" onclick="answerQuiz(this)"><span class="bullet">b</span> Fácticas o empíricas, dentro del subgrupo de las sociales</button>
+            <button class="quiz-opt" data-correct="false" onclick="answerQuiz(this)"><span class="bullet">c</span> Fácticas o empíricas, dentro del subgrupo de las naturales</button>
+            <button class="quiz-opt" data-correct="false" onclick="answerQuiz(this)"><span class="bullet">d</span> Ninguna de las anteriores: no es considerada ciencia</button>
+          </div>
+          <div class="quiz-justif">Correcta: <strong>b</strong>. Al estudiar hechos de la realidad (no axiomas abstractos) es fáctica/empírica; y al depender del comportamiento humano y de cada sociedad —sin validez universal— es social, no natural.</div>
+        </div>
+
+        <div class="card p-5 sm:p-6 quiz-card" id="q19">
+          <p class="font-semibold mb-3">19. El supuesto de "ceteris paribus" consiste en:</p>
+          <div class="grid sm:grid-cols-2 gap-2.5">
+            <button class="quiz-opt" data-correct="false" onclick="answerQuiz(this)"><span class="bullet">a</span> Asumir que todas las variables cambian simultáneamente</button>
+            <button class="quiz-opt" data-correct="false" onclick="answerQuiz(this)"><span class="bullet">b</span> Ignorar por completo el rol del Estado</button>
+            <button class="quiz-opt" data-correct="true" onclick="answerQuiz(this)"><span class="bullet">c</span> Asumir que el resto de las variables permanece constante, para poder aislar el efecto de unas pocas</button>
+            <button class="quiz-opt" data-correct="false" onclick="answerQuiz(this)"><span class="bullet">d</span> Suponer que el mercado siempre está en equilibrio</button>
+          </div>
+          <div class="quiz-justif">Correcta: <strong>c</strong>. Ceteris paribus permite aislar el efecto de pocas variables asumiendo que todas las demás no cambian.</div>
+        </div>
+
+        <div class="card p-5 sm:p-6 quiz-card" id="q20">
+          <p class="font-semibold mb-3">20. Si un modelo económico incluye demasiadas variables muy correlacionadas entre sí, el problema típico es:</p>
+          <div class="grid sm:grid-cols-2 gap-2.5">
+            <button class="quiz-opt" data-correct="false" onclick="answerQuiz(this)"><span class="bullet">a</span> Pierde eficacia pero gana eficiencia</button>
+            <button class="quiz-opt" data-correct="false" onclick="answerQuiz(this)"><span class="bullet">b</span> Se vuelve más preciso automáticamente</button>
+            <button class="quiz-opt" data-correct="false" onclick="answerQuiz(this)"><span class="bullet">c</span> Deja de ser positivo y pasa a ser normativo</button>
+            <button class="quiz-opt" data-correct="true" onclick="answerQuiz(this)"><span class="bullet">d</span> El sistema queda indeterminado y el pronóstico deja de servir</button>
+          </div>
+          <div class="quiz-justif">Correcta: <strong>d</strong>. Con variables redundantes y muy correlacionadas, el sistema pierde determinación matemática y el pronóstico deja de ser útil.</div>
+        </div>
+
+        <div class="card p-5 sm:p-6 quiz-card" id="q21">
+          <p class="font-semibold mb-3">21. El PBI de un mes y la inversión mensual son ejemplos de variables:</p>
+          <div class="grid sm:grid-cols-2 gap-2.5">
+            <button class="quiz-opt" data-correct="true" onclick="answerQuiz(this)"><span class="bullet">a</span> Flujo</button>
+            <button class="quiz-opt" data-correct="false" onclick="answerQuiz(this)"><span class="bullet">b</span> Stock</button>
+            <button class="quiz-opt" data-correct="false" onclick="answerQuiz(this)"><span class="bullet">c</span> Exógenas</button>
+            <button class="quiz-opt" data-correct="false" onclick="answerQuiz(this)"><span class="bullet">d</span> Normativas</button>
+          </div>
+          <div class="quiz-justif">Correcta: <strong>a</strong>. Ambas miden la evolución de una variable durante un período de tiempo — "la película", no "la foto".</div>
+        </div>
+
+        <div class="card p-5 sm:p-6 quiz-card" id="q22">
+          <p class="font-semibold mb-3">22. La frase "si el Banco Central emite 20 millones de pesos mensuales, la inflación de 2025 superará el 150%" puede leerse como normativa disfrazada de dato objetivo porque:</p>
+          <div class="grid sm:grid-cols-2 gap-2.5">
+            <button class="quiz-opt" data-correct="false" onclick="answerQuiz(this)"><span class="bullet">a</span> Usa un número exacto</button>
+            <button class="quiz-opt" data-correct="true" onclick="answerQuiz(this)"><span class="bullet">b</span> No justifica de dónde sale el pronóstico y además señala explícitamente un responsable</button>
+            <button class="quiz-opt" data-correct="false" onclick="answerQuiz(this)"><span class="bullet">c</span> Habla del Banco Central</button>
+            <button class="quiz-opt" data-correct="false" onclick="answerQuiz(this)"><span class="bullet">d</span> Se refiere a un hecho futuro</button>
+          </div>
+          <div class="quiz-justif">Correcta: <strong>b</strong>. Aunque no tiene adjetivos calificativos, no aporta ningún modelo que justifique el "150%" y señala a un responsable — eso la acerca a una crítica normativa disfrazada de dato objetivo.</div>
+        </div>
+
+        <div class="card p-5 sm:p-6 quiz-card" id="q23">
+          <p class="font-semibold mb-3">23. La Frontera de Posibilidades de Producción (FPP) muestra:</p>
+          <div class="grid sm:grid-cols-2 gap-2.5">
+            <button class="quiz-opt" data-correct="false" onclick="answerQuiz(this)"><span class="bullet">a</span> El nivel de precios de dos bienes</button>
+            <button class="quiz-opt" data-correct="false" onclick="answerQuiz(this)"><span class="bullet">b</span> La demanda agregada de la economía</button>
+            <button class="quiz-opt" data-correct="true" onclick="answerQuiz(this)"><span class="bullet">c</span> El máximo de combinaciones de dos bienes que pueden producirse usando todos los recursos disponibles</button>
+            <button class="quiz-opt" data-correct="false" onclick="answerQuiz(this)"><span class="bullet">d</span> El tipo de cambio de equilibrio</button>
+          </div>
+          <div class="quiz-justif">Correcta: <strong>c</strong>. La FPP simplifica la realidad a dos bienes para poder graficar el máximo que se puede producir con los recursos y la tecnología disponibles.</div>
+        </div>
+
+        <div class="card p-5 sm:p-6 quiz-card" id="q24">
+          <p class="font-semibold mb-3">24. Un punto ubicado por fuera de la Frontera de Posibilidades de Producción representa:</p>
+          <div class="grid sm:grid-cols-2 gap-2.5">
+            <button class="quiz-opt" data-correct="false" onclick="answerQuiz(this)"><span class="bullet">a</span> Ineficiencia y recursos ociosos</button>
+            <button class="quiz-opt" data-correct="false" onclick="answerQuiz(this)"><span class="bullet">b</span> Pleno empleo de los factores</button>
+            <button class="quiz-opt" data-correct="false" onclick="answerQuiz(this)"><span class="bullet">c</span> Un punto de equilibrio de mercado</button>
+            <button class="quiz-opt" data-correct="true" onclick="answerQuiz(this)"><span class="bullet">d</span> Una combinación inalcanzable con la dotación y tecnología actuales</button>
+          </div>
+          <div class="quiz-justif">Correcta: <strong>d</strong>. Un punto por fuera de la frontera no es un problema de eficiencia, sino de capacidad física: hoy no se puede producir esa combinación.</div>
+        </div>
+
+        <div class="card p-5 sm:p-6 quiz-card" id="q25">
+          <p class="font-semibold mb-3">25. Si la Frontera de Posibilidades de Producción fuera una línea recta en lugar de cóncava, esto indicaría que:</p>
+          <div class="grid sm:grid-cols-2 gap-2.5">
+            <button class="quiz-opt" data-correct="true" onclick="answerQuiz(this)"><span class="bullet">a</span> No hay ningún tipo de especialización: todos los factores rinden igual en cualquier tarea</button>
+            <button class="quiz-opt" data-correct="false" onclick="answerQuiz(this)"><span class="bullet">b</span> Hay especialización total y absoluta de los factores</button>
+            <button class="quiz-opt" data-correct="false" onclick="answerQuiz(this)"><span class="bullet">c</span> La economía está en recesión</button>
+            <button class="quiz-opt" data-correct="false" onclick="answerQuiz(this)"><span class="bullet">d</span> El costo de oportunidad es creciente</button>
+          </div>
+          <div class="quiz-justif">Correcta: <strong>a</strong>. Sin especialización, todos los factores rinden igual en cualquier tarea, por lo que el costo de oportunidad sería constante y la curva, una recta.</div>
+        </div>
+
+        <div class="card p-5 sm:p-6 quiz-card" id="q26">
+          <p class="font-semibold mb-3">26. El costo de oportunidad se define como:</p>
+          <div class="grid sm:grid-cols-2 gap-2.5">
+            <button class="quiz-opt" data-correct="false" onclick="answerQuiz(this)"><span class="bullet">a</span> El costo monetario total de una decisión</button>
+            <button class="quiz-opt" data-correct="true" onclick="answerQuiz(this)"><span class="bullet">b</span> El valor de la mejor alternativa no elegida</button>
+            <button class="quiz-opt" data-correct="false" onclick="answerQuiz(this)"><span class="bullet">c</span> La suma de todas las alternativas descartadas, sin importar su valor</button>
+            <button class="quiz-opt" data-correct="false" onclick="answerQuiz(this)"><span class="bullet">d</span> El precio de mercado de un bien</button>
+          </div>
+          <div class="quiz-justif">Correcta: <strong>b</strong>. El costo de oportunidad es el valor de la mejor alternativa que se dejó de lado al elegir, no la suma de todo lo descartado.</div>
+        </div>
+
+        <div class="card p-5 sm:p-6 quiz-card" id="q27">
+          <p class="font-semibold mb-3">27. En la Frontera de Posibilidades de Producción, el costo de oportunidad es creciente porque:</p>
+          <div class="grid sm:grid-cols-2 gap-2.5">
+            <button class="quiz-opt" data-correct="false" onclick="answerQuiz(this)"><span class="bullet">a</span> La inflación erosiona el valor de los bienes producidos</button>
+            <button class="quiz-opt" data-correct="false" onclick="answerQuiz(this)"><span class="bullet">b</span> El Estado sube los impuestos progresivamente</button>
+            <button class="quiz-opt" data-correct="true" onclick="answerQuiz(this)"><span class="bullet">c</span> Al avanzar sobre la curva se agotan primero los recursos menos aptos para la otra actividad, y hay que resignar recursos cada vez más productivos</button>
+            <button class="quiz-opt" data-correct="false" onclick="answerQuiz(this)"><span class="bullet">d</span> La curva es en realidad una línea recta</button>
+          </div>
+          <div class="quiz-justif">Correcta: <strong>c</strong>. Al insistir en producir más de un bien, los recursos que se mudan son cada vez más productivos en la actividad que se abandona, por lo que el sacrificio crece.</div>
+        </div>
+
+        <div class="card p-5 sm:p-6 quiz-card" id="q28">
+          <p class="font-semibold mb-3">28. Crecer económicamente, en términos de la FPP, significa:</p>
+          <div class="grid sm:grid-cols-2 gap-2.5">
+            <button class="quiz-opt" data-correct="false" onclick="answerQuiz(this)"><span class="bullet">a</span> Moverse de un punto a otro sobre la misma curva</button>
+            <button class="quiz-opt" data-correct="false" onclick="answerQuiz(this)"><span class="bullet">b</span> Moverse hacia un punto interior de la curva</button>
+            <button class="quiz-opt" data-correct="false" onclick="answerQuiz(this)"><span class="bullet">c</span> Reducir el costo de oportunidad a cero</button>
+            <button class="quiz-opt" data-correct="true" onclick="answerQuiz(this)"><span class="bullet">d</span> Desplazar toda la frontera hacia afuera</button>
+          </div>
+          <div class="quiz-justif">Correcta: <strong>d</strong>. Crecer no es moverse sobre la curva existente: es correr toda la frontera hacia afuera, ampliando lo máximo posible de producir.</div>
+        </div>
+
+        <div class="card p-5 sm:p-6 quiz-card" id="q29">
+          <p class="font-semibold mb-3">29. Invertir en educación y salud de los trabajadores (capital humano) corresponde a la vía de crecimiento:</p>
+          <div class="grid sm:grid-cols-2 gap-2.5">
+            <button class="quiz-opt" data-correct="true" onclick="answerQuiz(this)"><span class="bullet">a</span> Cualitativa</button>
+            <button class="quiz-opt" data-correct="false" onclick="answerQuiz(this)"><span class="bullet">b</span> Cuantitativa</button>
+            <button class="quiz-opt" data-correct="false" onclick="answerQuiz(this)"><span class="bullet">c</span> Estructural</button>
+            <button class="quiz-opt" data-correct="false" onclick="answerQuiz(this)"><span class="bullet">d</span> Coyuntural</button>
+          </div>
+          <div class="quiz-justif">Correcta: <strong>a</strong>. Educación y salud son inversión en capital humano: mejoran el rendimiento de los recursos existentes, no suman más cantidad de ellos.</div>
+        </div>
+
+        <div class="card p-5 sm:p-6 quiz-card" id="q30">
+          <p class="font-semibold mb-3">30. La diferencia entre crecimiento y desarrollo económico es que el desarrollo:</p>
+          <div class="grid sm:grid-cols-2 gap-2.5">
+            <button class="quiz-opt" data-correct="false" onclick="answerQuiz(this)"><span class="bullet">a</span> Es lo mismo que el crecimiento, solo que medido en otra unidad</button>
+            <button class="quiz-opt" data-correct="true" onclick="answerQuiz(this)"><span class="bullet">b</span> Implica que ese crecimiento se traduzca en bienestar real: mejor distribución del ingreso y menos pobreza</button>
+            <button class="quiz-opt" data-correct="false" onclick="answerQuiz(this)"><span class="bullet">c</span> Solo puede lograrse mediante política monetaria</button>
+            <button class="quiz-opt" data-correct="false" onclick="answerQuiz(this)"><span class="bullet">d</span> Se mide exclusivamente con el tipo de cambio</button>
+          </div>
+          <div class="quiz-justif">Correcta: <strong>b</strong>. Se puede crecer (producir más) sin desarrollarse, si ese crecimiento no mejora el bienestar real de la población.</div>
+        </div>
+
+      </div>
+      <div id="quiz-result" class="card p-5 sm:p-6 mt-6" style="background:var(--accent-soft); border-color:var(--accent-soft-border);" hidden>
+        <p class="eyebrow" style="color:var(--accent);">Examen terminado</p>
+        <h3 class="font-display text-[1.3rem] font-semibold mt-1 mb-4" id="final-score-text" style="color:var(--ink);"></h3>
+        <p class="eyebrow mb-2" style="color:var(--ink-faint);">Top 5 — mejores intentos</p>
+        <div id="leaderboard-box"></div>
+        <button id="rename-btn" class="text-[.78rem] mt-3 underline" style="color:var(--ink-faint); background:none; border:none; cursor:pointer; padding:0;" onclick="quizRenamePlayer()">Cambiar mi nombre en el marcador</button>
+      </div>
+    </section>
+
+    <footer class="pt-6 border-t text-center" style="border-color:var(--border);">
+      <p class="text-[.8rem]" style="color:var(--ink-faint);">Guía de estudio — 61.27 Análisis de Coyuntura Económica · Fuente primaria: apuntes manuscritos · Fuente secundaria: apuntes de compañeros y diapositivas de cátedra.</p>
+    </footer>
+
+  </main>
+</div>
+
+<script>
+(function(){
+  // ---- poblar el índice desde las secciones (data-title) ----
+  var sections = Array.prototype.slice.call(document.querySelectorAll('main section[id]'));
+  var nav = document.getElementById('navlist');
+  sections.forEach(function(sec, i){
+    var isQuiz = sec.id === 'quiz';
+    var a = document.createElement('a');
+    a.href = '#' + sec.id;
+    a.className = 'nav-link';
+    a.setAttribute('data-target', sec.id);
+    a.innerHTML = '<span class="nav-num">' + (isQuiz ? '✓' : String(i+1).padStart(2,'0')) + '</span><span>' + sec.getAttribute('data-title') + '</span>';
+    a.addEventListener('click', function(){ setIdx(false); });
+    nav.appendChild(a);
+  });
+  // ---- Índice desplegable: se abre desde cualquier punto; Esc, clic afuera o elegir sección lo cierra ----
+  var idxBtn = document.getElementById('tb-idx');
+  function setIdx(open){
+    document.documentElement.setAttribute('data-idx', open ? 'open' : 'closed');
+    idxBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    if(open){
+      var act = nav.querySelector('.nav-link.active');
+      if(act){ act.scrollIntoView({ block: 'nearest' }); }
+    }
+  }
+  idxBtn.addEventListener('click', function(e){
+    e.stopPropagation();
+    var open = document.documentElement.getAttribute('data-idx') !== 'open';
+    if(open){ closeResults(); }
+    setIdx(open);
+  });
+  document.addEventListener('click', function(e){
+    if(document.documentElement.getAttribute('data-idx') === 'open' && !e.target.closest('#sidebar')){ setIdx(false); }
+  });
+  document.addEventListener('keydown', function(e){ if(e.key === 'Escape'){ setIdx(false); } });
+  // ---- scrollspy ----
+  var links = Array.prototype.slice.call(document.querySelectorAll('.nav-link'));
+  function setActive(id){
+    links.forEach(function(l){ l.classList.toggle('active', l.getAttribute('data-target') === id); });
+  }
+  if('IntersectionObserver' in window){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if(entry.isIntersecting){ setActive(entry.target.id); }
+      });
+    }, { rootMargin: '-15% 0px -70% 0px', threshold: 0 });
+    sections.forEach(function(sec){ io.observe(sec); });
+  }
+  // ---- barra de progreso ----
+  var bar = document.getElementById('progressbar');
+  function onScroll(){
+    var h = document.documentElement;
+    var scrolled = h.scrollTop || document.body.scrollTop;
+    var max = (h.scrollHeight || document.body.scrollHeight) - h.clientHeight;
+    var pct = max > 0 ? (scrolled / max) * 100 : 0;
+    bar.style.width = pct + '%';
+  }
+  document.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+  // =====================================================================
+  //  BÚSQUEDA GLOBAL (barra superior): todo el módulo, sin tildes ni mayúsculas
+  // =====================================================================
+  var gIn = document.getElementById('tb-q'), gBox = document.getElementById('tb-results'), gClr = document.getElementById('tb-clr'),
+      gOpen = document.getElementById('tb-sopen'), gClose = document.getElementById('tb-sclose'), gBar = document.querySelector('.tb-in');
+  var DOCS = null, gSel = -1, gHits = [], gWords = [];
+  function el(tag, cls, txt){ var e = document.createElement(tag); if(cls){ e.className = cls; } if(txt != null){ e.textContent = txt; } return e; }
+  function norm(s){ return String(s).normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase(); }
+  function normMap(raw){
+    var s = '', m = [];
+    for(var i = 0; i < raw.length; i++){
+      var ch = raw.charAt(i).normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+      for(var k = 0; k < ch.length; k++){ s += ch.charAt(k); m.push(i); }
+    }
+    return { s: s, m: m };
+  }
+  // Texto aplanado con espacio entre bloques (textContent a secas pega palabras).
+  function flatText(root){
+    var w = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, null), out = [], n, last = null;
+    while((n = w.nextNode())){
+      var par = n.parentNode;
+      if(par && (par.tagName === 'SCRIPT' || par.tagName === 'STYLE')){ continue; }
+      var blk = par; while(blk && blk !== root && !/^(P|LI|H1|H2|H3|H4|H5|H6|DIV|TD|TH|SECTION|SUMMARY|BUTTON|PRE|FIGCAPTION|LABEL)$/.test(blk.tagName)){ blk = blk.parentNode; }
+      if(last !== null && blk !== last){ out.push(' '); }
+      last = blk; out.push(n.nodeValue);
+    }
+    // textos de los nodos de diagramas (data-title / data-more) también se buscan
+    Array.prototype.forEach.call(root.querySelectorAll('[data-more]'), function(g){ out.push(' ' + (g.getAttribute('data-title') || '') + ' ' + g.getAttribute('data-more')); });
+    return out.join('');
+  }
+  function buildDocs(){
+    if(DOCS){ return DOCS; }
+    DOCS = [];
+    sections.forEach(function(s, i){
+      if(s.id === 'quiz'){ return; }
+      var title = s.getAttribute('data-title') || s.id, raw = flatText(s).replace(/\s+/g, ' ').trim(), n = normMap(raw);
+      DOCS.push({ id: s.id, title: title, label: 'Sección ' + (i + 1), raw: raw, n: n.s, map: n.m, nt: norm(title), node: s });
+    });
+    return DOCS;
+  }
+  function countOcc(hay, w){ var c = 0, p = 0; while(c < 6 && (p = hay.indexOf(w, p)) >= 0){ c++; p += w.length; } return c; }
+  function runSearch(q){
+    var words = norm(q).split(/\s+/).filter(function(w){ return w.length; });
+    gWords = words; if(!words.length){ return []; }
+    var out = [];
+    buildDocs().forEach(function(d){
+      if(!words.every(function(w){ return d.n.indexOf(w) >= 0; })){ return; }
+      var sc = 0; words.forEach(function(w){ sc += countOcc(d.n, w) + (d.nt.indexOf(w) >= 0 ? 12 : 0); });
+      out.push({ d: d, sc: sc });
+    });
+    out.sort(function(a, b){ return b.sc - a.sc; });
+    return out;
+  }
+  function snippet(d, words){
+    var p = -1;
+    for(var i = 0; i < words.length; i++){ var x = d.n.indexOf(words[i]); if(x >= 0 && (p < 0 || x < p)){ p = x; } }
+    if(p < 0){ p = 0; }
+    var s = Math.max(0, p - 45), e = Math.min(d.n.length - 1, p + 95);
+    var rs = d.map[s], re = d.map[e] + 1;
+    var txt = d.raw.slice(rs, re), nm = normMap(txt), marks = [];
+    words.forEach(function(w){ var q = 0; while((q = nm.s.indexOf(w, q)) >= 0){ marks.push([nm.m[q], nm.m[q + w.length - 1] + 1]); q += w.length; } });
+    marks.sort(function(a, b){ return a[0] - b[0]; });
+    var frag = document.createDocumentFragment(), cur = 0;
+    if(rs > 0){ frag.appendChild(document.createTextNode('… ')); }
+    marks.forEach(function(m){
+      if(m[0] < cur){ return; }
+      frag.appendChild(document.createTextNode(txt.slice(cur, m[0])));
+      frag.appendChild(el('mark', null, txt.slice(m[0], m[1]))); cur = m[1];
+    });
+    frag.appendChild(document.createTextNode(txt.slice(cur)));
+    if(re < d.raw.length){ frag.appendChild(document.createTextNode(' …')); }
+    return frag;
+  }
+  function closeResults(){ gBox.hidden = true; gSel = -1; gIn.setAttribute('aria-expanded', 'false'); }
+  function markSel(){ Array.prototype.forEach.call(gBox.querySelectorAll('.tb-rr'), function(b, i){ b.classList.toggle('on', i === gSel); if(i === gSel){ b.scrollIntoView({ block: 'nearest' }); } }); }
+  function renderResults(){
+    var q = gIn.value.trim();
+    gClr.hidden = !q;
+    if(q.length < 2){ closeResults(); return; }
+    setIdx(false);
+    var res = runSearch(q); gHits = [];
+    gBox.textContent = '';
+    if(!res.length){ gBox.appendChild(el('p', 'tb-rnone', 'Sin resultados para «' + q + '». Probá con otra palabra.')); gBox.hidden = false; return; }
+    gBox.appendChild(el('p', 'tb-rh', 'Resultados · ' + res.length));
+    res.slice(0, 10).forEach(function(x){
+      var b = el('button', 'tb-rr'); b.type = 'button'; b.setAttribute('role', 'option'); b.setAttribute('data-hit', String(gHits.length)); gHits.push(x.d);
+      b.appendChild(el('span', 't', x.d.title)); b.appendChild(el('span', 'b', x.d.label));
+      var sn = el('span', 's'); sn.appendChild(snippet(x.d, gWords)); b.appendChild(sn);
+      gBox.appendChild(b);
+    });
+    if(res.length > 10){ gBox.appendChild(el('p', 'tb-rmore', '+' + (res.length - 10) + ' más: afiná la búsqueda')); }
+    gBox.hidden = false; gSel = 0; markSel(); gIn.setAttribute('aria-expanded', 'true');
+  }
+  function findNode(root, word){
+    var w = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, null), n;
+    while((n = w.nextNode())){
+      var p = n.parentElement; if(!p || /^(SCRIPT|STYLE|OPTION)$/.test(p.tagName)){ continue; }
+      if(norm(n.nodeValue).indexOf(word) >= 0){ return p; }
+    }
+    return null;
+  }
+  function openHit(d){
+    var words = gWords.slice(); closeResults();
+    if(gBar){ gBar.classList.remove('searching'); }
+    setTimeout(function(){
+      var t = words.length ? findNode(d.node, words[0]) : null;
+      if(t){ for(var p = t; p && p !== d.node.parentNode; p = p.parentElement){ if(p.tagName === 'DETAILS'){ p.open = true; } } }
+      var tgt = t || d.node.firstElementChild || d.node;
+      tgt.scrollIntoView({ block: t ? 'center' : 'start' });
+      tgt.classList.add('tb-flash'); setTimeout(function(){ tgt.classList.remove('tb-flash'); }, 2200);
+    }, 40);
+  }
+  gIn.addEventListener('input', renderResults);
+  gIn.addEventListener('focus', function(){ buildDocs(); if(gIn.value.trim().length >= 2){ renderResults(); } });
+  gIn.addEventListener('keydown', function(e){
+    var n = gHits.length;
+    if(e.key === 'ArrowDown' && n){ gSel = (gSel + 1) % n; markSel(); e.preventDefault(); }
+    else if(e.key === 'ArrowUp' && n){ gSel = (gSel - 1 + n) % n; markSel(); e.preventDefault(); }
+    else if(e.key === 'Enter' && n){ openHit(gHits[gSel < 0 ? 0 : gSel]); e.preventDefault(); }
+    else if(e.key === 'Escape'){ if(!gBox.hidden){ closeResults(); } else { gIn.value = ''; gClr.hidden = true; gIn.blur(); } e.stopPropagation(); }
+  });
+  gBox.addEventListener('click', function(e){ var b = e.target.closest('[data-hit]'); if(b){ openHit(gHits[parseInt(b.getAttribute('data-hit'), 10)]); } });
+  gBox.addEventListener('mousemove', function(e){ var b = e.target.closest('[data-hit]'); if(b){ var i = parseInt(b.getAttribute('data-hit'), 10); if(i !== gSel){ gSel = i; markSel(); } } });
+  gClr.addEventListener('click', function(){ gIn.value = ''; gClr.hidden = true; closeResults(); gIn.focus(); });
+  document.addEventListener('click', function(e){ if(!gBox.hidden && !e.target.closest('#tb-results, #tb-search')){ closeResults(); } });
+  // Atajo: "/" (o Ctrl/Cmd+K) enfoca el buscador desde cualquier parte, salvo escribiendo en un campo.
+  document.addEventListener('keydown', function(e){
+    if((e.key === '/' || ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k')) && !/^(INPUT|TEXTAREA|SELECT)$/.test((document.activeElement || {}).tagName || '')){
+      e.preventDefault(); if(gOpen.offsetParent !== null){ gOpen.click(); } else { gIn.focus(); gIn.select(); }
+    }
+  });
+  // Mobile: la lupa despliega la barra de búsqueda sobre toda la barra superior.
+  gOpen.addEventListener('click', function(){ gBar.classList.add('searching'); setIdx(false); setTimeout(function(){ gIn.focus(); }, 30); });
+  gClose.addEventListener('click', function(){ gBar.classList.remove('searching'); gIn.value = ''; gClr.hidden = true; closeResults(); });
+  // ---- interactive tree diagrams: click a node to reveal an example ----
+  document.querySelectorAll('.diagram-svg').forEach(function(svg){
+    var nodes = Array.prototype.slice.call(svg.querySelectorAll('.node-g[data-more]'));
+    if(!nodes.length) return;
+    var figure = svg.closest('figure');
+    if(!figure) return;
+    var panel = figure.querySelector('.tree-detail');
+    if(!panel) return;
+    nodes.forEach(function(g){
+      g.setAttribute('tabindex', '0');
+      g.setAttribute('role', 'button');
+      g.setAttribute('aria-expanded', 'false');
+      function toggle(){
+        var wasOpen = g.classList.contains('is-open');
+        nodes.forEach(function(n){ n.classList.remove('is-open'); n.setAttribute('aria-expanded', 'false'); });
+        if(wasOpen){
+          panel.hidden = true;
+          panel.textContent = '';
+          return;
+        }
+        g.classList.add('is-open');
+        g.setAttribute('aria-expanded', 'true');
+        var title = document.createElement('span');
+        title.className = 'tree-detail-title';
+        title.textContent = g.getAttribute('data-title') || '';
+        panel.innerHTML = '';
+        panel.appendChild(title);
+        panel.appendChild(document.createTextNode(g.getAttribute('data-more') || ''));
+        panel.hidden = false;
+      }
+      g.addEventListener('click', toggle);
+      g.addEventListener('keydown', function(e){
+        if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); toggle(); }
+      });
+    });
+  });
+})();
+
+function openGlossary(){
+  document.getElementById('glossary-dialog').showModal();
+}
+
+function toggleTheme(){
+  var html = document.documentElement;
+  var current = html.getAttribute('data-theme');
+  var isDark = current ? current === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
+  var next = isDark ? 'light' : 'dark';
+  html.setAttribute('data-theme', next);
+  try{ localStorage.setItem('theme-pref', next); }catch(e){}
+}
+
+var __quizScore = 0;
+function answerQuiz(btn){
+  var card = btn.closest('.quiz-card');
+  if(card.classList.contains('answered')) return;
+  var correct = btn.getAttribute('data-correct') === 'true';
+  var opts = card.querySelectorAll('.quiz-opt');
+  opts.forEach(function(o){
+    o.disabled = true;
+    if(o.getAttribute('data-correct') === 'true'){ o.classList.add('correct'); }
+  });
+  if(!correct){ btn.classList.add('incorrect'); }
+  else { __quizScore++; document.getElementById('score').textContent = __quizScore; }
+  card.classList.add('answered');
+}
+
+</script>
+
+</body></html>

@@ -1,0 +1,54 @@
+Pizarrón dentro de kumOS
+========================
+
+El Pizarrón es una pizarra para dibujar a mano con lápiz (Wacom, TCL NXTPAPER u otro), dedo o mouse: diagramas, bocetos y
+cuentas rápidas. Es una herramienta propia de kumOS (JavaScript puro, sin bibliotecas de dibujo), no es copia de ningún
+programa de terceros y corre entera en el navegador: no sube nada a ningún servidor.
+
+Qué hay en esta carpeta
+-----------------------
+  index.html, app.css                 La interfaz.
+  js/app.js                           Arranque: junta todo, recupera el trabajo anterior y expone window.Pizarron.
+  js/estado.js                        Estado compartido (documento, herramienta, selección) y avisos entre módulos.
+  js/modelo.js                        El documento (páginas con objetos), el historial y el archivo .pizarron.
+  js/geometria.js                     Los objetos como caminos SVG, distancias, selección, borrado parcial y recortes.
+  js/formas.js                        Reconocimiento de formas al dejar el lápiz quieto.
+  js/fondo.js, js/svg.js              Fondos de las hojas y una hoja como SVG (la misma geometría para pantalla, SVG y PDF).
+  js/vista.js                         Los lienzos, el zoom y el desplazamiento.
+  js/dibujo.js                        Lápiz, dedo y mouse: trazos, borrador, selección, formas, texto, teclado.
+  js/interfaz.js, js/acciones.js      Barras, menús, páginas, ajustes, y abrir / guardar / exportar.
+  js/archivo.js, js/persistencia.js   Puente con la app Archivo y autoguardado en el navegador.
+  js/exportar.js                      PDF (jsPDF + svg2pdf.js), SVG, PNG y .zip de SVG.
+  js/iconos.js, js/fuentes.js         Íconos de la interfaz y qué letras tiene cada tipografía.
+  js/imagenes.js                      Imágenes pegadas, soltadas o elegidas: validación, tamaño y rotación.
+  js/circuito.js, js/asc.js           "Copiar como circuito": reconocen componentes y cables dibujados a mano y los pasan a un
+                                      esquema de LTspice (.asc), verificando las conexiones (propio; sin bibliotecas).
+  js/circuito-ui.js                   La ventana de ese botón: vista previa, copiar, guardar en Archivo, bajar y sumar a un .asc.
+  fonts/                              Las dos tipografías del texto, en versión chica (ver abajo).
+Compartido con Digital y Spice2PDF, en ../compartido/:
+  fonts/                              Latin Modern Roman 10 y CMU Serif Italic (PDF), Archivo y JetBrains Mono (interfaz).
+  vendor/                             jsPDF, svg2pdf.js y fflate.
+
+Pruebas de la lógica
+--------------------
+    node kumOS-diseno/pizarron-pruebas.mjs     (desde la raíz del repositorio)
+
+Licencias y créditos
+--------------------
+  jsPDF 4.2.1            MIT   (c) 2010-2025 James Hall, yWorks GmbH            ../compartido/vendor/LICENSE-jspdf.txt
+  svg2pdf.js 2.8.1       MIT   (c) 2015-2026 yWorks GmbH, Vitaly Puzrin         ../compartido/vendor/LICENSE-svg2pdf.txt
+  fflate                 MIT   (c) 2023 Arjun Barrett                           ../compartido/vendor/LICENSE-fflate.txt
+  Íconos                 Phosphor Icons, MIT (https://phosphoricons.com), peso regular, incrustados en js/iconos.js; los de formas y ejes son propios.
+  Latin Modern Roman 10  Licencia GUST (GFL, la de LaTeX)  http://www.gust.org.pl/projects/e-foundry/latin-modern
+  CMU Serif Italic       SIL Open Font License 1.1  (Computer Modern Unicode, Andrey V. Panov; http://scripts.sil.org/OFL)
+  Archivo, JetBrains Mono  SIL Open Font License 1.1    ../compartido/fonts/LICENSE-archivo.txt, ../compartido/fonts/LICENSE-jetbrains-mono.txt
+
+  fonts/lmroman10-latin.woff y fonts/cmuserif-italic-latin.woff son versiones reducidas (solo letras latinas y griegas y los
+  símbolos más comunes; los dibujos de las letras no se tocaron) de las dos tipografías de arriba, hechas con fontTools para
+  que los SVG y la pantalla pesen menos; llevan otro nombre interno ("kumOS LM Roman 10 Latin", "kumOS CMU Serif Latin"),
+  como piden las licencias para las versiones modificadas. El PDF usa las tipografías completas de ../compartido/fonts/.
+
+Qué no hace
+-----------
+  - Las letras griegas minúsculas salen en cursiva; algunos símbolos matemáticos (≤ ≥ ≈ ≠ ∫) no están en las tipografías.
+  - No inserta imágenes ni reconoce escritura a mano.

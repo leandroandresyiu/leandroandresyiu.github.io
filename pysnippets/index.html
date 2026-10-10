@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>py snippets</title>
+<link rel="stylesheet" href="vendor/katex/katex.min.css">
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+<div class="app" id="app">
+	<header class="top">
+		<div class="marca" aria-label="py snippets"><span>py snippets</span></div>
+		<input class="titulo" id="titulo" type="text" value="Cuaderno" maxlength="60" aria-label="Nombre del cuaderno" spellcheck="false">
+		<span class="grow"></span>
+		<span class="estado" id="estado" role="status" data-estado="carga"><i></i><span id="estado-t">Cargando Python…</span></span>
+		<button class="btn" id="b-todo" type="button" title="Ejecuta todas las celdas, de arriba abajo">Ejecutar todo</button>
+		<button class="btn" id="b-detener" type="button" hidden title="Frena el cálculo (se pierden las variables)">Detener</button>
+		<button class="btn" id="b-reiniciar" type="button" title="Borra las variables y empieza de cero (las celdas quedan)">Reiniciar</button>
+		<button class="btn" id="b-abrir" type="button">Abrir</button>
+		<button class="btn btn--primario" id="b-guardar" type="button" title="Guarda el cuaderno en la app Archivo (carpeta Cuadernos)">Guardar</button>
+		<button class="btn" id="b-exportar" type="button" title="Descarga el cuaderno como .ipynb (Jupyter y Colab lo abren)">.ipynb</button>
+		<button class="btn" id="b-asc" type="button" title="Sube un esquema de LTspice para usarlo en este cuaderno">Subir .asc</button>
+		<button class="btn btn--icon" id="b-info" type="button" aria-label="Cómo se usa" title="Cómo se usa">i</button>
+		<button class="btn" id="b-snip" type="button" aria-expanded="false" aria-controls="galeria">Snippets</button>
+	</header>
+
+	<main class="work">
+		<section class="cuaderno" id="cuaderno" aria-label="Celdas"></section>
+		<aside class="galeria" id="galeria" aria-label="Snippets">
+			<div class="galeria__top">
+				<input id="buscar" type="search" placeholder="Buscar: bode, transistor, resolver…" aria-label="Buscar snippets" autocomplete="off">
+				<button class="btn btn--icon galeria__cerrar" id="g-cerrar" type="button" aria-label="Cerrar">&times;</button>
+			</div>
+			<div class="galeria__lista" id="g-lista"></div>
+		</aside>
+	</main>
+</div>
+
+<dialog class="dlg" id="dlg-abrir">
+	<form method="dialog">
+		<h2>Abrir un cuaderno</h2>
+		<div class="dlg__lista" id="abrir-lista"></div>
+		<div class="dlg__pie">
+			<button class="btn" id="abrir-archivo" type="button">Importar un .ipynb de tu equipo…</button>
+			<button class="btn" value="cancel">Cerrar</button>
+		</div>
+	</form>
+</dialog>
+<dialog class="dlg" id="dlg-info">
+	<form method="dialog">
+		<h2>Cómo se usa</h2>
+		<div class="dlg__texto">
+			<p><b>Celdas.</b> Cada celda es código de Python. <kbd>Shift</kbd>+<kbd>Enter</kbd> la ejecuta y pasa a la siguiente; <kbd>Ctrl</kbd>+<kbd>Enter</kbd> la ejecuta y se queda. Lo que definís en una celda lo ven las demás. El último valor de la celda se muestra solo: las fórmulas aparecen como fórmulas y los gráficos como imágenes.</p>
+			<p><b>Snippets.</b> Los de la derecha se suman como celda nueva con los datos por completar marcados como <span class="hueco">___</span>: tocalos y escribí encima, con <kbd>Tab</kbd> saltás al siguiente.</p>
+			<p><b>Circuitos.</b> <code>cargar_asc("nombre.asc")</code> lee un esquema de LTspice (los .asc guardados en Archivo, por ejemplo los que genera el Pizarrón, o los que subís acá), calcula el punto de operación y reemplaza cada transistor por su modelo de pequeña señal. Después podés pedir <code>c.H("V1", "OUT")</code>, <code>c.Z_visto("B", hacia="Q1")</code>, <code>bode(H)</code>, <code>polos_ceros(H)</code>, <code>escalon(H)</code>… Los modelos de transistor que no estén escritos en el esquema se pasan con <code>modelos=</code> (la biblioteca de LTspice no está disponible acá).</p>
+			<p><b>Límites.</b> El análisis es lineal (de pequeña señal): resistencias, capacitores, inductores, fuentes, transistores bipolares y amplificadores operacionales ideales. Los diodos, MOSFET y subcircuitos todavía no.</p>
+			<p><b>Guardar.</b> «Guardar» deja el cuaderno en la app Archivo (carpeta Cuadernos). «.ipynb» lo descarga para abrirlo en Jupyter o Colab: afuera hace falta <code>pip install lcapy</code> y el archivo <a href="py/kumolib.py" download>kumolib.py</a> junto al cuaderno.</p>
+			<p class="dlg__cred">Python corre en tu navegador con Pyodide (NumPy, SciPy, SymPy, Matplotlib) y <a href="https://github.com/mph-/lcapy" target="_blank" rel="noopener">Lcapy</a> de Michael Hayes (LGPL) · editor CodeMirror y fórmulas KaTeX (MIT). Los temas de los snippets siguen los recursos de Python de Teoría de Circuitos II (<a href="https://github.com/TC-II/L2-Recursos-Python" target="_blank" rel="noopener">TC-II/L2-Recursos-Python</a>); el código es propio.</p>
+		</div>
+		<div class="dlg__pie"><button class="btn btn--primario" value="cancel">Entendido</button></div>
+	</form>
+</dialog>
+<input type="file" id="f-asc" accept=".asc,.txt" hidden>
+<input type="file" id="f-nb" accept=".ipynb,application/json" hidden>
+<div class="aviso" id="aviso" role="status" hidden></div>
+
+<script src="vendor/katex/katex.min.js"></script>
+<script type="module" src="js/app.js"></script>
+</body>
+</html>
